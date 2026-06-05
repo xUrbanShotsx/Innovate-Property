@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Innovate Property Group — Illawarra Luxury Real Estate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── RESET & BASE ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #000000;
+      --black-soft: #0a0a0a;
+      --white: #ffffff;
+      --white-mute: #f0f0fa;
+      --hairline-dark: #2a2a2f;
+      --hairline-mid: #1a1a1f;
+      --ink-mute: #5a5a5f;
+      --gold: #ffffff;
+      --gold-light: #ffffff;
+      --gold-dim: rgba(255,255,255,0.08);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Inter', Arial, sans-serif;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ─── CUSTOM CURSOR ────────────────────────────────────────────────── */
+    #cursor {
+      position: fixed; top: 0; left: 0; z-index: 9999;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--gold);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+      mix-blend-mode: difference;
+    }
+    #cursor-ring {
+      position: fixed; top: 0; left: 0; z-index: 9998;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.5);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: transform 0.4s cubic-bezier(0.23,1,0.32,1), width 0.3s ease, height 0.3s ease;
+    }
+    body:has(a:hover) #cursor, body:has(button:hover) #cursor { width: 6px; height: 6px; }
+    body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 60px; height: 60px; }
+
+    /* ─── NAV ──────────────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 48px;
+      background: var(--white);
+      border-bottom: 1px solid #e0e0e0;
+      transition: padding 0.4s ease;
+    }
+    nav.scrolled {
+      background: var(--white);
+      padding: 16px 48px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .nav-logo {
+      display: flex; flex-direction: column; gap: 2px;
+      text-decoration: none;
+    }
+    .nav-logo-main {
+      font-size: 15px; font-weight: 900; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--black);
+      line-height: 1;
+    }
+    .nav-logo-sub {
+      font-size: 9px; font-weight: 400; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--ink-mute);
+      line-height: 1;
+    }
+    .nav-links {
+      display: flex; gap: 40px; list-style: none;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: 11px; font-weight: 500; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--ink-mute);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px; background: var(--black);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
+    }
+    .nav-links a:hover { color: var(--black); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-cta {
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--white);
+      background: var(--black); border: 1px solid var(--black); border-radius: 0;
+      padding: 12px 24px; text-decoration: none; cursor: none;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .nav-cta:hover {
+      background: var(--white); color: var(--black);
+    }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: none; background: none; border: none; }
+    .hamburger span { width: 26px; height: 1px; background: var(--black); display: block; transition: all 0.3s; }
+
+    /* ─── HERO ─────────────────────────────────────────────────────────── */
+    #hero {
+      height: 100vh; overflow: hidden;
+      display: flex; align-items: flex-end;
+    }
+    #stickyStack {
+      height: 400vh;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=90');
+      background-size: cover; background-position: center 30%;
+      transform: scale(1.05);
+      transition: transform 0.1s linear;
+      will-change: transform;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.1) 0%,
+        rgba(0,0,0,0.0) 40%,
+        rgba(0,0,0,0.5) 75%,
+        rgba(0,0,0,0.95) 100%
+      );
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 80px 80px;
+      max-width: 900px;
+    }
+    .hero-eyebrow {
+      font-size: 10px; font-weight: 400; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--white-mute);
+      margin-bottom: 20px;
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp 1s 0.3s forwards;
+    }
+    .hero-headline {
+      font-size: clamp(36px, 5vw, 68px);
+      font-weight: 900; line-height: 0.95;
+      letter-spacing: 1px;
+      text-transform: uppercase; color: var(--white);
+      margin-bottom: 24px;
+      opacity: 0; transform: translateY(30px);
+      animation: fadeUp 1s 0.5s forwards;
+    }
+    .hero-headline em { font-style: normal; color: var(--gold); }
+    .hero-sub {
+      font-size: 13px; font-weight: 300; line-height: 1.7;
+      color: var(--ink-mute); max-width: 400px;
+      margin-bottom: 36px;
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp 1s 0.7s forwards;
+    }
+    .hero-actions {
+      display: flex; gap: 16px; align-items: center;
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp 1s 0.9s forwards;
+    }
+    .btn-ghost {
+      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--white);
+      border: 1px solid rgba(255,255,255,0.5); border-radius: 0;
+      padding: 14px 28px; text-decoration: none; cursor: none;
+      transition: all 0.4s cubic-bezier(0.23,1,0.32,1);
+      display: inline-block;
+    }
+    .btn-ghost:hover {
+      background: var(--white); color: var(--black);
+    }
+    .btn-gold {
+      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--black);
+      background: var(--gold); border: 1px solid var(--gold);
+      border-radius: 0; padding: 14px 28px;
+      text-decoration: none; cursor: none;
+      transition: all 0.4s cubic-bezier(0.23,1,0.32,1);
+      display: inline-block;
+    }
+    .btn-gold:hover {
+      background: transparent; color: var(--gold);
+    }
+    .hero-scroll {
+      position: absolute; bottom: 40px; right: 80px; z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+      opacity: 0; animation: fadeIn 1s 1.5s forwards;
+    }
+    .hero-scroll span {
+      font-size: 9px; font-weight: 500; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--ink-mute);
+      writing-mode: vertical-rl;
+    }
+    .scroll-line {
+      width: 1px; height: 60px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* ─── STATS BAND ───────────────────────────────────────────────────── */
+    #stats {
+      background: var(--black-soft);
+      border-top: 1px solid var(--hairline-dark);
+      border-bottom: 1px solid var(--hairline-dark);
+      padding: 60px 80px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .stat-item {
+      padding: 20px 40px;
+      border-right: 1px solid var(--hairline-dark);
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-item.visible { opacity: 1; transform: translateY(0); }
+    .stat-num {
+      font-size: clamp(40px, 4vw, 56px);
+      font-weight: 900; line-height: 1; letter-spacing: -1px;
+      color: var(--white);
+    }
+    .stat-num span { color: var(--gold); }
+    .stat-label {
+      font-size: 10px; font-weight: 500; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--ink-mute);
+      margin-top: 8px;
+    }
+
+    /* ─── SECTION SHARED ───────────────────────────────────────────────── */
+    .section-eyebrow {
+      font-size: 10px; font-weight: 400; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--white-mute);
+      margin-bottom: 16px;
+    }
+    .section-headline {
+      font-size: clamp(28px, 3.2vw, 48px);
+      font-weight: 900; line-height: 0.95;
+      letter-spacing: 1px; text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .section-body {
+      font-size: 13px; font-weight: 300; line-height: 1.8;
+      color: var(--ink-mute); max-width: 400px;
+    }
+    .reveal {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.23,1,0.32,1),
+                  transform 0.8s cubic-bezier(0.23,1,0.32,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ─── ABOUT / VISION ───────────────────────────────────────────────── */
+    #vision {
+      padding: 120px 80px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      align-items: center;
+    }
+    .vision-media {
+      position: relative; aspect-ratio: 4/5; overflow: hidden;
+    }
+    .vision-media img {
+      width: 100%; height: 100%; object-fit: cover;
+      transform: scale(1.05);
+      transition: transform 8s ease;
+    }
+    .vision-media:hover img { transform: scale(1); }
+    .vision-media::before {
+      content: ''; position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(135deg, var(--gold-dim), transparent 60%);
+    }
+    .vision-accent {
+      position: absolute; bottom: -1px; left: -1px; z-index: 2;
+      width: 80px; height: 80px;
+      border-left: 2px solid var(--gold);
+      border-bottom: 2px solid var(--gold);
+    }
+    .vision-accent-tr {
+      position: absolute; top: -1px; right: -1px; z-index: 2;
+      width: 80px; height: 80px;
+      border-right: 2px solid var(--gold);
+      border-top: 2px solid var(--gold);
+    }
+
+    /* ─── PROPERTIES ───────────────────────────────────────────────────── */
+    #properties { padding: 120px 0; }
+    .properties-header {
+      padding: 0 80px;
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 60px;
+    }
+    .properties-track {
+      display: flex; gap: 24px;
+      padding: 0 80px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      cursor: grab;
+    }
+    .properties-track::-webkit-scrollbar { display: none; }
+    .properties-track.grabbing { cursor: grabbing; }
+    .property-card {
+      flex: 0 0 400px;
+      scroll-snap-align: start;
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      background: var(--black-soft);
+      border: 1px solid var(--hairline-dark);
+      cursor: none;
+      group: true;
+    }
+    .property-card img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.8s cubic-bezier(0.23,1,0.32,1);
+    }
+    .property-card:hover img { transform: scale(1.08); }
+    .property-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 36px;
+      transition: background 0.4s ease;
+    }
+    .property-card:hover .property-overlay {
+      background: linear-gradient(to top, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.1) 100%);
+    }
+    .property-tag {
+      font-size: 9px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold);
+      border: 1px solid var(--gold); border-radius: 0;
+      padding: 6px 14px; display: inline-block;
+      margin-bottom: 16px; width: fit-content;
+    }
+    .property-name {
+      font-size: 22px; font-weight: 900; line-height: 1.1;
+      letter-spacing: -0.3px; text-transform: uppercase;
+      color: var(--white); margin-bottom: 8px;
+    }
+    .property-location {
+      font-size: 11px; font-weight: 400; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--ink-mute);
+      margin-bottom: 20px;
+    }
+    .property-price {
+      font-size: 18px; font-weight: 700; color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .property-meta {
+      display: flex; gap: 20px;
+      font-size: 11px; font-weight: 400; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--ink-mute);
+      padding-top: 16px;
+      border-top: 1px solid var(--hairline-dark);
+    }
+    .property-meta span { display: flex; align-items: center; gap: 6px; }
+    .property-actions {
+      position: absolute; top: 24px; right: 24px;
+      display: flex; gap: 10px;
+      opacity: 0; transition: opacity 0.3s ease;
+    }
+    .property-card:hover .property-actions { opacity: 1; }
+    .property-action-btn {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(0,0,0,0.7); border: 1px solid var(--hairline-dark);
+      display: flex; align-items: center; justify-content: center;
+      cursor: none; font-size: 16px; transition: border-color 0.3s;
+    }
+    .property-action-btn:hover { border-color: var(--gold); }
+
+    /* ─── DEVELOPMENT / FLAGSHIP ───────────────────────────────────────── */
+    #flagship {
+      position: relative; height: 100vh;
+      display: flex; align-items: center; overflow: hidden;
+    }
+    .flagship-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1920&q=90');
+      background-size: cover; background-position: center;
+    }
+    .flagship-bg::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(0,0,0,0.92) 50%, rgba(0,0,0,0.2) 100%);
+    }
+    .flagship-content {
+      position: relative; z-index: 2;
+      padding: 0 80px; max-width: 680px;
+    }
+    .flagship-tag {
+      font-size: 9px; font-weight: 400; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--white-mute);
+      display: inline-block; margin-bottom: 20px;
+    }
+    .flagship-headline {
+      font-size: clamp(30px, 3.5vw, 52px);
+      font-weight: 900; line-height: 0.95;
+      letter-spacing: 1px; text-transform: uppercase;
+      color: var(--white); margin-bottom: 24px;
+    }
+    .flagship-headline em { font-style: normal; color: var(--gold); }
+    .flagship-body {
+      font-size: 13px; font-weight: 300; line-height: 1.8;
+      color: var(--ink-mute); margin-bottom: 36px;
+      max-width: 400px;
+    }
+    .flagship-specs {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0; margin-bottom: 48px;
+      border: 1px solid var(--hairline-dark);
+    }
+    .spec-item {
+      padding: 24px;
+      border-right: 1px solid var(--hairline-dark);
+    }
+    .spec-item:last-child { border-right: none; }
+    .spec-num {
+      font-size: 28px; font-weight: 900; color: var(--gold); line-height: 1;
+    }
+    .spec-label {
+      font-size: 9px; font-weight: 500; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--ink-mute);
+      margin-top: 6px;
+    }
+
+    /* ─── LOCATION ─────────────────────────────────────────────────────── */
+    #location { padding: 120px 80px; }
+    .location-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 2px;
+      margin-top: 80px;
+    }
+    .location-hero-img {
+      grid-column: 1; grid-row: 1 / 3;
+      position: relative; overflow: hidden;
+      min-height: 600px;
+    }
+    .location-hero-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.8s ease;
+    }
+    .location-hero-img:hover img { transform: scale(1.04); }
+    .location-img-sm {
+      position: relative; overflow: hidden;
+      height: 300px;
+    }
+    .location-img-sm img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.8s ease;
+    }
+    .location-img-sm:hover img { transform: scale(1.04); }
+    .location-text-block {
+      background: var(--black-soft);
+      border: 1px solid var(--hairline-dark);
+      padding: 60px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .location-feature {
+      display: flex; align-items: flex-start; gap: 16px;
+      margin-bottom: 32px;
+    }
+    .location-feature:last-child { margin-bottom: 0; }
+    .loc-icon {
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 1px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0; color: var(--gold);
+      margin-top: 4px;
+    }
+    .loc-feat-title {
+      font-size: 12px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--white);
+      margin-bottom: 6px;
+    }
+    .loc-feat-body {
+      font-size: 14px; font-weight: 300; line-height: 1.7;
+      color: var(--ink-mute);
+    }
+
+    /* ─── PROCESS ──────────────────────────────────────────────────────── */
+    #process {
+      padding: 120px 80px;
+      background: var(--black-soft);
+      border-top: 1px solid var(--hairline-dark);
+    }
+    .process-steps {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0; margin-top: 80px;
+    }
+    .process-step {
+      padding: 0 40px;
+      border-right: 1px solid var(--hairline-dark);
+      position: relative;
+    }
+    .process-step:first-child { padding-left: 0; }
+    .process-step:last-child { border-right: none; }
+    .step-num {
+      font-size: 80px; font-weight: 900; line-height: 1;
+      color: var(--hairline-dark); letter-spacing: -3px;
+      margin-bottom: 24px;
+      font-variant-numeric: tabular-nums;
+    }
+    .step-title {
+      font-size: 14px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--white);
+      margin-bottom: 16px;
+    }
+    .step-body {
+      font-size: 14px; font-weight: 300; line-height: 1.8;
+      color: var(--ink-mute);
+    }
+    .step-line {
+      position: absolute; top: 40px; right: -1px;
+      width: 1px; height: 120px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+
+    /* ─── TESTIMONIAL ──────────────────────────────────────────────────── */
+    #testimonials {
+      position: relative; padding: 120px 80px;
+      overflow: hidden;
+    }
+    .testimonials-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=80');
+      background-size: cover; background-position: center;
+      opacity: 0.08;
+    }
+    .testimonial-wrapper {
+      position: relative; z-index: 2;
+      max-width: 800px; margin: 0 auto; text-align: center;
+    }
+    .testimonial-quote {
+      font-size: clamp(20px, 2.5vw, 30px);
+      font-weight: 300; line-height: 1.6;
+      color: var(--white); margin-bottom: 40px;
+      font-style: italic;
+    }
+    .testimonial-quote::before { content: '\201C'; color: var(--gold); font-size: 60px; line-height: 0; vertical-align: -20px; margin-right: 8px; font-style: normal; }
+    .testimonial-author {
+      font-size: 11px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 4px;
+    }
+    .testimonial-role {
+      font-size: 11px; font-weight: 400; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--ink-mute);
+    }
+    .testimonial-dots {
+      display: flex; gap: 8px; justify-content: center;
+      margin-top: 48px;
+    }
+    .t-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--hairline-dark);
+      border: none; cursor: none; padding: 0;
+      transition: background 0.3s, width 0.3s;
+    }
+    .t-dot.active { width: 24px; border-radius: 3px; background: var(--gold); }
+
+    /* ─── CONTACT ──────────────────────────────────────────────────────── */
+    #contact { padding: 120px 80px; }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: start;
+      margin-top: 80px;
+    }
+    .contact-info { }
+    .contact-detail {
+      display: flex; flex-direction: column; gap: 6px;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--hairline-dark);
+    }
+    .contact-detail:first-child { border-top: 1px solid var(--hairline-dark); }
+    .contact-detail-label {
+      font-size: 9px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold);
+    }
+    .contact-detail-value {
+      font-size: 18px; font-weight: 300; color: var(--white);
+    }
+    .contact-form { display: flex; flex-direction: column; gap: 20px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-label {
+      font-size: 9px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--ink-mute);
+    }
+    .form-input, .form-select, .form-textarea {
+      background: transparent;
+      border: none; border-bottom: 1px solid var(--hairline-dark);
+      color: var(--white); font-family: 'Inter', sans-serif;
+      font-size: 15px; font-weight: 300;
+      padding: 14px 0;
+      outline: none; cursor: none;
+      transition: border-color 0.3s ease;
+      -webkit-appearance: none;
+    }
+    .form-select option { background: #111; color: var(--white); }
+    .form-textarea { resize: none; height: 80px; }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-bottom-color: var(--gold);
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--hairline-dark); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+    /* ─── FOOTER ───────────────────────────────────────────────────────── */
+    footer {
+      background: var(--black-soft);
+      border-top: 1px solid var(--hairline-dark);
+      padding: 60px 80px 40px;
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px; margin-bottom: 60px;
+    }
+    .footer-brand-name {
+      font-size: 13px; font-weight: 900; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--white);
+      margin-bottom: 4px;
+    }
+    .footer-brand-sub {
+      font-size: 9px; font-weight: 400; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 24px;
+    }
+    .footer-tagline {
+      font-size: 13px; font-weight: 300; line-height: 1.7;
+      color: var(--ink-mute); max-width: 280px;
+    }
+    .footer-col-title {
+      font-size: 9px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--white);
+      margin-bottom: 24px;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-links a {
+      font-size: 13px; font-weight: 300;
+      color: var(--ink-mute); text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 32px; border-top: 1px solid var(--hairline-dark);
+    }
+    .footer-copy {
+      font-size: 11px; font-weight: 300; letter-spacing: 1px;
+      color: var(--ink-mute);
+    }
+    .footer-socials { display: flex; gap: 20px; }
+    .social-link {
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--ink-mute);
+      text-decoration: none; transition: color 0.3s;
+    }
+    .social-link:hover { color: var(--gold); }
+
+    /* ─── MOBILE NAV OVERLAY ───────────────────────────────────────────── */
+    .mobile-nav {
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(0,0,0,0.97);
+      backdrop-filter: blur(20px);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 40px;
+      transform: translateY(-100%);
+      transition: transform 0.6s cubic-bezier(0.23,1,0.32,1);
+    }
+    .mobile-nav.open { transform: translateY(0); }
+    .mobile-nav a {
+      font-size: 32px; font-weight: 900; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--white);
+      text-decoration: none; transition: color 0.3s;
+    }
+    .mobile-nav a:hover { color: var(--gold); }
+    .mobile-nav-close {
+      position: absolute; top: 28px; right: 32px;
+      font-size: 28px; color: var(--white);
+      background: none; border: none; cursor: none;
+    }
+
+    /* ─── ANIMATIONS ───────────────────────────────────────────────────── */
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* ─── GOLD LINE DECORATION ─────────────────────────────────────────── */
+    .gold-line {
+      width: 32px; height: 1px; background: var(--white-mute);
+      margin-bottom: 20px;
+    }
+
+    /* ─── MEDIA QUERIES ────────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      nav { padding: 24px 32px; }
+      nav.scrolled { padding: 16px 32px; }
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      #hero .hero-content { padding: 0 40px 60px; }
+      #stats { grid-template-columns: repeat(2, 1fr); padding: 60px 40px; }
+      .stat-item:nth-child(2) { border-right: none; }
+      .stat-item:nth-child(3) { border-right: 1px solid var(--hairline-dark); border-top: 1px solid var(--hairline-dark); }
+      .stat-item:nth-child(4) { border-top: 1px solid var(--hairline-dark); }
+      #vision { padding: 80px 40px; gap: 40px; }
+      .properties-header, .properties-track { padding: 0 40px; }
+      #flagship .flagship-content { padding: 0 40px; }
+      .flagship-specs { grid-template-columns: repeat(3, 1fr); }
+      #location { padding: 80px 40px; }
+      .location-grid { grid-template-columns: 1fr; }
+      .location-hero-img { grid-column: 1; grid-row: 1; min-height: 300px; }
+      #process { padding: 80px 40px; }
+      .process-steps { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+      .process-step { border-right: none; padding: 0; }
+      #testimonials { padding: 80px 40px; }
+      #contact { padding: 80px 40px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 60px; }
+      footer { padding: 60px 40px 40px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+    @media (max-width: 640px) {
+      .hero-content { padding: 0 24px 60px !important; }
+      .hero-scroll { right: 24px; }
+      #stats { padding: 48px 24px; }
+      #vision { padding: 60px 24px; grid-template-columns: 1fr; }
+      .vision-media { display: none; }
+      .properties-header, .properties-track { padding: 0 24px; }
+      .property-card { flex: 0 0 320px; }
+      #flagship .flagship-content { padding: 0 24px; }
+      .flagship-specs { grid-template-columns: repeat(3, 1fr); }
+      #location, #process, #testimonials, #contact { padding: 60px 24px; }
+      footer { padding: 48px 24px 32px; }
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-nav-close" id="mobileClose">✕</button>
+  <a href="#vision" onclick="closeMobileNav()">About</a>
+  <a href="#properties" onclick="closeMobileNav()">Properties</a>
+  <a href="#flagship" onclick="closeMobileNav()">Developments</a>
+  <a href="#location" onclick="closeMobileNav()">Illawarra</a>
+  <a href="#contact" onclick="closeMobileNav()">Enquire</a>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <span class="nav-logo-main">Innovate</span>
+    <span class="nav-logo-sub">Property Group</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#vision">About</a></li>
+    <li><a href="#properties">Properties</a></li>
+    <li><a href="#flagship">Developments</a></li>
+    <li><a href="#location">Illawarra</a></li>
+    <li><a href="#contact">Enquire</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Enquire Now</a>
+  <button class="hamburger" id="hamburger" onclick="openMobileNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- STICKY SCROLL STACK -->
+<div id="stickyStack">
+
+<!-- HERO -->
+<section id="hero" style="position:sticky; top:0; z-index:1;">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Illawarra &amp; Wollongong Region</p>
+    <h1 class="hero-headline">
+      WHERE<br>LUXURY<br><em>MEETS</em><br>HORIZON
+    </h1>
+    <p class="hero-sub">
+      Innovate Property Group curates the most exceptional homes and developments in the Illawarra — where the escarpment meets the sea.
+    </p>
+    <div class="hero-actions">
+      <a href="#properties" class="btn-gold">View Properties</a>
+      <a href="#flagship" class="btn-ghost">Our Projects</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+
+<!-- DEVELOPMENTS FULL SCREEN -->
+<section id="developments" style="position:sticky; top:0; z-index:2; height:100vh; overflow:hidden; display:flex; align-items:flex-end;">
+  <div style="
+    position:absolute; inset:0;
+    background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=90');
+    background-size:cover; background-position:center;
+  "></div>
+  <div style="
+    position:absolute; inset:0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,0.7) 75%, rgba(0,0,0,0.97) 100%);
+  "></div>
+  <div style="position:relative; z-index:2; padding: 0 80px 80px; max-width:900px;">
+    <div class="gold-line reveal"></div>
+    <p class="section-eyebrow reveal">Development Sites</p>
+    <h2 class="section-headline reveal reveal-delay-1">
+      BUILT FOR<br>THOSE WHO<br>DEMAND MORE
+    </h2>
+    <p class="section-body reveal reveal-delay-2" style="margin-bottom: 48px; color: var(--white-mute);">
+      From architecturally singular residences perched on the Illawarra Escarpment to masterplanned coastal communities — every Innovate development is conceived with uncompromising design, premium materials, and the belief that where you live shapes who you become.
+    </p>
+    <div style="display:flex; gap:20px;" class="reveal reveal-delay-3">
+      <a href="#flagship" class="btn-gold">View Developments</a>
+      <a href="#contact" class="btn-ghost">Register Interest</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROPERTIES -->
+<section id="properties" style="position:sticky; top:0; z-index:3; height:100vh; overflow:hidden; display:flex; align-items:flex-end;">
+  <div style="
+    position:absolute; inset:0;
+    background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=90');
+    background-size:cover; background-position:center;
+  "></div>
+  <div style="
+    position:absolute; inset:0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,0.7) 75%, rgba(0,0,0,0.97) 100%);
+  "></div>
+  <div style="position:relative; z-index:2; padding: 0 80px 80px; max-width:900px;">
+    <div class="gold-line reveal"></div>
+    <p class="section-eyebrow reveal">Featured Listings</p>
+    <h2 class="section-headline reveal reveal-delay-1">LUXURY<br>PROPERTIES</h2>
+    <p class="section-body reveal reveal-delay-2" style="margin-bottom: 48px; color: var(--white-mute);">
+      Handpicked residences across the Illawarra's most coveted addresses — from oceanfront clifftop estates in Thirroul to escarpment retreats in Bulli. Many never publicly listed.
+    </p>
+    <div style="display:flex; gap:20px;" class="reveal reveal-delay-3">
+      <a href="#contact" class="btn-gold">View All Properties</a>
+      <a href="#contact" class="btn-ghost">Book a Private Viewing</a>
+    </div>
+  </div>
+</section>
+
+<!-- FLAGSHIP DEVELOPMENT -->
+<section id="flagship" style="position:sticky; top:0; z-index:4;">
+  <div class="flagship-bg"></div>
+  <div class="flagship-content">
+    <div class="flagship-tag reveal">Projects — 2025</div>
+    <h2 class="flagship-headline reveal reveal-delay-1">
+      ONE<br><em>ESCARPMENT</em><br>RESIDENCES
+    </h2>
+    <p class="flagship-body reveal reveal-delay-2">
+      23 architecturally singular residences perched on the Illawarra Escarpment. Floor-to-ceiling glazing frames uninterrupted views from the Pacific to the Southern Highlands. Designed by award-winning studio Archer + Malone.
+    </p>
+    <div class="flagship-specs reveal reveal-delay-3">
+      <div class="spec-item">
+        <div class="spec-num">23</div>
+        <div class="spec-label">Residences</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-num">Q3</div>
+        <div class="spec-label">2026 Completion</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-num">6★</div>
+        <div class="spec-label">Green Star Rating</div>
+      </div>
+    </div>
+    <div class="hero-actions reveal reveal-delay-4">
+      <a href="#contact" class="btn-gold">Register Interest</a>
+      <a href="#contact" class="btn-ghost">Download Brochure</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /stickyStack -->
+
+<!-- LOCATION -->
+<section id="location">
+  <div class="gold-line reveal"></div>
+  <p class="section-eyebrow reveal">The Illawarra</p>
+  <h2 class="section-headline reveal reveal-delay-1">LIVE WHERE<br>OTHERS<br>ESCAPE TO</h2>
+
+  <div class="location-grid">
+    <div class="location-hero-img reveal">
+      <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&q=85" alt="Illawarra coastline" loading="lazy" />
+    </div>
+    <div class="location-img-sm reveal reveal-delay-1">
+      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900&q=85" alt="Wollongong beach" loading="lazy" />
+    </div>
+    <div class="location-text-block reveal reveal-delay-2">
+      <div class="location-feature">
+        <div class="loc-icon">◎</div>
+        <div>
+          <div class="loc-feat-title">60 Min to Sydney CBD</div>
+          <div class="loc-feat-body">Direct freeway and rail access — the lifestyle of a coastal retreat with the proximity of the city.</div>
+        </div>
+      </div>
+      <div class="location-feature">
+        <div class="loc-icon">◎</div>
+        <div>
+          <div class="loc-feat-title">World-Class Coastline</div>
+          <div class="loc-feat-body">110km of beaches, national parks, and rock pools — from Stanwell Tops to Shellharbour.</div>
+        </div>
+      </div>
+      <div class="location-feature">
+        <div class="loc-icon">◎</div>
+        <div>
+          <div class="loc-feat-title">Premium Education</div>
+          <div class="loc-feat-body">Home to the University of Wollongong and the region's leading independent schools.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="gold-line reveal"></div>
+  <p class="section-eyebrow reveal">How We Work</p>
+  <h2 class="section-headline reveal reveal-delay-1">THE INNOVATE<br>EXPERIENCE</h2>
+  <div class="process-steps">
+    <div class="process-step reveal reveal-delay-1">
+      <div class="step-num">01</div>
+      <div class="step-title">Discovery</div>
+      <p class="step-body">A private consultation to understand your vision, requirements, and timeline. We listen before we advise.</p>
+      <div class="step-line"></div>
+    </div>
+    <div class="process-step reveal reveal-delay-2">
+      <div class="step-num">02</div>
+      <div class="step-title">Curation</div>
+      <p class="step-body">We handpick properties from our exclusive network — many never publicly listed. Quality over volume, always.</p>
+      <div class="step-line"></div>
+    </div>
+    <div class="process-step reveal reveal-delay-3">
+      <div class="step-num">03</div>
+      <div class="step-title">Negotiation</div>
+      <p class="step-body">Our team negotiates with precision, leveraging deep market intelligence to secure the best possible outcome.</p>
+      <div class="step-line"></div>
+    </div>
+    <div class="process-step reveal reveal-delay-4">
+      <div class="step-num">04</div>
+      <div class="step-title">Settlement</div>
+      <p class="step-body">White-glove support through every step of settlement and beyond — we're with you long after the keys are handed over.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="testimonials-bg"></div>
+  <div class="testimonial-wrapper reveal">
+    <div class="gold-line" style="margin: 0 auto 40px;"></div>
+    <p class="section-eyebrow" style="text-align:center; margin-bottom: 48px;">Client Stories</p>
+    <div class="testimonial-display" id="testimonialDisplay">
+      <p class="testimonial-quote" id="testimonialQuote">
+        Innovate didn't just sell us a house — they found us a life. We had been looking in Sydney for two years. Within six weeks of engaging their team, we were under contract on the most extraordinary property we'd ever seen.
+      </p>
+      <p class="testimonial-author" id="testimonialAuthor">James &amp; Sarah Thornton</p>
+      <p class="testimonial-role" id="testimonialRole">Purchased — Thirroul Clifftop Estate</p>
+    </div>
+    <div class="testimonial-dots">
+      <button class="t-dot active" onclick="showTestimonial(0)"></button>
+      <button class="t-dot" onclick="showTestimonial(1)"></button>
+      <button class="t-dot" onclick="showTestimonial(2)"></button>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="gold-line reveal"></div>
+  <p class="section-eyebrow reveal">Get In Touch</p>
+  <h2 class="section-headline reveal reveal-delay-1">BEGIN YOUR<br>SEARCH</h2>
+  <div class="contact-grid">
+    <div class="contact-info reveal reveal-delay-1">
+      <p class="section-body" style="margin-bottom: 0; max-width: 100%;">
+        Whether you're buying, selling, or exploring a development opportunity, our team is ready to work with you. All enquiries handled with complete discretion.
+      </p>
+      <div class="contact-detail">
+        <span class="contact-detail-label">Phone</span>
+        <span class="contact-detail-value">+61 2 4200 0000</span>
+      </div>
+      <div class="contact-detail">
+        <span class="contact-detail-label">Email</span>
+        <span class="contact-detail-value">hello@innovateproperty.com.au</span>
+      </div>
+      <div class="contact-detail">
+        <span class="contact-detail-label">Office</span>
+        <span class="contact-detail-value">Crown Street, Wollongong NSW 2500</span>
+      </div>
+      <div class="contact-detail">
+        <span class="contact-detail-label">Hours</span>
+        <span class="contact-detail-value">Mon – Sat, 9am – 6pm</span>
+      </div>
+    </div>
+    <form class="contact-form reveal reveal-delay-2" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <input type="text" class="form-input" placeholder="James" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          <input type="text" class="form-input" placeholder="Thornton" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" placeholder="james@email.com" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone</label>
+        <input type="tel" class="form-input" placeholder="0400 000 000" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">I'm interested in</label>
+        <select class="form-select">
+          <option value="">Select...</option>
+          <option>Buying a property</option>
+          <option>Selling a property</option>
+          <option>A development opportunity</option>
+          <option>General enquiry</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Message</label>
+        <textarea class="form-textarea" placeholder="Tell us about what you're looking for..."></textarea>
+      </div>
+      <button type="submit" class="btn-gold" style="margin-top: 8px; border: none; width: 100%; text-align: center; font-family: 'Inter', sans-serif;">
+        Send Enquiry
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">Innovate</div>
+      <div class="footer-brand-sub">Property Group</div>
+      <p class="footer-tagline">Curating the Illawarra's most exceptional homes and developments since 2018.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Properties</div>
+      <ul class="footer-links">
+        <li><a href="#properties">Residential</a></li>
+        <li><a href="#flagship">Developments</a></li>
+        <li><a href="#contact">Off-Market</a></li>
+        <li><a href="#contact">Investment</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="#vision">About Us</a></li>
+        <li><a href="#process">How We Work</a></li>
+        <li><a href="#testimonials">Client Stories</a></li>
+        <li><a href="#contact">Careers</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Locations</div>
+      <ul class="footer-links">
+        <li><a href="#">Wollongong</a></li>
+        <li><a href="#">Thirroul</a></li>
+        <li><a href="#">Bulli &amp; Austinmer</a></li>
+        <li><a href="#">Shellharbour</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 Innovate Property Group Pty Ltd. All rights reserved. Licensed Real Estate Agent NSW.</p>
+    <div class="footer-socials">
+      <a href="#" class="social-link">Instagram</a>
+      <a href="#" class="social-link">LinkedIn</a>
+      <a href="#" class="social-link">Facebook</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ── CUSTOM CURSOR ─────────────────────────────────────────────── */
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX; mouseY = e.clientY;
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top = mouseY + 'px';
+  });
+
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+    ring.style.left = ringX + 'px';
+    ring.style.top = ringY + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  /* ── PARALLAX HERO ─────────────────────────────────────────────── */
+  const heroBg = document.getElementById('heroBg');
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    heroBg.style.transform = `scale(1.05) translateY(${y * 0.3}px)`;
+  }, { passive: true });
+
+  /* ── NAV SCROLL ────────────────────────────────────────────────── */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 80);
+  }, { passive: true });
+
+  /* ── MOBILE NAV ────────────────────────────────────────────────── */
+  const mobileNav = document.getElementById('mobileNav');
+  function openMobileNav() { mobileNav.classList.add('open'); }
+  function closeMobileNav() { mobileNav.classList.remove('open'); }
+  document.getElementById('mobileClose').addEventListener('click', closeMobileNav);
+
+  /* ── REVEAL ON SCROLL ──────────────────────────────────────────── */
+  const reveals = document.querySelectorAll('.reveal');
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => revealObs.observe(el));
+
+  /* ── COUNTER ANIMATION ─────────────────────────────────────────── */
+  const counters = document.querySelectorAll('.counter');
+  const counterObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting && !e.target.dataset.done) {
+        e.target.dataset.done = true;
+        const target = parseFloat(e.target.dataset.target);
+        const isDecimal = e.target.dataset.decimal !== undefined;
+        const duration = 2000;
+        const step = 16;
+        const steps = duration / step;
+        const increment = target / steps;
+        let current = 0;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            current = target;
+            clearInterval(timer);
+          }
+          e.target.textContent = isDecimal ? current.toFixed(1) : Math.floor(current);
+        }, step);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(el => counterObs.observe(el));
+
+  /* ── PROPERTY CARD DRAG SCROLL ─────────────────────────────────── */
+  const track = document.getElementById('propertiesTrack');
+  let isDown = false, startX, scrollLeft;
+  track.addEventListener('mousedown', e => {
+    isDown = true; track.classList.add('grabbing');
+    startX = e.pageX - track.offsetLeft;
+    scrollLeft = track.scrollLeft;
+  });
+  track.addEventListener('mouseleave', () => { isDown = false; track.classList.remove('grabbing'); });
+  track.addEventListener('mouseup', () => { isDown = false; track.classList.remove('grabbing'); });
+  track.addEventListener('mousemove', e => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - track.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    track.scrollLeft = scrollLeft - walk;
+  });
+
+  /* ── TESTIMONIALS ──────────────────────────────────────────────── */
+  const testimonials = [
+    {
+      quote: "Innovate didn't just sell us a house — they found us a life. We had been looking in Sydney for two years. Within six weeks of engaging their team, we were under contract on the most extraordinary property we'd ever seen.",
+      author: "James &amp; Sarah Thornton",
+      role: "Purchased — Thirroul Clifftop Estate"
+    },
+    {
+      quote: "The level of discretion and professionalism was unlike anything I'd experienced in twenty years of property investment. They brought us an off-market opportunity that simply didn't exist anywhere else.",
+      author: "Michael Chen",
+      role: "Investor — Wollongong Development Portfolio"
+    },
+    {
+      quote: "We achieved 18% above our reserve price. Their market intelligence, presentation strategy, and negotiation were flawless. I wouldn't trust anyone else with property of this calibre.",
+      author: "Eleanor &amp; David Reeves",
+      role: "Sold — Austinmer Escarpment Estate"
+    }
+  ];
+  let currentTestimonial = 0;
+  const dots = document.querySelectorAll('.t-dot');
+
+  function showTestimonial(idx) {
+    const quote = document.getElementById('testimonialQuote');
+    const author = document.getElementById('testimonialAuthor');
+    const role = document.getElementById('testimonialRole');
+    quote.style.opacity = '0'; author.style.opacity = '0'; role.style.opacity = '0';
+    setTimeout(() => {
+      quote.innerHTML = testimonials[idx].quote;
+      author.innerHTML = testimonials[idx].author;
+      role.textContent = testimonials[idx].role;
+      quote.style.opacity = '1'; author.style.opacity = '1'; role.style.opacity = '1';
+    }, 300);
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    currentTestimonial = idx;
+  }
+
+  [document.getElementById('testimonialQuote'),
+   document.getElementById('testimonialAuthor'),
+   document.getElementById('testimonialRole')].forEach(el => {
+    el.style.transition = 'opacity 0.4s ease';
+  });
+
+  setInterval(() => {
+    showTestimonial((currentTestimonial + 1) % testimonials.length);
+  }, 6000);
+
+  /* ── FORM SUBMIT ───────────────────────────────────────────────── */
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type="submit"]');
+    btn.textContent = 'Sent — We\'ll Be In Touch';
+    btn.style.background = '#1a3a1a';
+    btn.style.borderColor = '#2a6a2a';
+    btn.style.color = '#4ade80';
+    btn.disabled = true;
+  }
+</script>
+</body>
+</html>
