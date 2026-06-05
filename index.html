@@ -58,14 +58,14 @@
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 20px 48px;
+      padding: 10px 48px;
       background: var(--white);
       border-bottom: 1px solid #e0e0e0;
       transition: padding 0.4s ease;
     }
     nav.scrolled {
       background: var(--white);
-      padding: 16px 48px;
+      padding: 8px 48px;
       border-bottom: 1px solid #e0e0e0;
     }
     .nav-logo {
@@ -113,6 +113,15 @@
     }
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: none; background: none; border: none; }
     .hamburger span { width: 26px; height: 1px; background: var(--black); display: block; transition: all 0.3s; }
+
+    /* ─── GRAIN OVERLAY ───────────────────────────────────────────────── */
+    .grain-overlay {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.18;
+      mix-blend-mode: overlay;
+    }
 
     /* ─── HERO ─────────────────────────────────────────────────────────── */
     #hero {
@@ -784,7 +793,7 @@
 <!-- NAV -->
 <nav id="navbar">
   <a href="#" class="nav-logo">
-    <img src="logo.png" alt="Innovate Property Group" style="height: 36px; width: auto; display: block;" />
+    <img src="logo.png" alt="Innovate Property Group" style="height: 72px; width: auto; display: block;" />
   </a>
   <ul class="nav-links">
     <li><a href="#vision">About</a></li>
@@ -805,6 +814,7 @@
 <!-- HERO -->
 <section id="hero" style="position:sticky; top:0; z-index:1;">
   <div class="hero-bg" id="heroBg"></div>
+  <div class="grain-overlay"></div>
   <div class="hero-content">
     <p class="hero-eyebrow">Illawarra &amp; Wollongong Region</p>
     <h1 class="hero-headline">
@@ -827,15 +837,9 @@
 
 <!-- DEVELOPMENTS FULL SCREEN -->
 <section id="developments" style="position:sticky; top:0; z-index:2; height:100vh; overflow:hidden; display:flex; align-items:flex-end;">
-  <div style="
-    position:absolute; inset:0;
-    background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=90');
-    background-size:cover; background-position:center;
-  "></div>
-  <div style="
-    position:absolute; inset:0;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,0.7) 75%, rgba(0,0,0,0.97) 100%);
-  "></div>
+  <div style="position:absolute; inset:0; background-image:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=90'); background-size:cover; background-position:center;"></div>
+  <div style="position:absolute; inset:0; background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,0.7) 75%, rgba(0,0,0,0.97) 100%);"></div>
+  <div class="grain-overlay"></div>
   <div style="position:relative; z-index:2; padding: 0 80px 80px; max-width:900px;">
     <div class="gold-line reveal"></div>
     <p class="section-eyebrow reveal">Development Sites</p>
@@ -843,10 +847,10 @@
       BUILT FOR<br>THOSE WHO<br>DEMAND MORE
     </h2>
     <p class="section-body reveal reveal-delay-2" style="margin-bottom: 48px; color: var(--white-mute);">
-      From architecturally singular residences perched on the Illawarra Escarpment to masterplanned coastal communities — every Innovate development is conceived with uncompromising design, premium materials, and the belief that where you live shapes who you become.
+      Whether you're a boutique builder, a volume developer, or an investor seeking your next project — we source development sites of all sizes across the Illawarra. From dual-occupancy blocks and townhouse sites to large-scale residential land, we connect buyers with opportunities before they hit the open market.
     </p>
     <div style="display:flex; gap:20px;" class="reveal reveal-delay-3">
-      <a href="#flagship" class="btn-gold">View Developments</a>
+      <a href="#flagship" class="btn-gold">Available Sites</a>
       <a href="#contact" class="btn-ghost">Register Interest</a>
     </div>
   </div>
@@ -859,10 +863,8 @@
     background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=90');
     background-size:cover; background-position:center;
   "></div>
-  <div style="
-    position:absolute; inset:0;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,0.7) 75%, rgba(0,0,0,0.97) 100%);
-  "></div>
+  <div style="position:absolute; inset:0; background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,0.7) 75%, rgba(0,0,0,0.97) 100%);"></div>
+  <div class="grain-overlay"></div>
   <div style="position:relative; z-index:2; padding: 0 80px 80px; max-width:900px;">
     <div class="gold-line reveal"></div>
     <p class="section-eyebrow reveal">Featured Listings</p>
@@ -880,31 +882,32 @@
 <!-- FLAGSHIP DEVELOPMENT -->
 <section id="flagship" style="position:sticky; top:0; z-index:4;">
   <div class="flagship-bg"></div>
+  <div class="grain-overlay"></div>
   <div class="flagship-content">
-    <div class="flagship-tag reveal">Projects — 2025</div>
+    <div class="flagship-tag reveal">Off The Plan &amp; Ready To Move In</div>
     <h2 class="flagship-headline reveal reveal-delay-1">
-      ONE<br><em>ESCARPMENT</em><br>RESIDENCES
+      BUY<br>BEFORE<br>THE CROWD
     </h2>
     <p class="flagship-body reveal reveal-delay-2">
-      23 architecturally singular residences perched on the Illawarra Escarpment. Floor-to-ceiling glazing frames uninterrupted views from the Pacific to the Southern Highlands. Designed by award-winning studio Archer + Malone.
+      Secure your position in the Illawarra's most sought-after new developments — before they sell out. We represent both off-the-plan releases and completed ready-to-occupy residences, giving buyers exclusive early access and the best available pricing.
     </p>
     <div class="flagship-specs reveal reveal-delay-3">
       <div class="spec-item">
-        <div class="spec-num">23</div>
-        <div class="spec-label">Residences</div>
+        <div class="spec-num">Off Plan</div>
+        <div class="spec-label">Secure Now, Settle Later</div>
       </div>
       <div class="spec-item">
-        <div class="spec-num">Q3</div>
-        <div class="spec-label">2026 Completion</div>
+        <div class="spec-num">Ready</div>
+        <div class="spec-label">Move-In Now Available</div>
       </div>
       <div class="spec-item">
-        <div class="spec-num">6★</div>
-        <div class="spec-label">Green Star Rating</div>
+        <div class="spec-num">Early</div>
+        <div class="spec-label">Priority Buyer Access</div>
       </div>
     </div>
     <div class="hero-actions reveal reveal-delay-4">
-      <a href="#contact" class="btn-gold">Register Interest</a>
-      <a href="#contact" class="btn-ghost">Download Brochure</a>
+      <a href="#contact" class="btn-gold">Enquire About Projects</a>
+      <a href="#contact" class="btn-ghost">Register Interest</a>
     </div>
   </div>
 </section>
