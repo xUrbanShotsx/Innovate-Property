@@ -64,75 +64,83 @@
     /* ─── HERO ──────────────────────────────────── */
     .prop-hero {
       margin-top: 92px; position: relative;
-      height: 80vh; overflow: hidden;
+      height: calc(100vh - 92px); overflow: hidden;
     }
     .prop-hero-img {
       width: 100%; height: 100%; object-fit: cover;
-      transition: transform 8s ease;
     }
-    .prop-hero:hover .prop-hero-img { transform: scale(1.03); }
     .prop-hero-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,0.7) 100%);
+      background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.6) 100%);
     }
     .prop-hero-grain {
       position: absolute; inset: 0;
       background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity: 0.1; mix-blend-mode: overlay;
+      opacity: 0.12; mix-blend-mode: overlay;
     }
     .prop-hero-info {
-      position: absolute; bottom: 48px; left: 80px; right: 80px;
-      display: flex; align-items: flex-end; justify-content: space-between; gap: 40px;
-      z-index: 2;
+      position: absolute; inset: 0; z-index: 2;
+      display: flex; flex-direction: column;
+      justify-content: flex-end; padding: 60px 80px;
     }
-    .prop-hero-left { }
     .prop-status {
       font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
       color: var(--white); border: 1px solid rgba(255,255,255,0.5);
-      padding: 5px 14px; display: inline-block; margin-bottom: 12px;
+      padding: 5px 14px; display: inline-block; margin-bottom: 16px; width: fit-content;
     }
     .prop-hero-name {
-      font-size: clamp(32px, 4vw, 56px); font-weight: 900; line-height: 0.95;
-      letter-spacing: -0.5px; text-transform: uppercase; color: var(--white);
-      margin-bottom: 8px;
+      font-size: clamp(32px, 4.5vw, 64px); font-weight: 900; line-height: 0.95;
+      letter-spacing: -0.5px; text-transform: uppercase; color: var(--white); margin-bottom: 8px;
     }
-    .prop-hero-location { font-size: 12px; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.6); }
-    .prop-hero-price { font-size: 28px; font-weight: 900; color: var(--white); white-space: nowrap; }
+    .prop-hero-location {
+      font-size: 12px; font-weight: 400; letter-spacing: 2px;
+      text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 8px;
+    }
+    .prop-hero-price { font-size: 24px; font-weight: 700; color: var(--white); margin-bottom: 32px; }
 
-    /* ─── STATS BAR ──────────────────────────────── */
-    .prop-stats {
-      display: grid; grid-template-columns: repeat(5, 1fr);
+    /* ─── STATS ON HERO ──────────────────────────── */
+    .prop-stats-hero {
+      display: flex; gap: 0;
+      border: 1px solid rgba(255,255,255,0.2);
+      width: fit-content;
+    }
+    .prop-stat-hero {
+      padding: 16px 28px;
+      border-right: 1px solid rgba(255,255,255,0.2);
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .prop-stat-hero:last-child { border-right: none; }
+    .prop-stat-label { font-size: 9px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+    .prop-stat-value { font-size: 16px; font-weight: 700; color: var(--white); }
+
+    /* ─── ENQUIRE BUTTON FLOATING ────────────────── */
+    .prop-enquire-btn {
+      position: absolute; top: 32px; right: 80px; z-index: 3;
+      font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--black); background: var(--white);
+      padding: 14px 28px; text-decoration: none;
+      transition: background 0.3s, color 0.3s;
+      border: 1px solid var(--white);
+    }
+    .prop-enquire-btn:hover { background: transparent; color: var(--white); }
+
+    /* ─── DESCRIPTION ────────────────────────────── */
+    .prop-description-section {
+      padding: 64px 80px; max-width: 900px;
       border-bottom: 1px solid var(--hairline);
     }
-    .prop-stat {
-      padding: 28px 32px; border-right: 1px solid var(--hairline);
-      display: flex; flex-direction: column; gap: 6px;
-    }
-    .prop-stat:last-child { border-right: none; }
-    .prop-stat-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-mute); }
-    .prop-stat-value { font-size: 18px; font-weight: 700; color: var(--black); }
-
-    /* ─── BODY ───────────────────────────────────── */
-    .prop-body {
-      display: grid; grid-template-columns: 1fr 380px;
-      gap: 0; align-items: start;
-      border-bottom: 1px solid var(--hairline);
-    }
-
-    /* ─── LEFT CONTENT ───────────────────────────── */
-    .prop-content { padding: 64px 80px; border-right: 1px solid var(--hairline); }
     .section-label {
       font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
       color: var(--ink-mute); padding-bottom: 16px; margin-bottom: 28px;
       border-bottom: 1px solid var(--hairline);
     }
     .prop-description {
-      font-size: 15px; font-weight: 300; line-height: 1.9; color: #333; margin-bottom: 48px;
+      font-size: 15px; font-weight: 300; line-height: 1.9; color: #333;
     }
-    .features-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 0;
-      margin-bottom: 48px;
-    }
+
+    /* ─── FEATURES ───────────────────────────────── */
+    .prop-features-section { padding: 0 80px 64px; border-bottom: 1px solid var(--hairline); }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
     .feature-item {
       font-size: 13px; font-weight: 400; color: var(--black);
       padding: 14px 0; border-bottom: 1px solid var(--hairline);
@@ -141,49 +149,14 @@
     .feature-item::before { content: '—'; color: var(--ink-mute); font-size: 12px; }
 
     /* ─── GALLERY STRIP ──────────────────────────── */
-    .gallery-strip {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-bottom: 0;
-    }
+    .gallery-section { padding: 64px 80px; border-bottom: 1px solid var(--hairline); }
+    .gallery-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
     .gallery-img { aspect-ratio: 4/3; overflow: hidden; }
     .gallery-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; display: block; }
     .gallery-img:hover img { transform: scale(1.05); }
 
-    /* ─── SIDEBAR ────────────────────────────────── */
-    .prop-sidebar { padding: 48px 40px; position: sticky; top: 92px; }
-    .agent-card {
-      border: 1px solid var(--hairline); padding: 28px; margin-bottom: 24px;
-    }
-    .agent-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 20px; }
-    .agent-name { font-size: 16px; font-weight: 700; color: var(--black); margin-bottom: 4px; }
-    .agent-title { font-size: 11px; font-weight: 400; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 20px; }
-    .agent-phone { font-size: 14px; font-weight: 300; color: var(--black); text-decoration: none; display: block; margin-bottom: 6px; }
-    .agent-email { font-size: 13px; font-weight: 300; color: var(--ink-mute); text-decoration: none; display: block; }
-
-    /* ─── ENQUIRY FORM ───────────────────────────── */
-    .enquiry-form { border: 1px solid var(--hairline); padding: 28px; }
-    .enquiry-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 20px; display: block; }
-    .eq-group { margin-bottom: 20px; }
-    .eq-input, .eq-textarea {
-      width: 100%; background: transparent; border: none;
-      border-bottom: 1px solid var(--hairline); color: var(--black);
-      font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300;
-      padding: 10px 0; outline: none; transition: border-color 0.3s;
-    }
-    .eq-input:focus, .eq-textarea:focus { border-bottom-color: var(--black); }
-    .eq-input::placeholder, .eq-textarea::placeholder { color: #ccc; }
-    .eq-textarea { resize: none; height: 70px; }
-    .eq-submit {
-      width: 100%; padding: 16px; font-size: 10px; font-weight: 700;
-      letter-spacing: 2px; text-transform: uppercase; color: var(--white);
-      background: var(--black); border: none; font-family: 'Inter', sans-serif;
-      cursor: pointer; margin-top: 8px; transition: background 0.3s;
-    }
-    .eq-submit:hover { background: #222; }
-    .eq-submit:disabled { background: #999; cursor: not-allowed; }
-    .eq-note { font-size: 10px; color: var(--ink-mute); text-align: center; margin-top: 10px; }
-
     /* ─── MORE PROPERTIES ────────────────────────── */
-    .more-section { padding: 64px 80px; border-top: 1px solid var(--hairline); }
+    .more-section { padding: 64px 80px; }
     .more-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 32px; }
     .more-card { position: relative; overflow: hidden; aspect-ratio: 4/5; cursor: pointer; }
     .more-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; display: block; }
@@ -223,15 +196,26 @@
       .more-grid { grid-template-columns: repeat(2, 1fr); }
       footer { padding: 32px 28px; }
     }
+    @media (max-width: 1024px) {
+      nav { padding: 12px 24px; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .prop-hero-info { padding: 40px 28px; }
+      .prop-enquire-btn { top: 20px; right: 28px; }
+      .prop-stats-hero { flex-wrap: wrap; }
+      .prop-description-section, .prop-features-section, .gallery-section, .more-section { padding: 48px 28px; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .more-grid { grid-template-columns: repeat(2, 1fr); }
+    }
     @media (max-width: 640px) {
       nav { padding: 10px 20px; }
       .nav-logo img { height: 52px !important; }
-      .prop-hero { height: 60vh; }
-      .prop-stats { grid-template-columns: repeat(2, 1fr); }
-      .prop-stat:nth-child(2) { border-right: none; }
-      .prop-stat:nth-child(3) { border-top: 1px solid var(--hairline); }
-      .prop-stat:nth-child(4) { border-top: 1px solid var(--hairline); }
-      .prop-stat:nth-child(5) { border-top: 1px solid var(--hairline); grid-column: span 2; border-right: none; }
+      .prop-hero { height: 100vh; }
+      .prop-hero-info { padding: 24px; }
+      .prop-enquire-btn { top: 16px; right: 24px; padding: 10px 20px; }
+      .prop-stats-hero { width: 100%; }
+      .prop-stat-hero { padding: 12px 16px; }
+      .prop-description-section, .prop-features-section, .gallery-section, .more-section { padding: 40px 24px; }
       .features-grid { grid-template-columns: 1fr; }
       .gallery-strip { grid-template-columns: repeat(2, 1fr); }
       .more-grid { grid-template-columns: 1fr; }
@@ -466,68 +450,46 @@
     .slice(0, 3);
 
   document.getElementById('propertyPage').innerHTML = `
-    <!-- HERO -->
+    <!-- HERO — FULL SCREEN WITH STATS OVERLAID -->
     <div class="prop-hero">
       <img class="prop-hero-img" src="${p.img}" alt="${p.name}" />
       <div class="prop-hero-overlay"></div>
       <div class="prop-hero-grain"></div>
+      <a href="appraisal.html" class="prop-enquire-btn">Enquire</a>
       <div class="prop-hero-info">
-        <div class="prop-hero-left">
-          <div class="prop-status">${p.status}</div>
-          <div class="prop-hero-name">${p.name}</div>
-          <div class="prop-hero-location">${p.location}</div>
-        </div>
+        <div class="prop-status">${p.status}</div>
+        <div class="prop-hero-name">${p.name}</div>
+        <div class="prop-hero-location">${p.location}</div>
         <div class="prop-hero-price">${p.price}</div>
+        <div class="prop-stats-hero">
+          <div class="prop-stat-hero"><div class="prop-stat-label">Bedrooms</div><div class="prop-stat-value">${p.bed}</div></div>
+          <div class="prop-stat-hero"><div class="prop-stat-label">Bathrooms</div><div class="prop-stat-value">${p.bath}</div></div>
+          <div class="prop-stat-hero"><div class="prop-stat-label">Car Spaces</div><div class="prop-stat-value">${p.car}</div></div>
+          <div class="prop-stat-hero"><div class="prop-stat-label">Land Size</div><div class="prop-stat-value">${p.land}</div></div>
+          <div class="prop-stat-hero"><div class="prop-stat-label">Type</div><div class="prop-stat-value">${p.type}</div></div>
+        </div>
       </div>
     </div>
 
-    <!-- STATS BAR -->
-    <div class="prop-stats">
-      <div class="prop-stat"><div class="prop-stat-label">Bedrooms</div><div class="prop-stat-value">${p.bed}</div></div>
-      <div class="prop-stat"><div class="prop-stat-label">Bathrooms</div><div class="prop-stat-value">${p.bath}</div></div>
-      <div class="prop-stat"><div class="prop-stat-label">Car Spaces</div><div class="prop-stat-value">${p.car}</div></div>
-      <div class="prop-stat"><div class="prop-stat-label">Land Size</div><div class="prop-stat-value">${p.land}</div></div>
-      <div class="prop-stat"><div class="prop-stat-label">Property Type</div><div class="prop-stat-value">${p.type}</div></div>
+    <!-- DESCRIPTION -->
+    <div class="prop-description-section reveal">
+      <div class="section-label">About This Property</div>
+      <div class="prop-description">${p.description.replace(/\n/g, '<br><br>')}</div>
     </div>
 
-    <!-- BODY -->
-    <div class="prop-body">
-      <div class="prop-content">
-        <div class="section-label reveal">About This Property</div>
-        <div class="prop-description reveal">${p.description.replace(/\n/g, '<br><br>')}</div>
-
-        <div class="section-label reveal">Property Features</div>
-        <div class="features-grid reveal">
-          ${p.features.map(f => `<div class="feature-item">${f}</div>`).join('')}
-        </div>
-
-        <div class="section-label reveal">Gallery</div>
-        <div class="gallery-strip reveal">
-          ${p.gallery.map(g => `<div class="gallery-img"><img src="${g}" alt="Property image" loading="lazy" /></div>`).join('')}
-        </div>
+    <!-- FEATURES -->
+    <div class="prop-features-section reveal">
+      <div class="section-label">Property Features</div>
+      <div class="features-grid">
+        ${p.features.map(f => `<div class="feature-item">${f}</div>`).join('')}
       </div>
+    </div>
 
-      <!-- SIDEBAR -->
-      <div class="prop-sidebar">
-        <div class="agent-card">
-          <div class="agent-label">Your Agent</div>
-          <div class="agent-name">Innovate Property Group</div>
-          <div class="agent-title">Illawarra Prestige Specialists</div>
-          <a href="tel:+61242000000" class="agent-phone">+61 2 4200 0000</a>
-          <a href="mailto:hello@innovateproperty.com.au" class="agent-email">hello@innovateproperty.com.au</a>
-        </div>
-
-        <div class="enquiry-form">
-          <span class="enquiry-label">Enquire About This Property</span>
-          <form onsubmit="submitEnquiry(event)">
-            <div class="eq-group"><input type="text" class="eq-input" placeholder="Your Name" required /></div>
-            <div class="eq-group"><input type="email" class="eq-input" placeholder="Email Address" required /></div>
-            <div class="eq-group"><input type="tel" class="eq-input" placeholder="Phone Number" /></div>
-            <div class="eq-group"><textarea class="eq-textarea" placeholder="I'm interested in ${p.name}..."></textarea></div>
-            <button type="submit" class="eq-submit" id="eqBtn">Send Enquiry</button>
-            <p class="eq-note">We'll respond within 2 hours.</p>
-          </form>
-        </div>
+    <!-- GALLERY -->
+    <div class="gallery-section reveal">
+      <div class="section-label">Gallery</div>
+      <div class="gallery-strip">
+        ${p.gallery.map(g => `<div class="gallery-img"><img src="${g}" alt="Property image" loading="lazy" /></div>`).join('')}
       </div>
     </div>
 
