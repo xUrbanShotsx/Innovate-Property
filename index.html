@@ -690,24 +690,58 @@
     /* ─── MOBILE NAV OVERLAY ───────────────────────────────────────────── */
     .mobile-nav {
       position: fixed; inset: 0; z-index: 999;
-      background: rgba(0,0,0,0.97);
-      backdrop-filter: blur(20px);
+      background: #ffffff;
       display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 40px;
-      transform: translateY(-100%);
-      transition: transform 0.6s cubic-bezier(0.23,1,0.32,1);
+      transform: translateX(100%);
+      transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
     }
-    .mobile-nav.open { transform: translateY(0); }
-    .mobile-nav a {
-      font-size: 32px; font-weight: 900; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--white);
-      text-decoration: none; transition: color 0.3s;
+    .mobile-nav.open { transform: translateX(0); }
+    .mobile-nav-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 28px;
+      border-bottom: 1px solid #e8e8e8;
     }
-    .mobile-nav a:hover { color: var(--gold); }
+    .mobile-nav-header img { height: 40px; width: auto; }
     .mobile-nav-close {
-      position: absolute; top: 28px; right: 32px;
-      font-size: 28px; color: var(--white);
-      background: none; border: none; cursor: none;
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      background: none; border: 1px solid #e0e0e0;
+      font-size: 18px; color: var(--black);
+      cursor: pointer; flex-shrink: 0;
+    }
+    .mobile-nav-links {
+      flex: 1; display: flex; flex-direction: column;
+      padding: 20px 0;
+      overflow-y: auto;
+    }
+    .mobile-nav-links a {
+      font-size: 14px; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--black);
+      text-decoration: none;
+      padding: 20px 28px;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.2s;
+    }
+    .mobile-nav-links a::after { content: '→'; font-size: 16px; color: var(--ink-mute); }
+    .mobile-nav-links a:hover { background: #f8f8f8; }
+    .mobile-nav-footer {
+      padding: 28px;
+      border-top: 1px solid #e8e8e8;
+    }
+    .mobile-nav-footer a {
+      display: block; text-align: center;
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--white);
+      background: var(--black); padding: 16px;
+      text-decoration: none;
+    }
+
+    /* ─── HIDE CURSOR ON TOUCH DEVICES ────────────────────────────────── */
+    @media (hover: none) and (pointer: coarse) {
+      #cursor, #cursor-ring { display: none; }
+      body { cursor: auto; }
+      a, button { cursor: pointer; }
     }
 
     /* ─── ANIMATIONS ───────────────────────────────────────────────────── */
@@ -730,45 +764,66 @@
 
     /* ─── MEDIA QUERIES ────────────────────────────────────────────────── */
     @media (max-width: 1024px) {
-      nav { padding: 24px 32px; }
-      nav.scrolled { padding: 16px 32px; }
+      nav { padding: 12px 24px; }
+      nav.scrolled { padding: 10px 24px; }
       .nav-links { display: none; }
       .nav-cta { display: none; }
       .hamburger { display: flex; }
-      #hero .hero-content { padding: 0 40px 60px; }
-      #stats { grid-template-columns: repeat(2, 1fr); padding: 60px 40px; }
-      .stat-item:nth-child(2) { border-right: none; }
-      .stat-item:nth-child(3) { border-right: 1px solid var(--hairline-dark); border-top: 1px solid var(--hairline-dark); }
-      .stat-item:nth-child(4) { border-top: 1px solid var(--hairline-dark); }
-      #vision { padding: 80px 40px; gap: 40px; }
-      .properties-header, .properties-track { padding: 0 40px; }
-      #flagship .flagship-content { padding: 0 40px; }
+      #hero .hero-content { padding: 0 28px 60px; }
+      .flagship-content { padding: 0 28px !important; }
       .flagship-specs { grid-template-columns: repeat(3, 1fr); }
-      #location { padding: 80px 40px; }
+      #location { padding: 60px 28px; }
       .location-grid { grid-template-columns: 1fr; }
-      .location-hero-img { grid-column: 1; grid-row: 1; min-height: 300px; }
-      #process { padding: 80px 40px; }
-      .process-steps { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+      .location-hero-img { grid-column: 1; grid-row: 1; min-height: 280px; }
+      #process { padding: 60px 28px; }
+      .process-steps { grid-template-columns: repeat(2, 1fr); gap: 32px; }
       .process-step { border-right: none; padding: 0; }
-      #testimonials { padding: 80px 40px; }
-      #contact { padding: 80px 40px; }
-      .contact-grid { grid-template-columns: 1fr; gap: 60px; }
-      footer { padding: 60px 40px 40px; }
-      .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+      #testimonials { padding: 60px 28px; }
+      #contact { padding: 60px 28px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      footer { padding: 48px 28px 32px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
     }
     @media (max-width: 640px) {
-      .hero-content { padding: 0 24px 60px !important; }
-      .hero-scroll { right: 24px; }
-      #stats { padding: 48px 24px; }
-      #vision { padding: 60px 24px; grid-template-columns: 1fr; }
-      .vision-media { display: none; }
-      .properties-header, .properties-track { padding: 0 24px; }
-      .property-card { flex: 0 0 320px; }
-      #flagship .flagship-content { padding: 0 24px; }
+      nav { padding: 10px 20px; }
+      nav.scrolled { padding: 8px 20px; }
+      .nav-logo img { height: 52px !important; }
+      /* Full-screen section content */
+      #hero .hero-content,
+      #developments > div:last-child,
+      #properties > div:last-child { padding: 0 24px 48px !important; max-width: 100% !important; }
+      .flagship-content { padding: 0 24px !important; max-width: 100% !important; }
+      /* Headlines */
+      .hero-headline { font-size: clamp(28px, 9vw, 44px); }
+      .section-headline { font-size: clamp(24px, 7vw, 36px); }
+      .flagship-headline { font-size: clamp(24px, 8vw, 36px); }
+      /* Body text */
+      .hero-sub, .section-body, .flagship-body { font-size: 13px; max-width: 100%; }
+      /* Buttons */
+      .hero-actions, div[style*="display:flex; gap:20px"] { flex-direction: column; gap: 12px; }
+      .btn-ghost, .btn-gold { text-align: center; padding: 14px 24px; font-size: 10px; }
+      /* Specs */
       .flagship-specs { grid-template-columns: repeat(3, 1fr); }
-      #location, #process, #testimonials, #contact { padding: 60px 24px; }
-      footer { padding: 48px 24px 32px; }
-      .footer-top { grid-template-columns: 1fr; }
+      .spec-num { font-size: 16px; }
+      .spec-label { font-size: 8px; }
+      /* Scroll indicator */
+      .hero-scroll { display: none; }
+      /* Location */
+      #location { padding: 48px 24px; }
+      .location-text-block { padding: 32px 24px; }
+      /* Process */
+      #process { padding: 48px 24px; }
+      .process-steps { grid-template-columns: 1fr; gap: 32px; }
+      .step-num { font-size: 48px; }
+      /* Testimonial */
+      #testimonials { padding: 48px 24px; }
+      .testimonial-quote { font-size: 16px; }
+      /* Contact */
+      #contact { padding: 48px 24px; }
+      .form-row { grid-template-columns: 1fr; }
+      /* Footer */
+      footer { padding: 40px 24px 28px; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
       .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
     }
   </style>
@@ -781,13 +836,20 @@
 
 <!-- MOBILE NAV -->
 <div class="mobile-nav" id="mobileNav">
-  <button class="mobile-nav-close" id="mobileClose">✕</button>
-  <a href="#vision" onclick="closeMobileNav()">About</a>
-  <a href="#properties" onclick="closeMobileNav()">Properties</a>
-  <a href="#developments" onclick="closeMobileNav()">Development Sites</a>
-  <a href="#flagship" onclick="closeMobileNav()">Projects</a>
-  <a href="#location" onclick="closeMobileNav()">Illawarra</a>
-  <a href="#contact" onclick="closeMobileNav()">Enquire</a>
+  <div class="mobile-nav-header">
+    <img src="logo.png" alt="Innovate Property Group" />
+    <button class="mobile-nav-close" id="mobileClose" onclick="closeMobileNav()">✕</button>
+  </div>
+  <div class="mobile-nav-links">
+    <a href="#vision" onclick="closeMobileNav()">About</a>
+    <a href="#properties" onclick="scrollToSticky('properties', 2); closeMobileNav()">Properties</a>
+    <a href="#developments" onclick="scrollToSticky('developments', 1); closeMobileNav()">Development Sites</a>
+    <a href="#flagship" onclick="scrollToSticky('flagship', 3); closeMobileNav()">Projects</a>
+    <a href="#location" onclick="closeMobileNav()">Illawarra</a>
+  </div>
+  <div class="mobile-nav-footer">
+    <a href="#contact" onclick="closeMobileNav()">Enquire Now</a>
+  </div>
 </div>
 
 <!-- NAV -->
