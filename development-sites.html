@@ -10,12 +10,9 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --black: #000000;
-      --black-soft: #0a0a0a;
-      --white: #ffffff;
-      --white-mute: #f0f0fa;
-      --hairline: #e8e8e8;
-      --ink-mute: #5a5a5f;
+      --black: #000000; --black-soft: #0a0a0a;
+      --white: #ffffff; --white-mute: #f0f0fa;
+      --hairline: #e8e8e8; --ink-mute: #5a5a5f;
     }
     html { scroll-behavior: smooth; }
     body { background: var(--white); color: var(--black); font-family: 'Inter', Arial, sans-serif; overflow-x: hidden; }
@@ -24,28 +21,24 @@
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 10px 48px;
-      background: var(--white); border-bottom: 1px solid var(--hairline);
+      padding: 10px 48px; background: var(--white); border-bottom: 1px solid var(--hairline);
     }
     .nav-logo img { height: 72px; width: auto; display: block; }
     .nav-links { display: flex; gap: 40px; list-style: none; align-items: center; }
     .nav-links a {
-      font-size: 11px; font-weight: 500; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--ink-mute);
-      text-decoration: none; transition: color 0.3s; position: relative;
+      font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--ink-mute); text-decoration: none; transition: color 0.3s; position: relative;
     }
     .nav-links a.active, .nav-links a:hover { color: var(--black); }
     .nav-links a::after {
       content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
-      height: 1px; background: var(--black);
-      transform: scaleX(0); transform-origin: left;
-      transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
+      height: 1px; background: var(--black); transform: scaleX(0);
+      transform-origin: left; transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
     }
     .nav-links a.active::after, .nav-links a:hover::after { transform: scaleX(1); }
     .nav-cta {
-      font-size: 11px; font-weight: 700; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--white);
-      background: var(--black); border: 1px solid var(--black);
+      font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--white); background: var(--black); border: 1px solid var(--black);
       padding: 12px 24px; text-decoration: none; transition: all 0.3s;
     }
     .nav-cta:hover { background: var(--white); color: var(--black); }
@@ -59,42 +52,25 @@
       transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
     }
     .mobile-nav.open { transform: translateX(0); }
-    .mobile-nav-header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 20px 28px; border-bottom: 1px solid var(--hairline);
-    }
+    .mobile-nav-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 28px; border-bottom: 1px solid var(--hairline); }
     .mobile-nav-header img { height: 40px; width: auto; }
-    .mobile-nav-close {
-      width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
-      background: none; border: 1px solid #e0e0e0; font-size: 18px; cursor: pointer;
-    }
+    .mobile-nav-close { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: none; border: 1px solid #e0e0e0; font-size: 18px; cursor: pointer; }
     .mobile-nav-links { flex: 1; display: flex; flex-direction: column; padding: 20px 0; }
-    .mobile-nav-links a {
-      font-size: 14px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
-      color: var(--black); text-decoration: none; padding: 20px 28px;
-      border-bottom: 1px solid #f0f0f0;
-      display: flex; align-items: center; justify-content: space-between;
-    }
+    .mobile-nav-links a { font-size: 14px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--black); text-decoration: none; padding: 20px 28px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; justify-content: space-between; }
     .mobile-nav-links a::after { content: '→'; font-size: 16px; color: var(--ink-mute); }
     .mobile-nav-footer { padding: 28px; border-top: 1px solid var(--hairline); }
-    .mobile-nav-footer a {
-      display: block; text-align: center; font-size: 11px; font-weight: 700;
-      letter-spacing: 2px; text-transform: uppercase; color: var(--white);
-      background: var(--black); padding: 16px; text-decoration: none;
-    }
+    .mobile-nav-footer a { display: block; text-align: center; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); background: var(--black); padding: 16px; text-decoration: none; }
 
     /* ─── PAGE HERO ─────────────────────────────────────────── */
     .page-hero {
       padding-top: 92px; min-height: 45vh;
       position: relative; overflow: hidden;
-      display: flex; align-items: flex-end;
-      background: var(--black);
+      display: flex; align-items: flex-end; background: var(--black);
     }
     .page-hero-bg {
       position: absolute; inset: 0;
       background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1920&q=90');
-      background-size: cover; background-position: center;
-      opacity: 0.4;
+      background-size: cover; background-position: center; opacity: 0.45;
     }
     .page-hero-grain {
       position: absolute; inset: 0;
@@ -102,54 +78,37 @@
       opacity: 0.12; mix-blend-mode: overlay;
     }
     .page-hero-content { position: relative; z-index: 2; padding: 60px 80px; }
-    .page-eyebrow {
-      font-size: 10px; font-weight: 400; letter-spacing: 4px;
-      text-transform: uppercase; color: var(--white-mute); margin-bottom: 16px;
-    }
-    .page-title {
-      font-size: clamp(40px, 6vw, 80px); font-weight: 900;
-      line-height: 0.95; letter-spacing: 1px;
-      text-transform: uppercase; color: var(--white); margin-bottom: 20px;
-    }
-    .page-intro {
-      font-size: 14px; font-weight: 300; line-height: 1.8;
-      color: rgba(255,255,255,0.6); max-width: 500px;
-    }
+    .page-eyebrow { font-size: 10px; font-weight: 400; letter-spacing: 4px; text-transform: uppercase; color: var(--white-mute); margin-bottom: 16px; }
+    .page-title { font-size: clamp(40px, 6vw, 80px); font-weight: 900; line-height: 0.95; letter-spacing: 1px; text-transform: uppercase; color: var(--white); }
 
     /* ─── FILTER BAR ────────────────────────────────────────── */
     .filter-bar {
-      border-bottom: 1px solid var(--hairline);
-      padding: 0 80px;
+      border-bottom: 1px solid var(--hairline); padding: 0 80px;
       display: flex; align-items: center; justify-content: space-between;
       overflow-x: auto; scrollbar-width: none;
     }
     .filter-bar::-webkit-scrollbar { display: none; }
     .filter-tabs { display: flex; }
     .filter-btn {
-      font-size: 10px; font-weight: 700; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--ink-mute);
-      background: none; border: none; border-bottom: 2px solid transparent;
-      padding: 20px 24px; cursor: pointer; white-space: nowrap;
-      transition: color 0.3s, border-color 0.3s;
+      font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--ink-mute); background: none; border: none;
+      border-bottom: 2px solid transparent; padding: 20px 24px;
+      cursor: pointer; white-space: nowrap; transition: color 0.3s, border-color 0.3s;
     }
     .filter-btn.active, .filter-btn:hover { color: var(--black); border-bottom-color: var(--black); }
-    .results-count {
-      font-size: 10px; font-weight: 400; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--ink-mute); white-space: nowrap;
-    }
+    .results-count { font-size: 10px; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-mute); white-space: nowrap; }
 
     /* ─── SITES GRID ────────────────────────────────────────── */
-    .sites-section { padding: 0; }
+    .sites-section { padding: 40px 0 0; }
     .sites-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      padding: 0 24px 24px;
     }
-
-    /* ─── SITE CARD ─────────────────────────────────────────── */
     .site-card {
       position: relative; overflow: hidden;
-      aspect-ratio: 1/1; background: #f0f0f0; cursor: pointer;
+      aspect-ratio: 4/5; background: #f0f0f0; cursor: pointer;
     }
     .site-card img {
       width: 100%; height: 100%; object-fit: cover;
@@ -158,95 +117,49 @@
     .site-card:hover img { transform: scale(1.05); }
     .site-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.93) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+      background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
       display: flex; flex-direction: column; justify-content: flex-end;
-      padding: 36px; transition: background 0.4s;
+      padding: 32px; transition: background 0.4s;
     }
     .site-card:hover .site-overlay {
-      background: linear-gradient(to top, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.1) 100%);
+      background: linear-gradient(to top, rgba(0,0,0,0.97) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.1) 100%);
     }
     .site-tag {
-      font-size: 9px; font-weight: 700; letter-spacing: 3px;
-      text-transform: uppercase; color: var(--white);
-      border: 1px solid rgba(255,255,255,0.5);
-      padding: 5px 12px; display: inline-block;
-      width: fit-content; margin-bottom: 12px;
+      font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--white); border: 1px solid rgba(255,255,255,0.5);
+      padding: 5px 12px; display: inline-block; width: fit-content; margin-bottom: 12px;
     }
     .site-name {
-      font-size: 22px; font-weight: 900; line-height: 1.05;
-      letter-spacing: -0.2px; text-transform: uppercase;
-      color: var(--white); margin-bottom: 6px;
+      font-size: 20px; font-weight: 900; line-height: 1.05;
+      letter-spacing: -0.2px; text-transform: uppercase; color: var(--white); margin-bottom: 6px;
     }
-    .site-location {
-      font-size: 10px; font-weight: 400; letter-spacing: 2px;
-      text-transform: uppercase; color: rgba(255,255,255,0.6);
-      margin-bottom: 14px;
-    }
-    .site-price {
-      font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 14px;
-    }
+    .site-location { font-size: 10px; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 12px; }
+    .site-price { font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 12px; }
     .site-meta {
-      display: flex; gap: 16px; flex-wrap: wrap;
+      display: flex; gap: 14px; flex-wrap: wrap;
       font-size: 10px; font-weight: 500; letter-spacing: 1px;
       text-transform: uppercase; color: rgba(255,255,255,0.5);
-      padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.15);
+      padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.15);
     }
     .site-cta {
-      display: inline-block; font-size: 10px; font-weight: 700;
-      letter-spacing: 2px; text-transform: uppercase;
-      color: var(--black); background: var(--white);
-      padding: 12px 20px; text-decoration: none;
-      width: fit-content; margin-top: 16px;
-      opacity: 0; transform: translateY(8px);
-      transition: opacity 0.3s, transform 0.3s;
+      display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--black); background: var(--white);
+      padding: 12px 20px; text-decoration: none; width: fit-content; margin-top: 14px;
+      opacity: 0; transform: translateY(8px); transition: opacity 0.3s, transform 0.3s;
     }
     .site-card:hover .site-cta { opacity: 1; transform: translateY(0); }
 
-    /* ─── BUYER TYPES BAND ──────────────────────────────────── */
-    .buyer-band {
-      border-top: 1px solid var(--hairline);
-      display: grid; grid-template-columns: repeat(3, 1fr);
-    }
-    .buyer-item {
-      padding: 56px 48px;
-      border-right: 1px solid var(--hairline);
-    }
-    .buyer-item:last-child { border-right: none; }
-    .buyer-num {
-      font-size: 11px; font-weight: 700; letter-spacing: 3px;
-      text-transform: uppercase; color: var(--ink-mute); margin-bottom: 24px;
-    }
-    .buyer-title {
-      font-size: 18px; font-weight: 900; text-transform: uppercase;
-      letter-spacing: -0.2px; color: var(--black); margin-bottom: 16px;
-    }
-    .buyer-body {
-      font-size: 13px; font-weight: 300; line-height: 1.8; color: var(--ink-mute);
-    }
-
-    /* ─── CTA BAND ──────────────────────────────────────────── */
-    .cta-band {
+    /* ─── ENQUIRE BAND ──────────────────────────────────────── */
+    .enquire-band {
       background: var(--black); padding: 80px;
       display: flex; align-items: center; justify-content: space-between; gap: 40px;
     }
-    .cta-band h2 {
-      font-size: clamp(28px, 3.5vw, 48px); font-weight: 900;
-      line-height: 0.95; letter-spacing: 1px;
-      text-transform: uppercase; color: var(--white);
-    }
-    .cta-band p { font-size: 13px; font-weight: 300; line-height: 1.8; color: var(--ink-mute); margin-top: 16px; max-width: 400px; }
-    .cta-actions { display: flex; gap: 16px; flex-shrink: 0; }
-    .btn-white {
-      font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-      color: var(--black); background: var(--white); border: 1px solid var(--white);
-      padding: 14px 28px; text-decoration: none; transition: all 0.3s;
-    }
+    .enquire-band h2 { font-size: clamp(28px, 3.5vw, 48px); font-weight: 900; line-height: 0.95; letter-spacing: 1px; text-transform: uppercase; color: var(--white); }
+    .enquire-band p { font-size: 13px; font-weight: 300; line-height: 1.8; color: var(--ink-mute); margin-top: 16px; max-width: 400px; }
+    .enquire-actions { display: flex; gap: 16px; flex-shrink: 0; }
+    .btn-white { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--black); background: var(--white); border: 1px solid var(--white); padding: 14px 28px; text-decoration: none; transition: all 0.3s; }
     .btn-white:hover { background: transparent; color: var(--white); }
-    .btn-ghost-white {
-      font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-      color: var(--white); background: transparent; border: 1px solid rgba(255,255,255,0.3);
-      padding: 14px 28px; text-decoration: none; transition: all 0.3s;
-    }
+    .btn-ghost-white { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); background: transparent; border: 1px solid rgba(255,255,255,0.3); padding: 14px 28px; text-decoration: none; transition: all 0.3s; }
     .btn-ghost-white:hover { border-color: var(--white); }
 
     /* ─── FOOTER ──────────────────────────────────────────────── */
@@ -258,8 +171,6 @@
     /* ─── REVEAL ──────────────────────────────────────────────── */
     .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
 
     /* ─── RESPONSIVE ──────────────────────────────────────────── */
     @media (max-width: 1024px) {
@@ -268,9 +179,8 @@
       .hamburger { display: flex; }
       .page-hero-content { padding: 48px 28px; }
       .filter-bar { padding: 0 28px; }
-      .buyer-band { grid-template-columns: 1fr; }
-      .buyer-item { border-right: none; border-bottom: 1px solid var(--hairline); padding: 40px 28px; }
-      .cta-band { padding: 60px 28px; flex-direction: column; align-items: flex-start; }
+      .sites-grid { grid-template-columns: repeat(2, 1fr); }
+      .enquire-band { padding: 60px 28px; flex-direction: column; align-items: flex-start; }
       footer { padding: 40px 28px 28px; }
     }
     @media (max-width: 640px) {
@@ -278,19 +188,15 @@
       .nav-logo img { height: 52px !important; }
       .page-hero-content { padding: 36px 24px; }
       .filter-bar { padding: 0 16px; }
-      .sites-grid { grid-template-columns: 1fr; }
-      .site-overlay { padding: 24px; }
-      .cta-band { padding: 48px 24px; }
-      .cta-actions { flex-direction: column; width: 100%; }
+      .sites-grid { grid-template-columns: 1fr; padding: 0 16px 16px; }
+      .site-cta { opacity: 1; transform: none; }
+      .enquire-band { padding: 48px 24px; }
+      .enquire-actions { flex-direction: column; width: 100%; }
       .btn-white, .btn-ghost-white { text-align: center; }
       footer { padding: 32px 24px; }
       .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
-      .site-cta { opacity: 1; transform: none; }
     }
-    @media (hover: none) and (pointer: coarse) {
-      .site-cta { opacity: 1; transform: none; }
-      body { cursor: auto; } a, button { cursor: pointer; }
-    }
+    @media (hover: none) and (pointer: coarse) { .site-cta { opacity: 1; transform: none; } body { cursor: auto; } a, button { cursor: pointer; } }
   </style>
 </head>
 <body>
@@ -316,7 +222,7 @@
 <!-- NAV -->
 <nav>
   <a href="index.html" class="nav-logo">
-    <img src="logo.png" alt="Innovate Property Group" style="height:72px; width:auto;" />
+    <img src="logo.png" alt="Innovate Property Group" style="height:72px;width:auto;" />
   </a>
   <ul class="nav-links">
     <li><a href="about.html">About</a></li>
@@ -326,9 +232,7 @@
     <li><a href="index.html#location">Illawarra</a></li>
   </ul>
   <a href="index.html#contact" class="nav-cta">Enquire</a>
-  <button class="hamburger" onclick="openMobileNav()">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></button>
 </nav>
 
 <!-- HERO -->
@@ -338,7 +242,6 @@
   <div class="page-hero-content">
     <p class="page-eyebrow">Innovate Property Group</p>
     <h1 class="page-title">DEVELOPMENT<br>SITES</h1>
-    <p class="page-intro">Dual-occ blocks to large-scale residential land — we source and sell development sites across the Illawarra before they reach the open market.</p>
   </div>
 </div>
 
@@ -365,9 +268,7 @@
         <div class="site-name">Escarpment Ridge</div>
         <div class="site-location">Bulli, NSW</div>
         <div class="site-price">$4,800,000</div>
-        <div class="site-meta">
-          <span>3.2 Ha</span><span>R2 Zoning</span><span>DA Potential 28+ Lots</span>
-        </div>
+        <div class="site-meta"><span>3.2 Ha</span><span>R2 Zoning</span><span>28+ Lots</span></div>
         <a href="index.html#contact" class="site-cta">Enquire</a>
       </div>
     </div>
@@ -379,9 +280,7 @@
         <div class="site-name">Lawrence Street Site</div>
         <div class="site-location">Wollongong, NSW</div>
         <div class="site-price">$1,950,000</div>
-        <div class="site-meta">
-          <span>1,420 m²</span><span>R3 Zoning</span><span>6–8 Townhouses</span>
-        </div>
+        <div class="site-meta"><span>1,420 m²</span><span>R3 Zoning</span><span>6–8 Townhouses</span></div>
         <a href="index.html#contact" class="site-cta">Enquire</a>
       </div>
     </div>
@@ -393,9 +292,7 @@
         <div class="site-name">Thirroul Corner Block</div>
         <div class="site-location">Thirroul, NSW</div>
         <div class="site-price">$1,100,000</div>
-        <div class="site-meta">
-          <span>810 m²</span><span>R2 Zoning</span><span>Corner Block</span>
-        </div>
+        <div class="site-meta"><span>810 m²</span><span>R2 Zoning</span><span>Corner Block</span></div>
         <a href="index.html#contact" class="site-cta">Enquire</a>
       </div>
     </div>
@@ -407,9 +304,7 @@
         <div class="site-name">Helensburgh Acreage</div>
         <div class="site-location">Helensburgh, NSW</div>
         <div class="site-price">$2,300,000</div>
-        <div class="site-meta">
-          <span>8.4 Ha</span><span>RU4 Zoning</span><span>Subdivision Potential</span>
-        </div>
+        <div class="site-meta"><span>8.4 Ha</span><span>RU4 Zoning</span><span>Subdivision Potential</span></div>
         <a href="index.html#contact" class="site-cta">Enquire</a>
       </div>
     </div>
@@ -421,9 +316,7 @@
         <div class="site-name">Fairy Meadow Site</div>
         <div class="site-location">Fairy Meadow, NSW</div>
         <div class="site-price">$2,650,000</div>
-        <div class="site-meta">
-          <span>2,100 m²</span><span>R3 Zoning</span><span>10–12 Townhouses</span>
-        </div>
+        <div class="site-meta"><span>2,100 m²</span><span>R3 Zoning</span><span>10–12 Townhouses</span></div>
         <a href="index.html#contact" class="site-cta">Enquire</a>
       </div>
     </div>
@@ -435,9 +328,7 @@
         <div class="site-name">Corrimal Flat Block</div>
         <div class="site-location">Corrimal, NSW</div>
         <div class="site-price">$870,000</div>
-        <div class="site-meta">
-          <span>695 m²</span><span>R2 Zoning</span><span>Flat Battleaxe</span>
-        </div>
+        <div class="site-meta"><span>695 m²</span><span>R2 Zoning</span><span>Flat Battleaxe</span></div>
         <a href="index.html#contact" class="site-cta">Enquire</a>
       </div>
     </div>
@@ -449,9 +340,7 @@
         <div class="site-name">Shellharbour Land</div>
         <div class="site-location">Shellharbour, NSW</div>
         <div class="site-price">$7,200,000</div>
-        <div class="site-meta">
-          <span>6.8 Ha</span><span>R2 Zoning</span><span>DA Approved 42 Lots</span>
-        </div>
+        <div class="site-meta"><span>6.8 Ha</span><span>R2 Zoning</span><span>DA Approved 42 Lots</span></div>
         <a href="index.html#contact" class="site-cta">Enquire</a>
       </div>
     </div>
@@ -463,9 +352,7 @@
         <div class="site-name">Dapto Vacant Land</div>
         <div class="site-location">Dapto, NSW</div>
         <div class="site-price">$980,000</div>
-        <div class="site-meta">
-          <span>1.1 Ha</span><span>RU4 Zoning</span><span>Services Connected</span>
-        </div>
+        <div class="site-meta"><span>1.1 Ha</span><span>RU4 Zoning</span><span>Services Connected</span></div>
         <a href="index.html#contact" class="site-cta">Enquire</a>
       </div>
     </div>
@@ -473,32 +360,13 @@
   </div>
 </div>
 
-<!-- BUYER TYPES -->
-<div class="buyer-band">
-  <div class="buyer-item reveal">
-    <div class="buyer-num">Builders</div>
-    <div class="buyer-title">Boutique &amp;<br>Volume Builders</div>
-    <p class="buyer-body">From duplex sites to 40-lot subdivisions — we source sites that match your build program and budget, with full planning information upfront.</p>
-  </div>
-  <div class="buyer-item reveal reveal-delay-1">
-    <div class="buyer-num">Developers</div>
-    <div class="buyer-title">Residential<br>Developers</div>
-    <p class="buyer-body">Access off-market opportunities across the Illawarra's growth corridors before they reach the open market. We bring sites to you first.</p>
-  </div>
-  <div class="buyer-item reveal reveal-delay-2">
-    <div class="buyer-num">Investors</div>
-    <div class="buyer-title">Land<br>Investors</div>
-    <p class="buyer-body">Secure land in one of NSW's fastest-growing regions. We identify high-upside parcels with subdivision or rezoning potential.</p>
-  </div>
-</div>
-
-<!-- CTA BAND -->
-<div class="cta-band">
+<!-- ENQUIRE BAND -->
+<div class="enquire-band">
   <div>
     <h2>LOOKING FOR<br>SOMETHING<br>SPECIFIC?</h2>
     <p>Tell us your site criteria and we'll search our off-market network to find what you need.</p>
   </div>
-  <div class="cta-actions">
+  <div class="enquire-actions">
     <a href="index.html#contact" class="btn-white">Submit Site Brief</a>
     <a href="index.html#contact" class="btn-ghost-white">Speak to an Agent</a>
   </div>
