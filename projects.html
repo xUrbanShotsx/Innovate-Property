@@ -10,319 +10,162 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --black: #000000;
-      --black-soft: #0a0a0a;
-      --white: #ffffff;
-      --white-mute: #f0f0fa;
-      --hairline-dark: #2a2a2f;
-      --ink-mute: #5a5a5f;
+      --black: #000000; --black-soft: #0a0a0a;
+      --white: #ffffff; --white-mute: #f0f0fa;
+      --hairline: #e8e8e8; --ink-mute: #5a5a5f;
     }
     html { scroll-behavior: smooth; }
-    body {
-      background: var(--white);
-      color: var(--black);
-      font-family: 'Inter', Arial, sans-serif;
-      overflow-x: hidden;
-    }
+    body { background: var(--black); color: var(--white); font-family: 'Inter', Arial, sans-serif; overflow-x: hidden; cursor: none; }
 
-    /* ─── NAV ─────────────────────────────────────────── */
+    /* ─── CURSOR ────────────────────────────────────── */
+    #cursor { position: fixed; top: 0; left: 0; z-index: 9999; width: 12px; height: 12px; border-radius: 50%; background: var(--white); pointer-events: none; transform: translate(-50%,-50%); mix-blend-mode: difference; }
+    #cursor-ring { position: fixed; top: 0; left: 0; z-index: 9998; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.4); pointer-events: none; transform: translate(-50%,-50%); transition: transform 0.4s cubic-bezier(0.23,1,0.32,1); }
+    @media (hover: none) and (pointer: coarse) { #cursor, #cursor-ring { display: none; } body { cursor: auto; } a, button { cursor: pointer; } }
+
+    /* ─── NAV ───────────────────────────────────────── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 10px 48px;
-      background: var(--white);
-      border-bottom: 1px solid #e0e0e0;
+      padding: 10px 48px; background: var(--white); border-bottom: 1px solid var(--hairline);
     }
     .nav-logo img { height: 72px; width: auto; display: block; }
     .nav-links { display: flex; gap: 40px; list-style: none; align-items: center; }
-    .nav-links a {
-      font-size: 11px; font-weight: 500; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--ink-mute);
-      text-decoration: none; transition: color 0.3s;
-      position: relative;
-    }
-    .nav-links a::after {
-      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
-      height: 1px; background: var(--black);
-      transform: scaleX(0); transform-origin: left;
-      transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
-    }
-    .nav-links a:hover { color: var(--black); }
-    .nav-links a:hover::after { transform: scaleX(1); }
-    .nav-cta {
-      font-size: 11px; font-weight: 700; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--white);
-      background: var(--black); border: 1px solid var(--black);
-      padding: 12px 24px; text-decoration: none;
-      transition: background 0.3s, color 0.3s;
-    }
+    .nav-links a { font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-mute); text-decoration: none; transition: color 0.3s; position: relative; }
+    .nav-links a.active, .nav-links a:hover { color: var(--black); }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px; background: var(--black); transform: scaleX(0); transform-origin: left; transition: transform 0.4s cubic-bezier(0.23,1,0.32,1); }
+    .nav-links a.active::after, .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-cta { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); background: var(--black); border: 1px solid var(--black); padding: 12px 24px; text-decoration: none; transition: all 0.3s; }
     .nav-cta:hover { background: var(--white); color: var(--black); }
     .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
     .hamburger span { width: 26px; height: 1px; background: var(--black); display: block; }
 
-    /* ─── MOBILE NAV ──────────────────────────────────── */
-    .mobile-nav {
-      position: fixed; inset: 0; z-index: 999;
-      background: var(--white);
-      display: flex; flex-direction: column;
-      transform: translateX(100%);
-      transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
-    }
+    /* ─── MOBILE NAV ────────────────────────────────── */
+    .mobile-nav { position: fixed; inset: 0; z-index: 999; background: var(--white); display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.23,1,0.32,1); }
     .mobile-nav.open { transform: translateX(0); }
-    .mobile-nav-header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 20px 28px; border-bottom: 1px solid #e8e8e8;
-    }
+    .mobile-nav-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 28px; border-bottom: 1px solid var(--hairline); }
     .mobile-nav-header img { height: 40px; width: auto; }
-    .mobile-nav-close {
-      width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
-      background: none; border: 1px solid #e0e0e0; font-size: 18px; color: var(--black); cursor: pointer;
-    }
+    .mobile-nav-close { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: none; border: 1px solid #e0e0e0; font-size: 18px; cursor: pointer; }
     .mobile-nav-links { flex: 1; display: flex; flex-direction: column; padding: 20px 0; }
-    .mobile-nav-links a {
-      font-size: 14px; font-weight: 600; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--black);
-      text-decoration: none; padding: 20px 28px;
-      border-bottom: 1px solid #f0f0f0;
-      display: flex; align-items: center; justify-content: space-between;
-    }
+    .mobile-nav-links a { font-size: 14px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--black); text-decoration: none; padding: 20px 28px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; justify-content: space-between; }
     .mobile-nav-links a::after { content: '→'; font-size: 16px; color: var(--ink-mute); }
-    .mobile-nav-footer { padding: 28px; border-top: 1px solid #e8e8e8; }
-    .mobile-nav-footer a {
-      display: block; text-align: center;
-      font-size: 11px; font-weight: 700; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--white);
-      background: var(--black); padding: 16px; text-decoration: none;
-    }
+    .mobile-nav-footer { padding: 28px; border-top: 1px solid var(--hairline); }
+    .mobile-nav-footer a { display: block; text-align: center; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); background: var(--black); padding: 16px; text-decoration: none; }
 
-    /* ─── PAGE HERO ───────────────────────────────────── */
-    .page-hero {
-      padding-top: 92px;
-      background: var(--black);
-      position: relative; overflow: hidden;
-      min-height: 50vh;
+    /* ─── STICKY STACK ───────────────────────────────── */
+    #projectStack { height: calc(100vh * 11); } /* 11 projects */
+
+    .project-section {
+      position: sticky; top: 0;
+      height: 100vh; overflow: hidden;
       display: flex; align-items: flex-end;
     }
-    .page-hero-bg {
+    .project-section img {
       position: absolute; inset: 0;
-      background-image: url('https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1920&q=90');
-      background-size: cover; background-position: center;
-      opacity: 0.5;
-    }
-    .page-hero-content {
-      position: relative; z-index: 2;
-      padding: 60px 80px;
-    }
-    .page-eyebrow {
-      font-size: 10px; font-weight: 400; letter-spacing: 4px;
-      text-transform: uppercase; color: var(--white-mute);
-      margin-bottom: 16px;
-    }
-    .page-title {
-      font-size: clamp(40px, 6vw, 80px);
-      font-weight: 900; line-height: 0.95;
-      letter-spacing: 1px; text-transform: uppercase;
-      color: var(--white);
-    }
-
-    /* ─── FILTER TABS ─────────────────────────────────── */
-    .filter-bar {
-      border-bottom: 1px solid #e8e8e8;
-      padding: 0 80px;
-      display: flex; gap: 0; overflow-x: auto;
-      scrollbar-width: none;
-    }
-    .filter-bar::-webkit-scrollbar { display: none; }
-    .filter-btn {
-      font-size: 10px; font-weight: 700; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--ink-mute);
-      background: none; border: none; border-bottom: 2px solid transparent;
-      padding: 20px 24px; cursor: pointer; white-space: nowrap;
-      transition: color 0.3s, border-color 0.3s;
-    }
-    .filter-btn.active, .filter-btn:hover { color: var(--black); border-bottom-color: var(--black); }
-
-    /* ─── PROJECTS GRID ───────────────────────────────── */
-    .projects-section { padding: 40px 0 0; }
-    .section-label {
-      font-size: 10px; font-weight: 700; letter-spacing: 3px;
-      text-transform: uppercase; color: var(--ink-mute);
-      margin-top: 40px;
-      margin-bottom: 16px;
-      padding: 0 40px 16px;
-      border-bottom: 1px solid #e8e8e8;
-    }
-    .section-label:first-child { margin-top: 0; }
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2px;
-      margin-bottom: 0;
-    }
-    .project-card {
-      position: relative; overflow: hidden;
-      aspect-ratio: 1/1;
-      background: #f0f0f0;
-      cursor: pointer;
-    }
-    .project-card.featured {
-      grid-column: span 1;
-      aspect-ratio: 1/1;
-    }
-    .project-card img {
       width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.8s cubic-bezier(0.23,1,0.32,1);
-      display: block;
+      transition: transform 8s ease;
     }
-    .project-card:hover img { transform: scale(1.05); }
-    .project-card-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
-      display: flex; flex-direction: column; justify-content: flex-end;
-      padding: 32px;
-      transition: background 0.4s;
+    .project-section:hover img { transform: scale(1.03); }
+    .project-grain {
+      position: absolute; inset: 0; z-index: 1;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.12; mix-blend-mode: overlay; pointer-events: none;
     }
-    .project-card:hover .project-card-overlay {
-      background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.1) 100%);
+    .project-gradient {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(to bottom, rgba(0,0,0,0) 30%, rgba(0,0,0,0.97) 100%);
     }
-    .project-status {
-      font-size: 9px; font-weight: 700; letter-spacing: 3px;
-      text-transform: uppercase;
-      border: 1px solid rgba(255,255,255,0.5);
-      color: var(--white); padding: 5px 12px;
-      display: inline-block; width: fit-content;
-      margin-bottom: 12px;
+    .project-info {
+      position: relative; z-index: 2;
+      padding: 0 80px 64px;
+      display: flex; align-items: flex-end; justify-content: space-between;
+      width: 100%; gap: 40px;
     }
-    .project-status.ready { border-color: var(--white); }
-    .project-status.offplan { border-color: rgba(255,255,255,0.4); }
+    .project-left { max-width: 600px; }
+    .project-badge {
+      font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--white); border: 1px solid rgba(255,255,255,0.4);
+      padding: 5px 14px; display: inline-block; margin-bottom: 16px;
+    }
+    .project-badge.available { border-color: rgba(255,255,255,0.7); }
+    .project-badge.sold { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.5); }
     .project-name {
-      font-size: 20px; font-weight: 900; line-height: 1.1;
-      letter-spacing: -0.2px; text-transform: uppercase;
-      color: var(--white); margin-bottom: 6px;
+      font-size: clamp(32px, 4.5vw, 60px); font-weight: 900; line-height: 0.95;
+      letter-spacing: -0.5px; text-transform: uppercase; color: var(--white);
+      margin-bottom: 10px;
     }
-    .project-card.featured .project-name { font-size: 28px; }
-    .project-location {
-      font-size: 10px; font-weight: 400; letter-spacing: 2px;
-      text-transform: uppercase; color: rgba(255,255,255,0.6);
-      margin-bottom: 20px;
+    .project-location { font-size: 11px; font-weight: 400; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 20px; }
+    .project-meta { display: flex; gap: 24px; font-size: 10px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.4); padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1); }
+    .project-right { display: flex; flex-direction: column; align-items: flex-end; gap: 16px; flex-shrink: 0; }
+    .project-price { font-size: 22px; font-weight: 900; color: var(--white); white-space: nowrap; }
+    .btn-project {
+      font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--black); background: var(--white); padding: 14px 28px;
+      text-decoration: none; display: block; text-align: center; white-space: nowrap;
+      transition: background 0.3s, color 0.3s;
     }
-    .project-meta {
-      display: flex; gap: 20px;
-      font-size: 10px; font-weight: 500; letter-spacing: 1px;
-      text-transform: uppercase; color: rgba(255,255,255,0.5);
-      padding-top: 16px;
-      border-top: 1px solid rgba(255,255,255,0.15);
+    .btn-project:hover { background: transparent; color: var(--white); border: 1px solid var(--white); }
+    .btn-project-ghost {
+      font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--white); background: transparent; border: 1px solid rgba(255,255,255,0.4);
+      padding: 14px 28px; text-decoration: none; display: block; text-align: center; white-space: nowrap;
+      transition: border-color 0.3s;
     }
-    .project-price {
-      font-size: 14px; font-weight: 700; color: var(--white);
-      margin-bottom: 16px;
-    }
-    .project-cta {
-      display: inline-block;
-      font-size: 10px; font-weight: 700; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--black);
-      background: var(--white); padding: 12px 20px;
-      text-decoration: none;
-      opacity: 0; transform: translateY(8px);
-      transition: opacity 0.3s, transform 0.3s;
-      width: fit-content; margin-top: 16px;
-    }
-    .project-card:hover .project-cta { opacity: 1; transform: translateY(0); }
+    .btn-project-ghost:hover { border-color: var(--white); }
 
-    /* ─── REGISTER BAND ───────────────────────────────── */
-    .register-band {
-      background: var(--black);
-      padding: 80px;
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 40px;
+    /* ─── SCROLL COUNTER ────────────────────────────── */
+    .scroll-counter {
+      position: fixed; right: 48px; bottom: 48px; z-index: 500;
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: rgba(255,255,255,0.4);
     }
-    .register-text h2 {
-      font-size: clamp(28px, 3vw, 44px);
-      font-weight: 900; letter-spacing: 1px;
-      text-transform: uppercase; color: var(--white);
-      line-height: 0.95; margin-bottom: 16px;
-    }
-    .register-text p {
-      font-size: 13px; font-weight: 300; line-height: 1.7;
-      color: var(--ink-mute); max-width: 400px;
-    }
-    .register-actions { display: flex; gap: 16px; flex-shrink: 0; }
-    .btn-white {
-      font-size: 10px; font-weight: 700; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--black);
-      background: var(--white); border: 1px solid var(--white);
-      padding: 14px 28px; text-decoration: none;
-      transition: all 0.3s;
-    }
-    .btn-white:hover { background: transparent; color: var(--white); }
-    .btn-outline-white {
-      font-size: 10px; font-weight: 700; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--white);
-      background: transparent; border: 1px solid rgba(255,255,255,0.4);
-      padding: 14px 28px; text-decoration: none;
-      transition: all 0.3s;
-    }
-    .btn-outline-white:hover { border-color: var(--white); }
+    .scroll-counter span { color: var(--white); }
 
-    /* ─── FOOTER ──────────────────────────────────────── */
-    footer {
-      background: var(--black-soft);
-      border-top: 1px solid var(--hairline-dark);
-      padding: 48px 80px 32px;
+    /* ─── CTA BAND ──────────────────────────────────── */
+    .cta-band {
+      background: var(--white); padding: 80px;
+      display: flex; align-items: center; justify-content: space-between; gap: 40px;
     }
-    .footer-bottom {
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .footer-copy {
-      font-size: 11px; font-weight: 300; color: var(--ink-mute);
-    }
+    .cta-band h2 { font-size: clamp(28px, 3.5vw, 48px); font-weight: 900; line-height: 0.95; letter-spacing: 1px; text-transform: uppercase; color: var(--black); }
+    .cta-band p { font-size: 13px; font-weight: 300; line-height: 1.8; color: var(--ink-mute); margin-top: 16px; max-width: 400px; }
+    .cta-actions { display: flex; gap: 16px; flex-shrink: 0; }
+    .btn-black { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); background: var(--black); border: 1px solid var(--black); padding: 14px 28px; text-decoration: none; transition: all 0.3s; }
+    .btn-black:hover { background: var(--white); color: var(--black); }
+    .btn-outline-black { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--black); background: transparent; border: 1px solid #ccc; padding: 14px 28px; text-decoration: none; transition: all 0.3s; }
+    .btn-outline-black:hover { border-color: var(--black); }
+
+    /* ─── FOOTER ─────────────────────────────────────── */
+    footer { background: var(--black-soft); border-top: 1px solid #1a1a1a; padding: 32px 80px; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 11px; font-weight: 300; color: var(--ink-mute); }
     .footer-logo img { height: 36px; width: auto; filter: invert(1); }
 
-    /* ─── REVEAL ──────────────────────────────────────── */
-    .reveal {
-      opacity: 0; transform: translateY(24px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-
-    /* ─── RESPONSIVE ──────────────────────────────────── */
+    /* ─── RESPONSIVE ─────────────────────────────────── */
     @media (max-width: 1024px) {
       nav { padding: 12px 24px; }
       .nav-links, .nav-cta { display: none; }
       .hamburger { display: flex; }
-      .page-hero-content { padding: 48px 28px; }
-      .filter-bar { padding: 0 28px; }
-      .projects-section { padding: 32px 0 0; }
-      .section-label { padding: 0 28px 16px; }
-      .projects-grid { grid-template-columns: repeat(2, 1fr); }
-      .project-card.featured { grid-column: span 1; }
-      .register-band { padding: 60px 28px; flex-direction: column; align-items: flex-start; }
-      footer { padding: 40px 28px 28px; }
+      .project-info { padding: 0 28px 48px; flex-direction: column; align-items: flex-start; gap: 24px; }
+      .project-right { align-items: flex-start; }
+      .scroll-counter { right: 24px; bottom: 24px; }
+      .cta-band { padding: 60px 28px; flex-direction: column; align-items: flex-start; }
+      footer { padding: 32px 28px; }
     }
     @media (max-width: 640px) {
       nav { padding: 10px 20px; }
       .nav-logo img { height: 52px !important; }
-      .page-hero-content { padding: 36px 24px; }
-      .filter-bar { padding: 0 20px; }
-      .projects-section { padding: 24px 0 0; }
-      .section-label { padding: 0 20px 14px; }
-      .projects-grid { grid-template-columns: 1fr; gap: 2px; }
-      .project-card.featured { grid-column: span 1; aspect-ratio: 1/1; }
-      .register-band { padding: 48px 24px; }
-      .register-actions { flex-direction: column; width: 100%; }
-      .btn-white, .btn-outline-white { text-align: center; }
-      footer { padding: 32px 24px; }
-      .footer-bottom { flex-direction: column; gap: 16px; }
-    }
-    @media (hover: none) and (pointer: coarse) {
-      .project-cta { opacity: 1; transform: none; }
+      .project-info { padding: 0 20px 36px; }
+      .project-name { font-size: clamp(24px, 7vw, 36px); }
+      .cta-band { padding: 48px 24px; }
+      .cta-actions { flex-direction: column; width: 100%; }
+      footer { padding: 28px 24px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
     }
   </style>
 </head>
 <body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
 
 <!-- MOBILE NAV -->
 <div class="mobile-nav" id="mobileNav">
@@ -331,11 +174,11 @@
     <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
   </div>
   <div class="mobile-nav-links">
-    <a href="index.html#vision">About</a>
-    <a href="index.html#properties">Properties</a>
-    <a href="index.html#developments">Development Sites</a>
+    <a href="about.html">About</a>
+    <a href="properties.html">Properties</a>
+    <a href="development-sites.html">Development Sites</a>
     <a href="projects.html">Projects</a>
-    <a href="index.html#location">Illawarra</a>
+    <a href="index.html#contact">Illawarra</a>
   </div>
   <div class="mobile-nav-footer">
     <a href="index.html#contact">Enquire Now</a>
@@ -345,202 +188,244 @@
 <!-- NAV -->
 <nav>
   <a href="index.html" class="nav-logo">
-    <img src="logo.png" alt="Innovate Property Group" style="height:72px; width:auto;" />
+    <img src="logo.png" alt="Innovate Property Group" style="height:72px;width:auto;" />
   </a>
   <ul class="nav-links">
     <li><a href="about.html">About</a></li>
-    <li><a href="index.html#properties">Properties</a></li>
-    <li><a href="index.html#developments">Development Sites</a></li>
-    <li><a href="projects.html" style="color:var(--black); font-weight:700;">Projects</a></li>
+    <li><a href="properties.html">Properties</a></li>
+    <li><a href="development-sites.html">Development Sites</a></li>
+    <li><a href="projects.html" class="active">Projects</a></li>
     <li><a href="index.html#location">Illawarra</a></li>
   </ul>
   <a href="index.html#contact" class="nav-cta">Enquire</a>
-  <button class="hamburger" onclick="openMobileNav()">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- PAGE HERO -->
-<div class="page-hero">
-  <div class="page-hero-bg"></div>
-  <div class="page-hero-content">
-    <p class="page-eyebrow">Innovate Property Group</p>
-    <h1 class="page-title">PROJECTS</h1>
-  </div>
-</div>
+<!-- SCROLL COUNTER -->
+<div class="scroll-counter"><span id="currentNum">1</span> / 11</div>
 
-<!-- FILTER BAR -->
-<div class="filter-bar">
-  <button class="filter-btn active" onclick="filterProjects('all', this)">All Projects</button>
-  <button class="filter-btn" onclick="filterProjects('available', this)">Available Projects</button>
-  <button class="filter-btn" onclick="filterProjects('sold', this)">Sold Projects</button>
-</div>
+<!-- STICKY PROJECT STACK -->
+<div id="projectStack" style="padding-top:92px;">
 
-<!-- PROJECTS -->
-<div class="projects-section">
-
-  <div class="section-label" id="labelCurrent">Current Releases</div>
-  <div class="projects-grid">
-
-    <!-- Featured -->
-    <div class="project-card featured reveal" data-type="available">
-      <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1200&q=85" alt="One Escarpment" loading="lazy" />
-      <div class="project-card-overlay">
-        <span class="project-status offplan">Off The Plan</span>
+  <!-- 1 -->
+  <div class="project-section" style="z-index:1;">
+    <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1920&q=90" alt="One Escarpment" />
+    <div class="project-grain"></div>
+    <div class="project-gradient"></div>
+    <div class="project-info">
+      <div class="project-left">
+        <span class="project-badge available">Off The Plan</span>
         <div class="project-name">One Escarpment Residences</div>
         <div class="project-location">Bulli, NSW</div>
+        <div class="project-meta"><span>23 Residences</span><span>Q3 2026</span><span>2 – 4 Bed</span></div>
+      </div>
+      <div class="project-right">
         <div class="project-price">From $1,850,000</div>
-        <div class="project-meta">
-          <span>23 Residences</span>
-          <span>Q3 2026</span>
-          <span>2 – 4 Bed</span>
-        </div>
-        <a href="index.html#contact" class="project-cta">Register Interest</a>
+        <a href="index.html#contact" class="btn-project">Register Interest</a>
+        <a href="index.html#contact" class="btn-project-ghost">Download Brochure</a>
       </div>
     </div>
-
-    <!-- Card -->
-    <div class="project-card reveal reveal-delay-1" data-type="available">
-      <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=85" alt="Coastal Quarter" loading="lazy" />
-      <div class="project-card-overlay">
-        <span class="project-status offplan">Off The Plan</span>
-        <div class="project-name">Coastal Quarter</div>
-        <div class="project-location">Thirroul, NSW</div>
-        <div class="project-price">From $1,200,000</div>
-        <div class="project-meta">
-          <span>14 Townhouses</span>
-          <span>Q1 2026</span>
-        </div>
-        <a href="index.html#contact" class="project-cta">Register Interest</a>
-      </div>
-    </div>
-
-    <!-- Card -->
-    <div class="project-card reveal reveal-delay-1" data-type="available">
-      <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=85" alt="Harbour Residences" loading="lazy" />
-      <div class="project-card-overlay">
-        <span class="project-status ready">Ready To Move In</span>
-        <div class="project-name">Harbour Residences</div>
-        <div class="project-location">Wollongong CBD</div>
-        <div class="project-price">From $980,000</div>
-        <div class="project-meta">
-          <span>8 Apartments</span>
-          <span>Immediate Settlement</span>
-        </div>
-        <a href="index.html#contact" class="project-cta">Enquire Now</a>
-      </div>
-    </div>
-
-    <!-- Card -->
-    <div class="project-card reveal reveal-delay-2" data-type="available">
-      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=85" alt="Escarpment Views" loading="lazy" />
-      <div class="project-card-overlay">
-        <span class="project-status offplan">Off The Plan</span>
-        <div class="project-name">Escarpment Views</div>
-        <div class="project-location">Austinmer, NSW</div>
-        <div class="project-price">From $2,100,000</div>
-        <div class="project-meta">
-          <span>6 Luxury Homes</span>
-          <span>Q4 2026</span>
-        </div>
-        <a href="index.html#contact" class="project-cta">Register Interest</a>
-      </div>
-    </div>
-
-    <!-- Card -->
-    <div class="project-card reveal reveal-delay-2" data-type="available">
-      <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=85" alt="Headland House" loading="lazy" />
-      <div class="project-card-overlay">
-        <span class="project-status ready">Ready To Move In</span>
-        <div class="project-name">Headland House</div>
-        <div class="project-location">Woonona, NSW</div>
-        <div class="project-price">$3,450,000</div>
-        <div class="project-meta">
-          <span>4 Bed</span>
-          <span>3 Bath</span>
-          <span>2 Car</span>
-        </div>
-        <a href="index.html#contact" class="project-cta">Enquire Now</a>
-      </div>
-    </div>
-
   </div>
 
-  <div class="section-label">Completed Developments</div>
-  <div class="projects-grid">
+  <!-- 2 -->
+  <div class="project-section" style="z-index:2;">
+    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=90" alt="Coastal Quarter" />
+    <div class="project-grain"></div>
+    <div class="project-gradient"></div>
+    <div class="project-info">
+      <div class="project-left">
+        <span class="project-badge available">Off The Plan</span>
+        <div class="project-name">Coastal Quarter</div>
+        <div class="project-location">Thirroul, NSW</div>
+        <div class="project-meta"><span>14 Townhouses</span><span>Q1 2026</span><span>3 – 4 Bed</span></div>
+      </div>
+      <div class="project-right">
+        <div class="project-price">From $1,200,000</div>
+        <a href="index.html#contact" class="btn-project">Register Interest</a>
+        <a href="index.html#contact" class="btn-project-ghost">Enquire</a>
+      </div>
+    </div>
+  </div>
 
-    <div class="project-card featured reveal" data-type="sold">
-      <img src="https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=1200&q=85" alt="Seacliff Estate" loading="lazy" />
-      <div class="project-card-overlay">
-        <span class="project-status ready">Completed — Sold Out</span>
+  <!-- 3 -->
+  <div class="project-section" style="z-index:3;">
+    <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1920&q=90" alt="Harbour Residences" />
+    <div class="project-grain"></div>
+    <div class="project-gradient"></div>
+    <div class="project-info">
+      <div class="project-left">
+        <span class="project-badge available">Ready To Move In</span>
+        <div class="project-name">Harbour Residences</div>
+        <div class="project-location">Wollongong CBD</div>
+        <div class="project-meta"><span>8 Apartments</span><span>Immediate Settlement</span><span>2 – 3 Bed</span></div>
+      </div>
+      <div class="project-right">
+        <div class="project-price">From $980,000</div>
+        <a href="index.html#contact" class="btn-project">Enquire Now</a>
+        <a href="index.html#contact" class="btn-project-ghost">View Floorplans</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="project-section" style="z-index:4;">
+    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=90" alt="Escarpment Views" />
+    <div class="project-grain"></div>
+    <div class="project-gradient"></div>
+    <div class="project-info">
+      <div class="project-left">
+        <span class="project-badge available">Off The Plan</span>
+        <div class="project-name">Escarpment Views</div>
+        <div class="project-location">Austinmer, NSW</div>
+        <div class="project-meta"><span>6 Luxury Homes</span><span>Q4 2026</span><span>4 – 5 Bed</span></div>
+      </div>
+      <div class="project-right">
+        <div class="project-price">From $2,100,000</div>
+        <a href="index.html#contact" class="btn-project">Register Interest</a>
+        <a href="index.html#contact" class="btn-project-ghost">Enquire</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="project-section" style="z-index:5;">
+    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=90" alt="Headland House" />
+    <div class="project-grain"></div>
+    <div class="project-gradient"></div>
+    <div class="project-info">
+      <div class="project-left">
+        <span class="project-badge available">Ready To Move In</span>
+        <div class="project-name">Headland House</div>
+        <div class="project-location">Woonona, NSW</div>
+        <div class="project-meta"><span>4 Bed</span><span>3 Bath</span><span>Immediate Settlement</span></div>
+      </div>
+      <div class="project-right">
+        <div class="project-price">$3,450,000</div>
+        <a href="index.html#contact" class="btn-project">Enquire Now</a>
+        <a href="index.html#contact" class="btn-project-ghost">Book Inspection</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6 — SOLD -->
+  <div class="project-section" style="z-index:6;">
+    <img src="https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=1920&q=90" alt="Seacliff Estate" />
+    <div class="project-grain"></div>
+    <div class="project-gradient"></div>
+    <div class="project-info">
+      <div class="project-left">
+        <span class="project-badge sold">Completed — Sold Out</span>
         <div class="project-name">Seacliff Estate</div>
         <div class="project-location">Stanwell Park, NSW</div>
         <div class="project-meta"><span>18 Residences</span><span>Completed 2024</span></div>
       </div>
+      <div class="project-right">
+        <div class="project-price" style="color:rgba(255,255,255,0.4);">Sold Out</div>
+      </div>
     </div>
+  </div>
 
-    <div class="project-card reveal reveal-delay-1" data-type="sold">
-      <img src="https://images.unsplash.com/photo-1571055107559-3e67626fa8be?w=800&q=85" alt="The Headlands" loading="lazy" />
-      <div class="project-card-overlay">
-        <span class="project-status ready">Completed — Sold Out</span>
+  <!-- 7 -->
+  <div class="project-section" style="z-index:7;">
+    <img src="https://images.unsplash.com/photo-1571055107559-3e67626fa8be?w=1920&q=90" alt="The Headlands" />
+    <div class="project-grain"></div>
+    <div class="project-gradient"></div>
+    <div class="project-info">
+      <div class="project-left">
+        <span class="project-badge sold">Completed — Sold Out</span>
         <div class="project-name">The Headlands</div>
         <div class="project-location">Bulli, NSW</div>
         <div class="project-meta"><span>10 Townhouses</span><span>Completed 2023</span></div>
       </div>
+      <div class="project-right">
+        <div class="project-price" style="color:rgba(255,255,255,0.4);">Sold Out</div>
+      </div>
     </div>
+  </div>
 
-    <div class="project-card reveal reveal-delay-1" data-type="sold">
-      <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=85" alt="Pacific Terraces" loading="lazy" />
-      <div class="project-card-overlay">
-        <span class="project-status ready">Completed — Sold Out</span>
+  <!-- 8 -->
+  <div class="project-section" style="z-index:8;">
+    <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1920&q=90" alt="Pacific Terraces" />
+    <div class="project-grain"></div>
+    <div class="project-gradient"></div>
+    <div class="project-info">
+      <div class="project-left">
+        <span class="project-badge sold">Completed — Sold Out</span>
         <div class="project-name">Pacific Terraces</div>
         <div class="project-location">Woonona, NSW</div>
         <div class="project-meta"><span>12 Terraces</span><span>Completed 2023</span></div>
       </div>
+      <div class="project-right">
+        <div class="project-price" style="color:rgba(255,255,255,0.4);">Sold Out</div>
+      </div>
     </div>
+  </div>
 
-    <div class="project-card reveal reveal-delay-2" data-type="sold">
-      <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=85" alt="Clifftop Collection" loading="lazy" />
-      <div class="project-card-overlay">
-        <span class="project-status ready">Completed — Sold Out</span>
+  <!-- 9 -->
+  <div class="project-section" style="z-index:9;">
+    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=90" alt="Clifftop Collection" />
+    <div class="project-grain"></div>
+    <div class="project-gradient"></div>
+    <div class="project-info">
+      <div class="project-left">
+        <span class="project-badge sold">Completed — Sold Out</span>
         <div class="project-name">Clifftop Collection</div>
         <div class="project-location">Thirroul, NSW</div>
         <div class="project-meta"><span>6 Luxury Homes</span><span>Completed 2022</span></div>
       </div>
+      <div class="project-right">
+        <div class="project-price" style="color:rgba(255,255,255,0.4);">Sold Out</div>
+      </div>
     </div>
+  </div>
 
-    <div class="project-card reveal reveal-delay-2" data-type="sold">
-      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=85" alt="Escarpment Rise" loading="lazy" />
-      <div class="project-card-overlay">
-        <span class="project-status ready">Completed — Sold Out</span>
+  <!-- 10 -->
+  <div class="project-section" style="z-index:10;">
+    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=90" alt="Escarpment Rise" />
+    <div class="project-grain"></div>
+    <div class="project-gradient"></div>
+    <div class="project-info">
+      <div class="project-left">
+        <span class="project-badge sold">Completed — Sold Out</span>
         <div class="project-name">Escarpment Rise</div>
         <div class="project-location">Austinmer, NSW</div>
         <div class="project-meta"><span>8 Residences</span><span>Completed 2022</span></div>
       </div>
+      <div class="project-right">
+        <div class="project-price" style="color:rgba(255,255,255,0.4);">Sold Out</div>
+      </div>
     </div>
+  </div>
 
-    <div class="project-card reveal reveal-delay-3" data-type="sold">
-      <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=85" alt="Harbour One" loading="lazy" />
-      <div class="project-card-overlay">
-        <span class="project-status ready">Completed — Sold Out</span>
+  <!-- 11 -->
+  <div class="project-section" style="z-index:11;">
+    <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1920&q=90" alt="Harbour One" />
+    <div class="project-grain"></div>
+    <div class="project-gradient"></div>
+    <div class="project-info">
+      <div class="project-left">
+        <span class="project-badge sold">Completed — Sold Out</span>
         <div class="project-name">Harbour One</div>
         <div class="project-location">Wollongong CBD</div>
         <div class="project-meta"><span>24 Apartments</span><span>Completed 2021</span></div>
       </div>
+      <div class="project-right">
+        <div class="project-price" style="color:rgba(255,255,255,0.4);">Sold Out</div>
+      </div>
     </div>
-
   </div>
+
 </div>
 
-<!-- REGISTER INTEREST BAND -->
-<div class="register-band reveal">
-  <div class="register-text">
+<!-- CTA BAND -->
+<div class="cta-band">
+  <div>
     <h2>GET PRIORITY<br>ACCESS</h2>
     <p>Register your interest to receive exclusive pre-release pricing, floor plans, and early buyer access before projects go to market.</p>
   </div>
-  <div class="register-actions">
-    <a href="index.html#contact" class="btn-white">Register Interest</a>
-    <a href="index.html#contact" class="btn-outline-white">Speak to an Agent</a>
+  <div class="cta-actions">
+    <a href="index.html#contact" class="btn-black">Register Interest</a>
+    <a href="index.html#contact" class="btn-outline-black">Speak to an Agent</a>
   </div>
 </div>
 
@@ -553,30 +438,37 @@
 </footer>
 
 <script>
-  /* ── MOBILE NAV ─────────────────────────────── */
+  /* ── MOBILE NAV ───────────────────────────── */
   const mobileNav = document.getElementById('mobileNav');
   function openMobileNav() { mobileNav.classList.add('open'); }
   function closeMobileNav() { mobileNav.classList.remove('open'); }
 
-  /* ── REVEAL ─────────────────────────────────── */
-  const reveals = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
-  reveals.forEach(el => obs.observe(el));
+  /* ── CURSOR ───────────────────────────────── */
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX; mouseY = e.clientY;
+    cursor.style.left = mouseX + 'px'; cursor.style.top = mouseY + 'px';
+  });
+  (function animateRing() {
+    ringX += (mouseX - ringX) * 0.12; ringY += (mouseY - ringY) * 0.12;
+    ring.style.left = ringX + 'px'; ring.style.top = ringY + 'px';
+    requestAnimationFrame(animateRing);
+  })();
 
-  /* ── FILTER ─────────────────────────────────── */
-  function filterProjects(type, btn) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('.project-card').forEach(card => {
-      const show = type === 'all' || card.dataset.type === type;
-      card.style.display = show ? '' : 'none';
-    });
-    // Hide "Current Releases" label when on Sold tab
-    const labelCurrent = document.getElementById('labelCurrent');
-    labelCurrent.style.display = type === 'sold' ? 'none' : '';
-  }
+  /* ── SCROLL COUNTER ───────────────────────── */
+  const sections = document.querySelectorAll('.project-section');
+  const total = sections.length;
+  const counter = document.getElementById('currentNum');
+
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const stackTop = document.getElementById('projectStack').offsetTop;
+    const sectionHeight = window.innerHeight;
+    const idx = Math.min(Math.floor((scrollY - stackTop) / sectionHeight) + 1, total);
+    counter.textContent = Math.max(1, idx);
+  }, { passive: true });
 </script>
 </body>
 </html>
