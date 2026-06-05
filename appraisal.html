@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Get an Appraisal — Innovate Property Group</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #000000;
+      --black-soft: #0a0a0a;
+      --white: #ffffff;
+      --white-mute: #f0f0fa;
+      --hairline: #e8e8e8;
+      --ink-mute: #5a5a5f;
+    }
+    html, body {
+      height: 100%; overflow: hidden;
+      font-family: 'Inter', Arial, sans-serif;
+      background: var(--white); color: var(--black);
+    }
+
+    /* ─── NAV ──────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 48px;
+      background: var(--white); border-bottom: 1px solid var(--hairline);
+    }
+    .nav-logo img { height: 72px; width: auto; display: block; }
+    .nav-links { display: flex; gap: 40px; list-style: none; align-items: center; }
+    .nav-links a {
+      font-size: 11px; font-weight: 500; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--ink-mute);
+      text-decoration: none; transition: color 0.3s; position: relative;
+    }
+    .nav-links a:hover { color: var(--black); }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px; background: var(--black);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
+    }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-cta {
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--white);
+      background: var(--black); border: 1px solid var(--black);
+      padding: 12px 24px; text-decoration: none; transition: all 0.3s;
+    }
+    .nav-cta:hover { background: var(--white); color: var(--black); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
+    .hamburger span { width: 26px; height: 1px; background: var(--black); display: block; }
+
+    /* ─── MOBILE NAV ────────────────────────────────────────── */
+    .mobile-nav {
+      position: fixed; inset: 0; z-index: 999; background: var(--white);
+      display: flex; flex-direction: column;
+      transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
+    }
+    .mobile-nav.open { transform: translateX(0); }
+    .mobile-nav-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 28px; border-bottom: 1px solid var(--hairline);
+    }
+    .mobile-nav-header img { height: 40px; }
+    .mobile-nav-close {
+      width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+      background: none; border: 1px solid #e0e0e0; font-size: 18px; cursor: pointer;
+    }
+    .mobile-nav-links { flex: 1; display: flex; flex-direction: column; padding: 20px 0; }
+    .mobile-nav-links a {
+      font-size: 14px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--black); text-decoration: none; padding: 20px 28px;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .mobile-nav-links a::after { content: '→'; font-size: 16px; color: var(--ink-mute); }
+    .mobile-nav-footer { padding: 28px; border-top: 1px solid var(--hairline); }
+    .mobile-nav-footer a {
+      display: block; text-align: center; font-size: 11px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase; color: var(--white);
+      background: var(--black); padding: 16px; text-decoration: none;
+    }
+
+    /* ─── MAIN LAYOUT ───────────────────────────────────────── */
+    .page {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: 100vh;
+      padding-top: 92px;
+    }
+
+    /* ─── LEFT ──────────────────────────────────────────────── */
+    .left {
+      position: relative; overflow: hidden;
+    }
+    .left-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=90');
+      background-size: cover; background-position: center;
+    }
+    .left-bg::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 100%);
+    }
+    .left-grain {
+      position: absolute; inset: 0; z-index: 1;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.12; mix-blend-mode: overlay;
+    }
+    .left-content {
+      position: relative; z-index: 2;
+      height: 100%; display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 56px;
+    }
+    .left-eyebrow {
+      font-size: 10px; font-weight: 400; letter-spacing: 4px;
+      text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 14px;
+    }
+    .left-title {
+      font-size: clamp(28px, 3vw, 48px); font-weight: 900;
+      line-height: 0.95; letter-spacing: 0.5px;
+      text-transform: uppercase; color: var(--white); margin-bottom: 20px;
+    }
+    .left-body {
+      font-size: 13px; font-weight: 300; line-height: 1.8;
+      color: rgba(255,255,255,0.55); max-width: 340px;
+    }
+
+    /* ─── RIGHT / FORM ──────────────────────────────────────── */
+    .right {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 48px 64px;
+      border-left: 1px solid var(--hairline);
+    }
+    .form-heading {
+      font-size: 10px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--ink-mute);
+      margin-bottom: 36px; padding-bottom: 16px;
+      border-bottom: 1px solid var(--hairline);
+    }
+    .form-group {
+      display: flex; flex-direction: column; gap: 8px;
+      margin-bottom: 28px;
+    }
+    .form-label {
+      font-size: 9px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--ink-mute);
+    }
+    .form-label .req { color: var(--black); }
+    .form-input {
+      background: transparent; border: none;
+      border-bottom: 1px solid var(--hairline);
+      color: var(--black); font-family: 'Inter', sans-serif;
+      font-size: 15px; font-weight: 300;
+      padding: 12px 0; outline: none;
+      transition: border-color 0.3s; width: 100%;
+    }
+    .form-input:focus { border-bottom-color: var(--black); }
+    .form-input::placeholder { color: #ccc; }
+    .form-input.error { border-bottom-color: #c0392b; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; }
+    .btn-submit {
+      width: 100%; padding: 18px;
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--white);
+      background: var(--black); border: none;
+      font-family: 'Inter', sans-serif; cursor: pointer;
+      transition: background 0.3s; margin-top: 36px;
+    }
+    .btn-submit:hover { background: #222; }
+    .btn-submit:disabled { background: #999; cursor: not-allowed; }
+    .form-note {
+      font-size: 11px; font-weight: 300; color: var(--ink-mute);
+      text-align: center; margin-top: 14px; line-height: 1.6;
+    }
+
+    /* ─── SUCCESS ───────────────────────────────────────────── */
+    .success {
+      display: none; flex-direction: column; align-items: center;
+      justify-content: center; text-align: center; gap: 16px;
+      height: 100%;
+    }
+    .success.show { display: flex; }
+    .success-icon { font-size: 36px; }
+    .success-title {
+      font-size: 22px; font-weight: 900; text-transform: uppercase;
+      letter-spacing: 1px; color: var(--black);
+    }
+    .success-body {
+      font-size: 13px; font-weight: 300; line-height: 1.8;
+      color: var(--ink-mute); max-width: 300px;
+    }
+    .btn-back {
+      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--white);
+      background: var(--black); padding: 14px 28px;
+      text-decoration: none; margin-top: 8px;
+    }
+
+    /* ─── RESPONSIVE ──────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      html, body { overflow: auto; }
+      nav { padding: 12px 24px; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .page { grid-template-columns: 1fr; height: auto; }
+      .left { height: 40vh; }
+      .left-content { padding: 36px 28px; }
+      .right { padding: 48px 28px; border-left: none; justify-content: flex-start; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 10px 20px; }
+      .nav-logo img { height: 52px !important; }
+      .left { height: 35vh; }
+      .left-content { padding: 28px 24px; }
+      .right { padding: 36px 24px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+    @media (hover: none) and (pointer: coarse) { body { cursor: auto; } a, button { cursor: pointer; } }
+  </style>
+</head>
+<body>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-header">
+    <img src="logo.png" alt="Innovate Property Group" />
+    <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
+  </div>
+  <div class="mobile-nav-links">
+    <a href="about.html">About</a>
+    <a href="properties.html">Properties</a>
+    <a href="development-sites.html">Development Sites</a>
+    <a href="projects.html">Projects</a>
+    <a href="index.html#contact">Illawarra</a>
+  </div>
+  <div class="mobile-nav-footer">
+    <a href="index.html#contact">Enquire Now</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" alt="Innovate Property Group" style="height:72px; width:auto;" />
+  </a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="properties.html">Properties</a></li>
+    <li><a href="development-sites.html">Development Sites</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="index.html#location">Illawarra</a></li>
+  </ul>
+  <a href="index.html#contact" class="nav-cta">Enquire</a>
+  <button class="hamburger" onclick="openMobileNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="page">
+
+  <!-- LEFT -->
+  <div class="left">
+    <div class="left-bg"></div>
+    <div class="left-grain"></div>
+    <div class="left-content">
+      <p class="left-eyebrow">Free — No Obligation</p>
+      <h1 class="left-title">WHAT IS YOUR<br>PROPERTY<br>WORTH?</h1>
+      <p class="left-body">Our agents will prepare a comprehensive market appraisal and be in touch within 24 hours.</p>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right" id="formPanel">
+    <form id="appraisalForm" onsubmit="handleSubmit(event)" novalidate>
+      <div class="form-heading">Request a Free Appraisal</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name <span class="req">*</span></label>
+          <input type="text" class="form-input" id="firstName" placeholder="James" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name <span class="req">*</span></label>
+          <input type="text" class="form-input" id="lastName" placeholder="Thornton" required />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Phone <span class="req">*</span></label>
+          <input type="tel" class="form-input" id="phone" placeholder="0400 000 000" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email <span class="req">*</span></label>
+          <input type="email" class="form-input" id="email" placeholder="james@email.com" required />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Property Address <span class="req">*</span></label>
+        <input type="text" class="form-input" id="address" placeholder="123 Ocean Street, Thirroul NSW 2515" required />
+      </div>
+
+      <button type="submit" class="btn-submit" id="submitBtn">Request Appraisal</button>
+      <p class="form-note">Your details are kept strictly confidential.</p>
+    </form>
+
+    <div class="success" id="successScreen">
+      <div class="success-icon">✓</div>
+      <div class="success-title">Request Received</div>
+      <p class="success-body">Thank you. One of our agents will be in touch within 24 hours to arrange your appraisal.</p>
+      <a href="index.html" class="btn-back">Back to Home</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const mobileNav = document.getElementById('mobileNav');
+  function openMobileNav() { mobileNav.classList.add('open'); }
+  function closeMobileNav() { mobileNav.classList.remove('open'); }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const fields = ['firstName','lastName','phone','email','address'];
+    let valid = true;
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.classList.add('error');
+        valid = false;
+        el.addEventListener('input', () => el.classList.remove('error'), { once: true });
+      }
+    });
+    if (!valid) return;
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = 'Submitting...';
+    btn.disabled = true;
+    setTimeout(() => {
+      document.getElementById('appraisalForm').style.display = 'none';
+      document.getElementById('successScreen').classList.add('show');
+    }, 800);
+  }
+</script>
+</body>
+</html>

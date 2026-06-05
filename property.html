@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Property — Innovate Property Group</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #000000; --black-soft: #0a0a0a;
+      --white: #ffffff; --white-mute: #f0f0fa;
+      --hairline: #e8e8e8; --ink-mute: #5a5a5f;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--white); color: var(--black); font-family: 'Inter', Arial, sans-serif; overflow-x: hidden; }
+
+    /* ─── NAV ──────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 48px; background: var(--white); border-bottom: 1px solid var(--hairline);
+    }
+    .nav-logo img { height: 72px; width: auto; display: block; }
+    .nav-links { display: flex; gap: 40px; list-style: none; align-items: center; }
+    .nav-links a {
+      font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--ink-mute); text-decoration: none; transition: color 0.3s; position: relative;
+    }
+    .nav-links a:hover { color: var(--black); }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px; background: var(--black); transform: scaleX(0);
+      transform-origin: left; transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
+    }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-cta {
+      font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--white); background: var(--black); border: 1px solid var(--black);
+      padding: 12px 24px; text-decoration: none; transition: all 0.3s;
+    }
+    .nav-cta:hover { background: var(--white); color: var(--black); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
+    .hamburger span { width: 26px; height: 1px; background: var(--black); display: block; }
+
+    /* ─── MOBILE NAV ────────────────────────────── */
+    .mobile-nav {
+      position: fixed; inset: 0; z-index: 999; background: var(--white);
+      display: flex; flex-direction: column; transform: translateX(100%);
+      transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
+    }
+    .mobile-nav.open { transform: translateX(0); }
+    .mobile-nav-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 28px; border-bottom: 1px solid var(--hairline); }
+    .mobile-nav-header img { height: 40px; }
+    .mobile-nav-close { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: none; border: 1px solid #e0e0e0; font-size: 18px; cursor: pointer; }
+    .mobile-nav-links { flex: 1; display: flex; flex-direction: column; padding: 20px 0; }
+    .mobile-nav-links a { font-size: 14px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--black); text-decoration: none; padding: 20px 28px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; justify-content: space-between; }
+    .mobile-nav-links a::after { content: '→'; font-size: 16px; color: var(--ink-mute); }
+    .mobile-nav-footer { padding: 28px; border-top: 1px solid var(--hairline); }
+    .mobile-nav-footer a { display: block; text-align: center; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); background: var(--black); padding: 16px; text-decoration: none; }
+
+    /* ─── HERO ──────────────────────────────────── */
+    .prop-hero {
+      margin-top: 92px; position: relative;
+      height: 80vh; overflow: hidden;
+    }
+    .prop-hero-img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 8s ease;
+    }
+    .prop-hero:hover .prop-hero-img { transform: scale(1.03); }
+    .prop-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,0.7) 100%);
+    }
+    .prop-hero-grain {
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.1; mix-blend-mode: overlay;
+    }
+    .prop-hero-info {
+      position: absolute; bottom: 48px; left: 80px; right: 80px;
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 40px;
+      z-index: 2;
+    }
+    .prop-hero-left { }
+    .prop-status {
+      font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--white); border: 1px solid rgba(255,255,255,0.5);
+      padding: 5px 14px; display: inline-block; margin-bottom: 12px;
+    }
+    .prop-hero-name {
+      font-size: clamp(32px, 4vw, 56px); font-weight: 900; line-height: 0.95;
+      letter-spacing: -0.5px; text-transform: uppercase; color: var(--white);
+      margin-bottom: 8px;
+    }
+    .prop-hero-location { font-size: 12px; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+    .prop-hero-price { font-size: 28px; font-weight: 900; color: var(--white); white-space: nowrap; }
+
+    /* ─── STATS BAR ──────────────────────────────── */
+    .prop-stats {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      border-bottom: 1px solid var(--hairline);
+    }
+    .prop-stat {
+      padding: 28px 32px; border-right: 1px solid var(--hairline);
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .prop-stat:last-child { border-right: none; }
+    .prop-stat-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-mute); }
+    .prop-stat-value { font-size: 18px; font-weight: 700; color: var(--black); }
+
+    /* ─── BODY ───────────────────────────────────── */
+    .prop-body {
+      display: grid; grid-template-columns: 1fr 380px;
+      gap: 0; align-items: start;
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    /* ─── LEFT CONTENT ───────────────────────────── */
+    .prop-content { padding: 64px 80px; border-right: 1px solid var(--hairline); }
+    .section-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--ink-mute); padding-bottom: 16px; margin-bottom: 28px;
+      border-bottom: 1px solid var(--hairline);
+    }
+    .prop-description {
+      font-size: 15px; font-weight: 300; line-height: 1.9; color: #333; margin-bottom: 48px;
+    }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 0;
+      margin-bottom: 48px;
+    }
+    .feature-item {
+      font-size: 13px; font-weight: 400; color: var(--black);
+      padding: 14px 0; border-bottom: 1px solid var(--hairline);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .feature-item::before { content: '—'; color: var(--ink-mute); font-size: 12px; }
+
+    /* ─── GALLERY STRIP ──────────────────────────── */
+    .gallery-strip {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-bottom: 0;
+    }
+    .gallery-img { aspect-ratio: 4/3; overflow: hidden; }
+    .gallery-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; display: block; }
+    .gallery-img:hover img { transform: scale(1.05); }
+
+    /* ─── SIDEBAR ────────────────────────────────── */
+    .prop-sidebar { padding: 48px 40px; position: sticky; top: 92px; }
+    .agent-card {
+      border: 1px solid var(--hairline); padding: 28px; margin-bottom: 24px;
+    }
+    .agent-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 20px; }
+    .agent-name { font-size: 16px; font-weight: 700; color: var(--black); margin-bottom: 4px; }
+    .agent-title { font-size: 11px; font-weight: 400; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 20px; }
+    .agent-phone { font-size: 14px; font-weight: 300; color: var(--black); text-decoration: none; display: block; margin-bottom: 6px; }
+    .agent-email { font-size: 13px; font-weight: 300; color: var(--ink-mute); text-decoration: none; display: block; }
+
+    /* ─── ENQUIRY FORM ───────────────────────────── */
+    .enquiry-form { border: 1px solid var(--hairline); padding: 28px; }
+    .enquiry-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 20px; display: block; }
+    .eq-group { margin-bottom: 20px; }
+    .eq-input, .eq-textarea {
+      width: 100%; background: transparent; border: none;
+      border-bottom: 1px solid var(--hairline); color: var(--black);
+      font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300;
+      padding: 10px 0; outline: none; transition: border-color 0.3s;
+    }
+    .eq-input:focus, .eq-textarea:focus { border-bottom-color: var(--black); }
+    .eq-input::placeholder, .eq-textarea::placeholder { color: #ccc; }
+    .eq-textarea { resize: none; height: 70px; }
+    .eq-submit {
+      width: 100%; padding: 16px; font-size: 10px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase; color: var(--white);
+      background: var(--black); border: none; font-family: 'Inter', sans-serif;
+      cursor: pointer; margin-top: 8px; transition: background 0.3s;
+    }
+    .eq-submit:hover { background: #222; }
+    .eq-submit:disabled { background: #999; cursor: not-allowed; }
+    .eq-note { font-size: 10px; color: var(--ink-mute); text-align: center; margin-top: 10px; }
+
+    /* ─── MORE PROPERTIES ────────────────────────── */
+    .more-section { padding: 64px 80px; border-top: 1px solid var(--hairline); }
+    .more-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 32px; }
+    .more-card { position: relative; overflow: hidden; aspect-ratio: 4/5; cursor: pointer; }
+    .more-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; display: block; }
+    .more-card:hover img { transform: scale(1.05); }
+    .more-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%);
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 24px;
+    }
+    .more-name { font-size: 16px; font-weight: 900; text-transform: uppercase; color: var(--white); margin-bottom: 4px; }
+    .more-location { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
+    .more-price { font-size: 14px; font-weight: 700; color: var(--white); }
+
+    /* ─── FOOTER ─────────────────────────────────── */
+    footer { background: var(--black-soft); border-top: 1px solid #1a1a1a; padding: 32px 80px; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 11px; font-weight: 300; color: var(--ink-mute); }
+    .footer-logo img { height: 36px; width: auto; filter: invert(1); }
+
+    /* ─── REVEAL ─────────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── RESPONSIVE ─────────────────────────────── */
+    @media (max-width: 1024px) {
+      nav { padding: 12px 24px; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .prop-hero-info { left: 28px; right: 28px; bottom: 28px; flex-direction: column; align-items: flex-start; gap: 12px; }
+      .prop-stats { grid-template-columns: repeat(3, 1fr); }
+      .prop-stat:nth-child(3) { border-right: none; }
+      .prop-stat:nth-child(4), .prop-stat:nth-child(5) { border-top: 1px solid var(--hairline); }
+      .prop-body { grid-template-columns: 1fr; }
+      .prop-content { padding: 40px 28px; border-right: none; }
+      .prop-sidebar { position: static; padding: 0 28px 48px; }
+      .more-section { padding: 48px 28px; }
+      .more-grid { grid-template-columns: repeat(2, 1fr); }
+      footer { padding: 32px 28px; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 10px 20px; }
+      .nav-logo img { height: 52px !important; }
+      .prop-hero { height: 60vh; }
+      .prop-stats { grid-template-columns: repeat(2, 1fr); }
+      .prop-stat:nth-child(2) { border-right: none; }
+      .prop-stat:nth-child(3) { border-top: 1px solid var(--hairline); }
+      .prop-stat:nth-child(4) { border-top: 1px solid var(--hairline); }
+      .prop-stat:nth-child(5) { border-top: 1px solid var(--hairline); grid-column: span 2; border-right: none; }
+      .features-grid { grid-template-columns: 1fr; }
+      .gallery-strip { grid-template-columns: repeat(2, 1fr); }
+      .more-grid { grid-template-columns: 1fr; }
+      footer { padding: 28px 24px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    }
+    @media (hover: none) and (pointer: coarse) { body { cursor: auto; } a, button { cursor: pointer; } }
+  </style>
+</head>
+<body>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-header">
+    <img src="logo.png" alt="Innovate Property Group" />
+    <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
+  </div>
+  <div class="mobile-nav-links">
+    <a href="about.html">About</a>
+    <a href="properties.html">Properties</a>
+    <a href="development-sites.html">Development Sites</a>
+    <a href="projects.html">Projects</a>
+    <a href="index.html#contact">Illawarra</a>
+  </div>
+  <div class="mobile-nav-footer">
+    <a href="index.html#contact">Enquire Now</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" style="height:72px;width:auto;" />
+  </a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="properties.html">Properties</a></li>
+    <li><a href="development-sites.html">Development Sites</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="index.html#location">Illawarra</a></li>
+  </ul>
+  <a href="index.html#contact" class="nav-cta">Enquire</a>
+  <button class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- DYNAMIC CONTENT -->
+<div id="propertyPage"></div>
+
+<script>
+  const mobileNav = document.getElementById('mobileNav');
+  function openMobileNav() { mobileNav.classList.add('open'); }
+  function closeMobileNav() { mobileNav.classList.remove('open'); }
+
+  /* ── PROPERTY DATA ───────────────────────────────── */
+  const properties = {
+    'clifftop-estate': {
+      name: 'The Clifftop Estate',
+      location: 'Thirroul, NSW',
+      price: '$8,750,000',
+      status: 'For Sale',
+      bed: 5, bath: 4, car: 3, land: '820 m²', type: 'House',
+      img: 'https://images.unsplash.com/photo-1571055107559-3e67626fa8be?w=1920&q=90',
+      gallery: [
+        'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80',
+        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80',
+        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80',
+      ],
+      description: `Perched above one of the Illawarra's most dramatic coastlines, The Clifftop Estate is a rare expression of luxury residential architecture that captures the raw beauty of the NSW south coast in every detail.\n\nSet on 820m² of exclusive clifftop land, this residence was architecturally designed to dissolve the boundary between interior and exterior. Floor-to-ceiling glazing frames uninterrupted panoramas of the Pacific Ocean from every principal room, while the open-plan living and dining pavilion opens onto a cantilevered terrace — a stage for the horizon.\n\nThe home is finished with a curated palette of natural materials: limestone flooring, blackbutt timber, raw concrete, and matte black fixtures throughout. The kitchen is centred around a 4-metre island in Calacatta marble, anchored by Sub-Zero and Wolf appliances. Five bedrooms, each with ensuite access, are positioned to maximise privacy and outlook.`,
+      features: [
+        'Uninterrupted ocean views', 'Cantilevered entertaining terrace', 'Calacatta marble kitchen',
+        'Sub-Zero & Wolf appliances', 'Heated pool & spa', 'Limestone & blackbutt interiors',
+        'Home cinema', 'Wine cellar', 'Smart home automation', 'Triple garage with EV charging',
+        'Ducted air conditioning', '100m to beach access',
+      ],
+    },
+    'escarpment-retreat': {
+      name: 'Escarpment Retreat',
+      location: 'Bulli, NSW',
+      price: '$5,200,000',
+      status: 'For Sale',
+      bed: 4, bath: 3, car: 2, land: '1,240 m²', type: 'House',
+      img: 'https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=1920&q=90',
+      gallery: [
+        'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80',
+        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
+        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80',
+      ],
+      description: `Carved into the Illawarra Escarpment with precision and care, Escarpment Retreat is a masterclass in site-responsive architecture — a home that feels as though it has always belonged to this landscape.\n\nFrom the moment you arrive, the sense of privacy is absolute. A discreet entry through native landscaping gives way to a double-height entrance hall that opens immediately to the living pavilion, where the escarpment beyond serves as the artwork. The rear of the home steps down the hillside across three levels, each offering a different aspect of the surrounding bushland and distant ocean horizon.\n\nSet on 1,240m² with full DA approval for a detached studio, the property represents a compelling opportunity for buyers seeking scale, privacy, and connection to nature without sacrifice of luxury.`,
+      features: [
+        'Escarpment & ocean views', 'Three-level hillside design', 'Double-height entry hall',
+        'Approved DA for detached studio', 'Infinity-edge pool', 'Spotted gum joinery throughout',
+        'Outdoor kitchen & fire pit', 'Rainwater harvesting system', 'Solar 13.2kW system',
+        'Native landscaping by Dangar Barin Wolf', 'Double garage', 'Walking distance to Bulli village',
+      ],
+    },
+    'the-sanctuary': {
+      name: 'The Sanctuary',
+      location: 'Austinmer, NSW',
+      price: '$6,400,000',
+      status: 'For Sale',
+      bed: 5, bath: 5, car: 4, land: '1,680 m²', type: 'House',
+      img: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1920&q=90',
+      gallery: [
+        'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&q=80',
+        'https://images.unsplash.com/photo-1571055107559-3e67626fa8be?w=800&q=80',
+        'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80',
+      ],
+      description: `The Sanctuary occupies one of Austinmer's most coveted addresses — a 1,680m² parcel of manicured grounds behind a discreet gate, moments from the rock pool and beach that make this village unlike any other on the coast.\n\nDesigned for a family that wanted absolutely nothing left out, this five-bedroom, five-bathroom residence operates at the peak of the market. A formal entry leads to a sequence of reception and living spaces that culminate in a vast open-plan kitchen and family room, oriented north-east to capture morning light and ocean glimpses through the established canopy.\n\nOutdoor amenity is extraordinary: a 20-metre pool flanked by a fully equipped cabana, a floodlit north-facing tennis court, and multiple terraced entertaining zones across the grounds. A secondary dwelling provides self-contained guest or staff quarters.`,
+      features: [
+        '20m heated pool & cabana', 'Floodlit north-facing tennis court', 'Secondary guest dwelling',
+        'Ocean glimpses through canopy', 'Formal & informal living zones', 'Chef\'s kitchen with butler\'s pantry',
+        'Home gym & sauna', 'Cellar for 1,200 bottles', '4-car garage with workshop',
+        'Gated & fully secured estate', 'Minutes to Austinmer rock pool', 'Ducted zoned air conditioning',
+      ],
+    },
+    'harbour-crown': {
+      name: 'Harbour Crown',
+      location: 'Wollongong CBD',
+      price: '$4,100,000',
+      status: 'For Sale',
+      bed: 3, bath: 3, car: 2, land: '—', type: 'Sub-Penthouse',
+      img: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1920&q=90',
+      gallery: [
+        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80',
+        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80',
+        'https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=800&q=80',
+      ],
+      description: `Crowning the top of Wollongong's most prestigious residential tower, Harbour Crown offers a perspective over the city, harbour, and Pacific Ocean that simply does not exist anywhere else in the region.\n\nOccupying the entire sub-penthouse level with 360-degree aspect, this three-bedroom residence has been finished to a standard that rivals Sydney's finest — with Poliform joinery, Gaggenau appliances, heated concrete flooring, and a private rooftop terrace of 85m².\n\nFor those who demand the convenience of CBD living without compromise on quality or outlook, Harbour Crown is without peer. The building provides 24-hour concierge, private parking for two vehicles, and secure access from the basement directly to the residence.`,
+      features: [
+        '360° city, harbour & ocean views', '85m² private rooftop terrace', 'Poliform kitchen & joinery',
+        'Gaggenau appliance suite', 'Heated concrete flooring', '24-hour concierge',
+        'Private basement parking × 2', 'Direct lift access to residence', 'Smart home system',
+        'Floor-to-ceiling glazing throughout', 'Wine fridge & bar', 'Storage cage included',
+      ],
+    },
+    'woonona-villa': {
+      name: 'Woonona Villa',
+      location: 'Woonona, NSW',
+      price: '$7,850,000',
+      status: 'For Sale',
+      bed: 5, bath: 4, car: 3, land: '960 m²', type: 'House',
+      img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=90',
+      gallery: [
+        'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80',
+        'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80',
+        'https://images.unsplash.com/photo-1571055107559-3e67626fa8be?w=800&q=80',
+      ],
+      description: `Occupying an unrivalled beachfront position in the sought-after suburb of Woonona, this five-bedroom villa offers direct beach access from the rear gate — one of fewer than a handful of properties along this stretch of coastline with this privilege.\n\nThe home has been entirely rebuilt and extended over recent years to deliver a residence of the highest contemporary standard while retaining its connection to the site. The living areas are orientated directly to the beach, with bi-fold glazing across the full rear elevation that dissolves the boundary between the interior and the sand beyond.\n\nAn entertainer's pool, outdoor kitchen, and poolside pavilion make this one of the most capable homes in the Illawarra for large-scale entertaining — while the master suite above offers a private retreat with panoramic ocean outlook from bed.`,
+      features: [
+        'Direct beachfront access via rear gate', 'Panoramic ocean views', 'Rebuilt to highest standard',
+        'Full-width bi-fold rear glazing', 'Heated pool & outdoor kitchen', 'Poolside entertaining pavilion',
+        'Master retreat with ocean outlook', 'Separate guest wing', 'Triple lock-up garage',
+        '960m² of beachfront land', 'Walk to Woonona village & cafes', 'North-east aspect',
+      ],
+    },
+    'ridge-house': {
+      name: 'Ridge House',
+      location: 'Stanwell Park, NSW',
+      price: '$4,950,000',
+      status: 'For Sale',
+      bed: 4, bath: 3, car: 2, land: '780 m²', type: 'House',
+      img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=90',
+      gallery: [
+        'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&q=80',
+        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80',
+        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80',
+      ],
+      description: `Stanwell Park is one of the Illawarra's most secluded and spectacular villages — and Ridge House sits at its crown, commanding a panoramic outlook across the hang-gliding launch site, Royal National Park, and the Pacific beyond.\n\nThis architecturally designed four-bedroom residence was conceived as a retreat — a place to genuinely disconnect. The materials are honest: raw concrete, recycled timber, and locally sourced stone. The layout is generous and flowing, designed for a relaxed lifestyle that moves effortlessly between inside and out.\n\nA rare opportunity to own one of the most iconic positions in the Northern Illawarra — with Sydney just 45 minutes to the north and the best of the coast on your doorstep.`,
+      features: [
+        'Panoramic escarpment & ocean views', 'Raw concrete & recycled timber palette', 'Open plan living to deck',
+        'Bush outlook from all bedrooms', 'Plunge pool & sun terrace', 'Architect designed throughout',
+        'Wood fireplace', 'Rainwater tank & solar system', '45 mins to Sydney CBD',
+        'Walk to Stanwell Park beach', 'Steps to national park trails', 'Double carport',
+      ],
+    },
+    'seabreeze-estate': {
+      name: 'Seabreeze Estate',
+      location: 'Coledale, NSW',
+      price: '$9,200,000',
+      status: 'For Sale',
+      bed: 6, bath: 5, car: 4, land: '1,420 m²', type: 'House',
+      img: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1920&q=90',
+      gallery: [
+        'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80',
+        'https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=800&q=80',
+        'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80',
+      ],
+      description: `Seabreeze Estate is the Illawarra's finest residential offering — a 1,420m² oceanfront compound in the exclusive village of Coledale, where properties of this calibre are traded perhaps once a decade.\n\nThe main residence spans six bedrooms across two levels, with formal and informal living wings that each open directly to the oceanfront gardens and pool. The ground floor master suite is a destination in itself — a 120m² private retreat with his-and-her bathrooms, a dressing room of bespoke joinery, and a morning terrace that faces the sunrise over the Pacific.\n\nA detached guest cottage, 4-car garage, and workshop complete the offering. For the buyer seeking the absolute pinnacle of the Illawarra market, Seabreeze Estate stands alone.`,
+      features: [
+        'Direct oceanfront position', '6-bed main residence + guest cottage', '120m² master suite',
+        'His & her bathrooms & bespoke dressing room', 'Sunrise-facing morning terrace', '25m ocean-view pool',
+        '4-car garage & workshop', 'Home theatre & gym', 'Temperature-controlled wine room',
+        'Smart home & full CCTV', 'Landscaped gardens by award-winning firm', 'Rare 1,420m² oceanfront land',
+      ],
+    },
+    'crown-penthouse': {
+      name: 'The Crown Penthouse',
+      location: 'Wollongong CBD',
+      price: '$5,600,000',
+      status: 'For Sale',
+      bed: 4, bath: 3, car: 2, land: '—', type: 'Penthouse',
+      img: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=90',
+      gallery: [
+        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80',
+        'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80',
+        'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&q=80',
+      ],
+      description: `Commanding the full top level of Wollongong's landmark residential tower, The Crown Penthouse is a statement of intent — a 4-bedroom sky home with 270-degree harbour and ocean views, a 120m² wraparound terrace, and a level of finish that sets a new benchmark for the region.\n\nEvery detail has been considered by an interior designer of national repute: imported Borghini marble, hand-laid herringbone oak flooring, brushed brass fixtures, and custom millwork throughout. The kitchen — anchored by a 5-metre island — is equipped with a full Gaggenau suite including a steam oven, teppanyaki plate, and integrated coffee system.\n\nA home that will satisfy the most discerning buyer, in a city finally ready for a property of this ambition.`,
+      features: [
+        '270° harbour & ocean views', '120m² wraparound terrace', 'Borghini marble throughout',
+        'Hand-laid herringbone oak floors', 'Full Gaggenau appliance suite', 'Custom millwork by bespoke joinery firm',
+        'Home automation by Control4', 'Private lift lobby', '24-hour concierge & security',
+        'Private parking × 2 + storage', 'Air conditioning & hydronic heating', 'Pet-friendly building',
+      ],
+    },
+  };
+
+  /* ── LOAD PROPERTY ───────────────────────────────── */
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id') || 'clifftop-estate';
+  const p = properties[id];
+
+  if (!p) {
+    window.location.href = 'properties.html';
+  }
+
+  // Update page title
+  document.title = p.name + ' — Innovate Property Group';
+
+  // Other properties for "More Properties" section
+  const others = Object.entries(properties)
+    .filter(([k]) => k !== id)
+    .slice(0, 3);
+
+  document.getElementById('propertyPage').innerHTML = `
+    <!-- HERO -->
+    <div class="prop-hero">
+      <img class="prop-hero-img" src="${p.img}" alt="${p.name}" />
+      <div class="prop-hero-overlay"></div>
+      <div class="prop-hero-grain"></div>
+      <div class="prop-hero-info">
+        <div class="prop-hero-left">
+          <div class="prop-status">${p.status}</div>
+          <div class="prop-hero-name">${p.name}</div>
+          <div class="prop-hero-location">${p.location}</div>
+        </div>
+        <div class="prop-hero-price">${p.price}</div>
+      </div>
+    </div>
+
+    <!-- STATS BAR -->
+    <div class="prop-stats">
+      <div class="prop-stat"><div class="prop-stat-label">Bedrooms</div><div class="prop-stat-value">${p.bed}</div></div>
+      <div class="prop-stat"><div class="prop-stat-label">Bathrooms</div><div class="prop-stat-value">${p.bath}</div></div>
+      <div class="prop-stat"><div class="prop-stat-label">Car Spaces</div><div class="prop-stat-value">${p.car}</div></div>
+      <div class="prop-stat"><div class="prop-stat-label">Land Size</div><div class="prop-stat-value">${p.land}</div></div>
+      <div class="prop-stat"><div class="prop-stat-label">Property Type</div><div class="prop-stat-value">${p.type}</div></div>
+    </div>
+
+    <!-- BODY -->
+    <div class="prop-body">
+      <div class="prop-content">
+        <div class="section-label reveal">About This Property</div>
+        <div class="prop-description reveal">${p.description.replace(/\n/g, '<br><br>')}</div>
+
+        <div class="section-label reveal">Property Features</div>
+        <div class="features-grid reveal">
+          ${p.features.map(f => `<div class="feature-item">${f}</div>`).join('')}
+        </div>
+
+        <div class="section-label reveal">Gallery</div>
+        <div class="gallery-strip reveal">
+          ${p.gallery.map(g => `<div class="gallery-img"><img src="${g}" alt="Property image" loading="lazy" /></div>`).join('')}
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="prop-sidebar">
+        <div class="agent-card">
+          <div class="agent-label">Your Agent</div>
+          <div class="agent-name">Innovate Property Group</div>
+          <div class="agent-title">Illawarra Prestige Specialists</div>
+          <a href="tel:+61242000000" class="agent-phone">+61 2 4200 0000</a>
+          <a href="mailto:hello@innovateproperty.com.au" class="agent-email">hello@innovateproperty.com.au</a>
+        </div>
+
+        <div class="enquiry-form">
+          <span class="enquiry-label">Enquire About This Property</span>
+          <form onsubmit="submitEnquiry(event)">
+            <div class="eq-group"><input type="text" class="eq-input" placeholder="Your Name" required /></div>
+            <div class="eq-group"><input type="email" class="eq-input" placeholder="Email Address" required /></div>
+            <div class="eq-group"><input type="tel" class="eq-input" placeholder="Phone Number" /></div>
+            <div class="eq-group"><textarea class="eq-textarea" placeholder="I'm interested in ${p.name}..."></textarea></div>
+            <button type="submit" class="eq-submit" id="eqBtn">Send Enquiry</button>
+            <p class="eq-note">We'll respond within 2 hours.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- MORE PROPERTIES -->
+    <div class="more-section">
+      <div class="section-label">More Properties</div>
+      <div class="more-grid">
+        ${others.map(([key, prop]) => `
+          <a href="property.html?id=${key}" style="text-decoration:none;">
+            <div class="more-card">
+              <img src="${prop.img}" alt="${prop.name}" loading="lazy" />
+              <div class="more-overlay">
+                <div class="more-name">${prop.name}</div>
+                <div class="more-location">${prop.location}</div>
+                <div class="more-price">${prop.price}</div>
+              </div>
+            </div>
+          </a>
+        `).join('')}
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Innovate Property Group Pty Ltd. All rights reserved. Licensed Real Estate Agent NSW.</p>
+        <div class="footer-logo"><img src="logo.png" alt="Innovate Property Group" /></div>
+      </div>
+    </footer>
+  `;
+
+  /* ── REVEAL ──────────────────────────────────────── */
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => obs.observe(el));
+
+  /* ── ENQUIRY ─────────────────────────────────────── */
+  function submitEnquiry(e) {
+    e.preventDefault();
+    const btn = document.getElementById('eqBtn');
+    btn.textContent = 'Sent — We\'ll Be In Touch';
+    btn.disabled = true;
+    btn.style.background = '#2a2a2a';
+  }
+</script>
+</body>
+</html>
