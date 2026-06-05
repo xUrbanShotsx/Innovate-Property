@@ -165,7 +165,7 @@
     .hero-headline em { font-style: normal; color: var(--gold); }
     .hero-sub {
       font-size: 13px; font-weight: 300; line-height: 1.7;
-      color: var(--ink-mute); max-width: 400px;
+      color: var(--white); max-width: 400px;
       margin-bottom: 36px;
       opacity: 0; transform: translateY(20px);
       animation: fadeUp 1s 0.7s forwards;
@@ -775,7 +775,8 @@
   <button class="mobile-nav-close" id="mobileClose">✕</button>
   <a href="#vision" onclick="closeMobileNav()">About</a>
   <a href="#properties" onclick="closeMobileNav()">Properties</a>
-  <a href="#flagship" onclick="closeMobileNav()">Developments</a>
+  <a href="#developments" onclick="closeMobileNav()">Development Sites</a>
+  <a href="#flagship" onclick="closeMobileNav()">Projects</a>
   <a href="#location" onclick="closeMobileNav()">Illawarra</a>
   <a href="#contact" onclick="closeMobileNav()">Enquire</a>
 </div>
@@ -783,17 +784,16 @@
 <!-- NAV -->
 <nav id="navbar">
   <a href="#" class="nav-logo">
-    <span class="nav-logo-main">Innovate</span>
-    <span class="nav-logo-sub">Property Group</span>
+    <img src="logo.png" alt="Innovate Property Group" style="height: 36px; width: auto; display: block;" />
   </a>
   <ul class="nav-links">
     <li><a href="#vision">About</a></li>
-    <li><a href="#properties">Properties</a></li>
-    <li><a href="#flagship">Developments</a></li>
+    <li><a href="#properties" onclick="scrollToSticky('properties', 2); return false;">Properties</a></li>
+    <li><a href="#developments" onclick="scrollToSticky('developments', 1); return false;">Development Sites</a></li>
+    <li><a href="#flagship" onclick="scrollToSticky('flagship', 3); return false;">Projects</a></li>
     <li><a href="#location">Illawarra</a></li>
-    <li><a href="#contact">Enquire</a></li>
   </ul>
-  <a href="#contact" class="nav-cta">Enquire Now</a>
+  <a href="#contact" class="nav-cta">Enquire</a>
   <button class="hamburger" id="hamburger" onclick="openMobileNav()" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -1117,6 +1117,16 @@
 </footer>
 
 <script>
+  /* ── STICKY SECTION SCROLL ─────────────────────────────────────── */
+  // Each sticky section occupies one viewport height of scroll in the 400vh container.
+  // index: 0=hero, 1=developments, 2=properties, 3=flagship
+  function scrollToSticky(id, index) {
+    const stack = document.getElementById('stickyStack');
+    const stackTop = stack.getBoundingClientRect().top + window.scrollY;
+    const target = stackTop + (index * window.innerHeight);
+    window.scrollTo({ top: target, behavior: 'smooth' });
+  }
+
   /* ── CUSTOM CURSOR ─────────────────────────────────────────────── */
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursor-ring');
