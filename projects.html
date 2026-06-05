@@ -57,64 +57,59 @@
     .project-section {
       position: sticky; top: 0;
       height: 100vh; overflow: hidden;
-      display: flex; align-items: flex-end;
+      display: flex; align-items: center; justify-content: center;
     }
     .project-section img {
       position: absolute; inset: 0;
       width: 100%; height: 100%; object-fit: cover;
-      transition: transform 8s ease;
     }
-    .project-section:hover img { transform: scale(1.03); }
     .project-grain {
       position: absolute; inset: 0; z-index: 1;
       background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity: 0.12; mix-blend-mode: overlay; pointer-events: none;
+      opacity: 0.15; mix-blend-mode: overlay; pointer-events: none;
     }
     .project-gradient {
       position: absolute; inset: 0; z-index: 1;
-      background: linear-gradient(to bottom, rgba(0,0,0,0) 30%, rgba(0,0,0,0.97) 100%);
+      background: rgba(0,0,0,0.52);
     }
-    .project-info {
+    /* Centre title block */
+    .project-centre {
       position: relative; z-index: 2;
-      padding: 0 80px 64px;
-      display: flex; align-items: flex-end; justify-content: space-between;
-      width: 100%; gap: 40px;
+      text-align: center; display: flex; flex-direction: column; align-items: center;
     }
-    .project-left { max-width: 600px; }
     .project-badge {
       font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
       color: var(--white); border: 1px solid rgba(255,255,255,0.4);
-      padding: 5px 14px; display: inline-block; margin-bottom: 16px;
+      padding: 5px 14px; display: inline-block; margin-bottom: 20px;
     }
-    .project-badge.available { border-color: rgba(255,255,255,0.7); }
-    .project-badge.sold { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.5); }
+    .project-badge.available { border-color: rgba(255,255,255,0.8); }
+    .project-badge.sold { border-color: rgba(255,255,255,0.25); color: rgba(255,255,255,0.4); }
     .project-name {
-      font-size: clamp(32px, 4.5vw, 60px); font-weight: 900; line-height: 0.95;
-      letter-spacing: -0.5px; text-transform: uppercase; color: var(--white);
-      margin-bottom: 10px;
+      font-size: clamp(36px, 5.5vw, 80px); font-weight: 900; line-height: 0.93;
+      letter-spacing: 1px; text-transform: uppercase; color: var(--white);
+      margin-bottom: 16px;
     }
-    .project-location { font-size: 11px; font-weight: 400; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 20px; }
-    .project-meta { display: flex; gap: 24px; font-size: 10px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.4); padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1); }
-    .project-right { display: flex; flex-direction: column; align-items: flex-end; gap: 16px; flex-shrink: 0; }
-    .project-price { font-size: 22px; font-weight: 900; color: var(--white); white-space: nowrap; }
+    .project-location { font-size: 11px; font-weight: 400; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 12px; }
+    .project-price { font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 28px; }
+    .project-meta { display: flex; gap: 24px; font-size: 10px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 32px; }
+    .project-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
     .btn-project {
       font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
       color: var(--black); background: var(--white); padding: 14px 28px;
-      text-decoration: none; display: block; text-align: center; white-space: nowrap;
-      transition: background 0.3s, color 0.3s;
+      text-decoration: none; white-space: nowrap; transition: all 0.3s;
+      border: 1px solid var(--white);
     }
-    .btn-project:hover { background: transparent; color: var(--white); border: 1px solid var(--white); }
+    .btn-project:hover { background: transparent; color: var(--white); }
     .btn-project-ghost {
       font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
       color: var(--white); background: transparent; border: 1px solid rgba(255,255,255,0.4);
-      padding: 14px 28px; text-decoration: none; display: block; text-align: center; white-space: nowrap;
-      transition: border-color 0.3s;
+      padding: 14px 28px; text-decoration: none; white-space: nowrap; transition: border-color 0.3s;
     }
     .btn-project-ghost:hover { border-color: var(--white); }
 
     /* ─── SCROLL COUNTER ────────────────────────────── */
     .scroll-counter {
-      position: fixed; right: 48px; bottom: 48px; z-index: 500;
+      position: fixed; left: 48px; top: 120px; z-index: 500;
       font-size: 11px; font-weight: 700; letter-spacing: 2px;
       text-transform: uppercase; color: rgba(255,255,255,0.4);
     }
@@ -207,211 +202,166 @@
 <!-- STICKY PROJECT STACK -->
 <div id="projectStack" style="padding-top:92px;">
 
-  <!-- 1 -->
+  <!-- AVAILABLE 1 -->
   <div class="project-section" style="z-index:1;">
     <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1920&q=90" alt="One Escarpment" />
-    <div class="project-grain"></div>
-    <div class="project-gradient"></div>
-    <div class="project-info">
-      <div class="project-left">
-        <span class="project-badge available">Off The Plan</span>
-        <div class="project-name">One Escarpment Residences</div>
-        <div class="project-location">Bulli, NSW</div>
-        <div class="project-meta"><span>23 Residences</span><span>Q3 2026</span><span>2 – 4 Bed</span></div>
-      </div>
-      <div class="project-right">
-        <div class="project-price">From $1,850,000</div>
+    <div class="project-grain"></div><div class="project-gradient"></div>
+    <div class="project-centre">
+      <span class="project-badge available">Off The Plan</span>
+      <div class="project-name">One Escarpment<br>Residences</div>
+      <div class="project-location">Bulli, NSW</div>
+      <div class="project-meta"><span>23 Residences</span><span>Q3 2026</span><span>2–4 Bed</span></div>
+      <div class="project-price">From $1,850,000</div>
+      <div class="project-actions">
         <a href="index.html#contact" class="btn-project">Register Interest</a>
         <a href="index.html#contact" class="btn-project-ghost">Download Brochure</a>
       </div>
     </div>
   </div>
 
-  <!-- 2 -->
+  <!-- AVAILABLE 2 -->
   <div class="project-section" style="z-index:2;">
     <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=90" alt="Coastal Quarter" />
-    <div class="project-grain"></div>
-    <div class="project-gradient"></div>
-    <div class="project-info">
-      <div class="project-left">
-        <span class="project-badge available">Off The Plan</span>
-        <div class="project-name">Coastal Quarter</div>
-        <div class="project-location">Thirroul, NSW</div>
-        <div class="project-meta"><span>14 Townhouses</span><span>Q1 2026</span><span>3 – 4 Bed</span></div>
-      </div>
-      <div class="project-right">
-        <div class="project-price">From $1,200,000</div>
+    <div class="project-grain"></div><div class="project-gradient"></div>
+    <div class="project-centre">
+      <span class="project-badge available">Off The Plan</span>
+      <div class="project-name">Coastal Quarter</div>
+      <div class="project-location">Thirroul, NSW</div>
+      <div class="project-meta"><span>14 Townhouses</span><span>Q1 2026</span><span>3–4 Bed</span></div>
+      <div class="project-price">From $1,200,000</div>
+      <div class="project-actions">
         <a href="index.html#contact" class="btn-project">Register Interest</a>
         <a href="index.html#contact" class="btn-project-ghost">Enquire</a>
       </div>
     </div>
   </div>
 
-  <!-- 3 -->
+  <!-- AVAILABLE 3 -->
   <div class="project-section" style="z-index:3;">
     <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1920&q=90" alt="Harbour Residences" />
-    <div class="project-grain"></div>
-    <div class="project-gradient"></div>
-    <div class="project-info">
-      <div class="project-left">
-        <span class="project-badge available">Ready To Move In</span>
-        <div class="project-name">Harbour Residences</div>
-        <div class="project-location">Wollongong CBD</div>
-        <div class="project-meta"><span>8 Apartments</span><span>Immediate Settlement</span><span>2 – 3 Bed</span></div>
-      </div>
-      <div class="project-right">
-        <div class="project-price">From $980,000</div>
+    <div class="project-grain"></div><div class="project-gradient"></div>
+    <div class="project-centre">
+      <span class="project-badge available">Ready To Move In</span>
+      <div class="project-name">Harbour Residences</div>
+      <div class="project-location">Wollongong CBD</div>
+      <div class="project-meta"><span>8 Apartments</span><span>Immediate Settlement</span><span>2–3 Bed</span></div>
+      <div class="project-price">From $980,000</div>
+      <div class="project-actions">
         <a href="index.html#contact" class="btn-project">Enquire Now</a>
         <a href="index.html#contact" class="btn-project-ghost">View Floorplans</a>
       </div>
     </div>
   </div>
 
-  <!-- 4 -->
+  <!-- AVAILABLE 4 -->
   <div class="project-section" style="z-index:4;">
     <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=90" alt="Escarpment Views" />
-    <div class="project-grain"></div>
-    <div class="project-gradient"></div>
-    <div class="project-info">
-      <div class="project-left">
-        <span class="project-badge available">Off The Plan</span>
-        <div class="project-name">Escarpment Views</div>
-        <div class="project-location">Austinmer, NSW</div>
-        <div class="project-meta"><span>6 Luxury Homes</span><span>Q4 2026</span><span>4 – 5 Bed</span></div>
-      </div>
-      <div class="project-right">
-        <div class="project-price">From $2,100,000</div>
+    <div class="project-grain"></div><div class="project-gradient"></div>
+    <div class="project-centre">
+      <span class="project-badge available">Off The Plan</span>
+      <div class="project-name">Escarpment Views</div>
+      <div class="project-location">Austinmer, NSW</div>
+      <div class="project-meta"><span>6 Luxury Homes</span><span>Q4 2026</span><span>4–5 Bed</span></div>
+      <div class="project-price">From $2,100,000</div>
+      <div class="project-actions">
         <a href="index.html#contact" class="btn-project">Register Interest</a>
         <a href="index.html#contact" class="btn-project-ghost">Enquire</a>
       </div>
     </div>
   </div>
 
-  <!-- 5 -->
+  <!-- AVAILABLE 5 -->
   <div class="project-section" style="z-index:5;">
     <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=90" alt="Headland House" />
-    <div class="project-grain"></div>
-    <div class="project-gradient"></div>
-    <div class="project-info">
-      <div class="project-left">
-        <span class="project-badge available">Ready To Move In</span>
-        <div class="project-name">Headland House</div>
-        <div class="project-location">Woonona, NSW</div>
-        <div class="project-meta"><span>4 Bed</span><span>3 Bath</span><span>Immediate Settlement</span></div>
-      </div>
-      <div class="project-right">
-        <div class="project-price">$3,450,000</div>
+    <div class="project-grain"></div><div class="project-gradient"></div>
+    <div class="project-centre">
+      <span class="project-badge available">Ready To Move In</span>
+      <div class="project-name">Headland House</div>
+      <div class="project-location">Woonona, NSW</div>
+      <div class="project-meta"><span>4 Bed</span><span>3 Bath</span><span>Immediate Settlement</span></div>
+      <div class="project-price">$3,450,000</div>
+      <div class="project-actions">
         <a href="index.html#contact" class="btn-project">Enquire Now</a>
         <a href="index.html#contact" class="btn-project-ghost">Book Inspection</a>
       </div>
     </div>
   </div>
 
-  <!-- 6 — SOLD -->
+  <!-- SOLD 1 -->
   <div class="project-section" style="z-index:6;">
     <img src="https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=1920&q=90" alt="Seacliff Estate" />
-    <div class="project-grain"></div>
-    <div class="project-gradient"></div>
-    <div class="project-info">
-      <div class="project-left">
-        <span class="project-badge sold">Completed — Sold Out</span>
-        <div class="project-name">Seacliff Estate</div>
-        <div class="project-location">Stanwell Park, NSW</div>
-        <div class="project-meta"><span>18 Residences</span><span>Completed 2024</span></div>
-      </div>
-      <div class="project-right">
-        <div class="project-price" style="color:rgba(255,255,255,0.4);">Sold Out</div>
-      </div>
+    <div class="project-grain"></div><div class="project-gradient"></div>
+    <div class="project-centre">
+      <span class="project-badge sold">Completed — Sold Out</span>
+      <div class="project-name">Seacliff Estate</div>
+      <div class="project-location">Stanwell Park, NSW</div>
+      <div class="project-meta"><span>18 Residences</span><span>Completed 2024</span></div>
+      <div class="project-price" style="color:rgba(255,255,255,0.35);">Sold Out</div>
     </div>
   </div>
 
-  <!-- 7 -->
+  <!-- SOLD 2 -->
   <div class="project-section" style="z-index:7;">
     <img src="https://images.unsplash.com/photo-1571055107559-3e67626fa8be?w=1920&q=90" alt="The Headlands" />
-    <div class="project-grain"></div>
-    <div class="project-gradient"></div>
-    <div class="project-info">
-      <div class="project-left">
-        <span class="project-badge sold">Completed — Sold Out</span>
-        <div class="project-name">The Headlands</div>
-        <div class="project-location">Bulli, NSW</div>
-        <div class="project-meta"><span>10 Townhouses</span><span>Completed 2023</span></div>
-      </div>
-      <div class="project-right">
-        <div class="project-price" style="color:rgba(255,255,255,0.4);">Sold Out</div>
-      </div>
+    <div class="project-grain"></div><div class="project-gradient"></div>
+    <div class="project-centre">
+      <span class="project-badge sold">Completed — Sold Out</span>
+      <div class="project-name">The Headlands</div>
+      <div class="project-location">Bulli, NSW</div>
+      <div class="project-meta"><span>10 Townhouses</span><span>Completed 2023</span></div>
+      <div class="project-price" style="color:rgba(255,255,255,0.35);">Sold Out</div>
     </div>
   </div>
 
-  <!-- 8 -->
+  <!-- SOLD 3 -->
   <div class="project-section" style="z-index:8;">
     <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1920&q=90" alt="Pacific Terraces" />
-    <div class="project-grain"></div>
-    <div class="project-gradient"></div>
-    <div class="project-info">
-      <div class="project-left">
-        <span class="project-badge sold">Completed — Sold Out</span>
-        <div class="project-name">Pacific Terraces</div>
-        <div class="project-location">Woonona, NSW</div>
-        <div class="project-meta"><span>12 Terraces</span><span>Completed 2023</span></div>
-      </div>
-      <div class="project-right">
-        <div class="project-price" style="color:rgba(255,255,255,0.4);">Sold Out</div>
-      </div>
+    <div class="project-grain"></div><div class="project-gradient"></div>
+    <div class="project-centre">
+      <span class="project-badge sold">Completed — Sold Out</span>
+      <div class="project-name">Pacific Terraces</div>
+      <div class="project-location">Woonona, NSW</div>
+      <div class="project-meta"><span>12 Terraces</span><span>Completed 2023</span></div>
+      <div class="project-price" style="color:rgba(255,255,255,0.35);">Sold Out</div>
     </div>
   </div>
 
-  <!-- 9 -->
+  <!-- SOLD 4 -->
   <div class="project-section" style="z-index:9;">
     <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=90" alt="Clifftop Collection" />
-    <div class="project-grain"></div>
-    <div class="project-gradient"></div>
-    <div class="project-info">
-      <div class="project-left">
-        <span class="project-badge sold">Completed — Sold Out</span>
-        <div class="project-name">Clifftop Collection</div>
-        <div class="project-location">Thirroul, NSW</div>
-        <div class="project-meta"><span>6 Luxury Homes</span><span>Completed 2022</span></div>
-      </div>
-      <div class="project-right">
-        <div class="project-price" style="color:rgba(255,255,255,0.4);">Sold Out</div>
-      </div>
+    <div class="project-grain"></div><div class="project-gradient"></div>
+    <div class="project-centre">
+      <span class="project-badge sold">Completed — Sold Out</span>
+      <div class="project-name">Clifftop Collection</div>
+      <div class="project-location">Thirroul, NSW</div>
+      <div class="project-meta"><span>6 Luxury Homes</span><span>Completed 2022</span></div>
+      <div class="project-price" style="color:rgba(255,255,255,0.35);">Sold Out</div>
     </div>
   </div>
 
-  <!-- 10 -->
+  <!-- SOLD 5 -->
   <div class="project-section" style="z-index:10;">
     <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=90" alt="Escarpment Rise" />
-    <div class="project-grain"></div>
-    <div class="project-gradient"></div>
-    <div class="project-info">
-      <div class="project-left">
-        <span class="project-badge sold">Completed — Sold Out</span>
-        <div class="project-name">Escarpment Rise</div>
-        <div class="project-location">Austinmer, NSW</div>
-        <div class="project-meta"><span>8 Residences</span><span>Completed 2022</span></div>
-      </div>
-      <div class="project-right">
-        <div class="project-price" style="color:rgba(255,255,255,0.4);">Sold Out</div>
-      </div>
+    <div class="project-grain"></div><div class="project-gradient"></div>
+    <div class="project-centre">
+      <span class="project-badge sold">Completed — Sold Out</span>
+      <div class="project-name">Escarpment Rise</div>
+      <div class="project-location">Austinmer, NSW</div>
+      <div class="project-meta"><span>8 Residences</span><span>Completed 2022</span></div>
+      <div class="project-price" style="color:rgba(255,255,255,0.35);">Sold Out</div>
     </div>
   </div>
 
-  <!-- 11 -->
+  <!-- SOLD 6 -->
   <div class="project-section" style="z-index:11;">
     <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1920&q=90" alt="Harbour One" />
-    <div class="project-grain"></div>
-    <div class="project-gradient"></div>
-    <div class="project-info">
-      <div class="project-left">
-        <span class="project-badge sold">Completed — Sold Out</span>
-        <div class="project-name">Harbour One</div>
-        <div class="project-location">Wollongong CBD</div>
-        <div class="project-meta"><span>24 Apartments</span><span>Completed 2021</span></div>
-      </div>
-      <div class="project-right">
-        <div class="project-price" style="color:rgba(255,255,255,0.4);">Sold Out</div>
-      </div>
+    <div class="project-grain"></div><div class="project-gradient"></div>
+    <div class="project-centre">
+      <span class="project-badge sold">Completed — Sold Out</span>
+      <div class="project-name">Harbour One</div>
+      <div class="project-location">Wollongong CBD</div>
+      <div class="project-meta"><span>24 Apartments</span><span>Completed 2021</span></div>
+      <div class="project-price" style="color:rgba(255,255,255,0.35);">Sold Out</div>
     </div>
   </div>
 
