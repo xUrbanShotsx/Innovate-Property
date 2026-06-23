@@ -89,16 +89,12 @@
     .reveal-delay-1 { transition-delay: 0.12s; }
     .reveal-delay-2 { transition-delay: 0.24s; }
 
-    /* ─── ABOUT SPLIT ────────────────────────────────────────── */
-    .about-split {
-      display: grid; grid-template-columns: 1fr 1fr;
-      min-height: calc(100vh - 92px);
-      border-top: 92px solid transparent;
-    }
-    .about-left {
-      padding: 80px 64px;
-      display: flex; flex-direction: column; justify-content: center;
-      border-right: 1px solid var(--hairline);
+    /* ─── ABOUT TOP ──────────────────────────────────────────── */
+    .about-top {
+      padding: 100px 80px;
+      border-bottom: 1px solid var(--hairline);
+      padding-top: calc(92px + 80px);
+      max-width: 800px;
     }
     .about-eyebrow {
       font-size: 10px; font-weight: 700; letter-spacing: 4px;
@@ -109,21 +105,22 @@
       font-size: clamp(17px, 1.8vw, 22px); font-weight: 300;
       line-height: 1.8; color: var(--black);
     }
-    .about-right {
-      display: flex; flex-direction: column;
+
+    /* ─── SERVICES ROW ───────────────────────────────────────── */
+    .services-row {
+      display: grid; grid-template-columns: repeat(3, 1fr);
     }
     .service-item {
-      flex: 1; padding: 48px 64px;
-      display: flex; flex-direction: column; justify-content: center;
-      border-bottom: 1px solid var(--hairline);
+      padding: 64px 56px;
+      border-right: 1px solid var(--hairline);
     }
-    .service-item:last-child { border-bottom: none; }
+    .service-item:last-child { border-right: none; }
     .service-num {
       font-size: 10px; font-weight: 700; letter-spacing: 3px;
       text-transform: uppercase; color: var(--ink-mute); margin-bottom: 20px;
     }
     .service-title {
-      font-size: clamp(18px, 1.6vw, 22px); font-weight: 900;
+      font-size: clamp(16px, 1.4vw, 20px); font-weight: 900;
       text-transform: uppercase; letter-spacing: 0.5px;
       color: var(--black); margin-bottom: 14px; line-height: 1.1;
     }
@@ -171,16 +168,17 @@
       nav { padding: 12px 24px; }
       .nav-links, .nav-cta { display: none; }
       .hamburger { display: flex; }
-      .about-split { grid-template-columns: 1fr; min-height: auto; border-top: 92px solid transparent; }
-      .about-left { padding: 60px 28px; border-right: none; border-bottom: 1px solid var(--hairline); }
-      .service-item { padding: 40px 28px; }
+      .about-top { padding: 60px 28px; padding-top: calc(92px + 48px); }
+      .services-row { grid-template-columns: 1fr; }
+      .service-item { border-right: none; border-bottom: 1px solid var(--hairline); padding: 40px 28px; }
+      .service-item:last-child { border-bottom: none; }
       .cta-band { padding: 60px 28px; flex-direction: column; align-items: flex-start; }
       footer { padding: 40px 28px 28px; }
     }
     @media (max-width: 640px) {
       nav { padding: 10px 20px; }
       .nav-logo img { height: 52px !important; }
-      .about-left { padding: 48px 24px; }
+      .about-top { padding: 48px 24px; padding-top: calc(92px + 36px); }
       .service-item { padding: 36px 24px; }
       .cta-actions { flex-direction: column; width: 100%; }
       .btn-white-solid, .btn-ghost-white { text-align: center; }
@@ -227,34 +225,29 @@
   </button>
 </nav>
 
-<!-- ABOUT SPLIT -->
-<div class="about-split">
+<!-- ABOUT TOP -->
+<div class="about-top">
+  <p class="about-eyebrow reveal">Niche Business Service</p>
+  <p class="about-body reveal reveal-delay-1">Innovate Property Group provides exceptional service &amp; results for our clients, with a core focus on marketing &amp; negotiating the sale of projects and luxury/lifestyle homes. We also specialise in site acquisition, securing the best development sites for our clients, boasting a track record of negotiating some of the best, high profile sites in our area.</p>
+</div>
 
-  <!-- LEFT: Description -->
-  <div class="about-left">
-    <p class="about-eyebrow reveal">Niche Business Service</p>
-    <p class="about-body reveal reveal-delay-1">Innovate Property Group provides exceptional service &amp; results for our clients, with a core focus on marketing &amp; negotiating the sale of projects and luxury/lifestyle homes. We also specialise in site acquisition, securing the best development sites for our clients, boasting a track record of negotiating some of the best, high profile sites in our area.</p>
+<!-- SERVICES -->
+<div class="services-row">
+  <div class="service-item reveal">
+    <div class="service-num">01</div>
+    <div class="service-title">Prestige Property Sales</div>
+    <p class="service-body">Specialising in the Illawarra's finest homes — from oceanfront clifftop estates to escarpment retreats. Personal, strategic, and built around achieving the strongest result for every client.</p>
   </div>
-
-  <!-- RIGHT: Services -->
-  <div class="about-right">
-    <div class="service-item reveal">
-      <div class="service-num">01</div>
-      <div class="service-title">Prestige Property Sales</div>
-      <p class="service-body">Specialising in the Illawarra's finest homes — from oceanfront clifftop estates to escarpment retreats. Personal, strategic, and built around achieving the strongest result for every client.</p>
-    </div>
-    <div class="service-item reveal reveal-delay-1">
-      <div class="service-num">02</div>
-      <div class="service-title">Off The Plan &amp; New Projects</div>
-      <p class="service-body">Representing developers and buyers across off-the-plan releases and completed new builds. Buyers get early access and priority pricing. Developers get a sales partner who knows how to position premium product.</p>
-    </div>
-    <div class="service-item reveal reveal-delay-2">
-      <div class="service-num">03</div>
-      <div class="service-title">Development Site Acquisitions</div>
-      <p class="service-body">Sourcing and selling development sites of all sizes across the Illawarra — connecting builders, developers, and investors with opportunities that rarely reach the open market.</p>
-    </div>
+  <div class="service-item reveal reveal-delay-1">
+    <div class="service-num">02</div>
+    <div class="service-title">Off The Plan &amp; New Projects</div>
+    <p class="service-body">Representing developers and buyers across off-the-plan releases and completed new builds. Buyers get early access and priority pricing. Developers get a sales partner who knows how to position premium product.</p>
   </div>
-
+  <div class="service-item reveal reveal-delay-2">
+    <div class="service-num">03</div>
+    <div class="service-title">Development Site Acquisitions</div>
+    <p class="service-body">Sourcing and selling development sites of all sizes across the Illawarra — connecting builders, developers, and investors with opportunities that rarely reach the open market.</p>
+  </div>
 </div>
 
 <!-- CTA BAND -->
