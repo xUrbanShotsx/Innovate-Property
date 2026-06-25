@@ -83,10 +83,24 @@
       background: var(--black); padding: 16px; text-decoration: none;
     }
 
-    /* ─── PROPERTIES GRID TOP SPACING ───────────────────────── */
+    /* ─── FILTER BAR ────────────────────────────────────────── */
+    .filter-bar {
+      border-bottom: 1px solid var(--hairline); padding: 0 80px;
+      display: flex; align-items: center; justify-content: space-between;
+      overflow-x: auto; scrollbar-width: none; margin-top: 92px;
+    }
+    .filter-bar::-webkit-scrollbar { display: none; }
+    .filter-tabs { display: flex; }
+    .filter-btn {
+      font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--ink-mute); background: none; border: none;
+      border-bottom: 2px solid transparent; padding: 20px 24px;
+      cursor: pointer; white-space: nowrap; transition: color 0.3s, border-color 0.3s;
+    }
+    .filter-btn.active, .filter-btn:hover { color: var(--black); border-bottom-color: var(--black); }
+    .results-count { font-size: 10px; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-mute); white-space: nowrap; }
 
     /* ─── PROPERTIES GRID ───────────────────────────────────── */
-    .prop-spacer { height: 20px; margin-top: 92px; border-bottom: 1px solid var(--hairline); }
     .properties-section { padding-top: 20px; }
     .properties-grid {
       display: grid;
@@ -203,7 +217,6 @@
       nav { padding: 12px 24px; }
       .nav-links, .nav-cta { display: none; }
       .hamburger { display: flex; }
-      .page-hero-content { padding: 48px 28px; }
       .filter-bar { padding: 0 28px; }
       .enquire-band { padding: 60px 28px; flex-direction: column; align-items: flex-start; }
       footer { padding: 40px 28px 28px; }
@@ -211,7 +224,6 @@
     @media (max-width: 640px) {
       nav { padding: 10px 20px; }
       .nav-logo img { height: 52px !important; }
-      .page-hero-content { padding: 36px 24px; }
       .filter-bar { padding: 0 16px; }
       .properties-grid { grid-template-columns: 1fr; }
       .property-overlay { padding: 24px; }
@@ -266,7 +278,16 @@
   </button>
 </nav>
 
-<div class="prop-spacer"></div>
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <div class="filter-tabs">
+    <button class="filter-btn active" onclick="filterProps('all', this)">All Properties</button>
+    <button class="filter-btn" onclick="filterProps('oceanfront', this)">Oceanfront</button>
+    <button class="filter-btn" onclick="filterProps('escarpment', this)">Escarpment</button>
+    <button class="filter-btn" onclick="filterProps('penthouse', this)">Penthouse</button>
+  </div>
+  <span class="results-count" id="resultsCount">8 Properties</span>
+</div>
 
 <!-- GRID -->
 <div class="properties-section">
@@ -403,6 +424,18 @@
   }, { threshold: 0.08 });
   reveals.forEach(el => obs.observe(el));
 
+  function filterProps(type, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cards = document.querySelectorAll('.property-card');
+    let count = 0;
+    cards.forEach(card => {
+      const show = type === 'all' || card.dataset.type === type;
+      card.style.display = show ? '' : 'none';
+      if (show) count++;
+    });
+    document.getElementById('resultsCount').textContent = count + ' Propert' + (count === 1 ? 'y' : 'ies');
+  }
 </script>
 </body>
 </html>
