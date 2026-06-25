@@ -228,7 +228,7 @@
 <div class="sites-section">
   <div class="sites-grid" id="sitesGrid">
 
-    <div class="site-card reveal" data-type="large">
+    <div class="site-card reveal" data-type="large" data-id="escarpment-ridge">
       <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&q=85" alt="Escarpment Ridge" loading="lazy" />
       <div class="site-overlay">
         <span class="site-tag">Large Scale</span>
@@ -240,7 +240,7 @@
       </div>
     </div>
 
-    <div class="site-card reveal" data-type="townhouse">
+    <div class="site-card reveal" data-type="townhouse" data-id="lawrence-street">
       <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=85" alt="Lawrence Street Site" loading="lazy" />
       <div class="site-overlay">
         <span class="site-tag">Townhouse Site</span>
@@ -252,7 +252,7 @@
       </div>
     </div>
 
-    <div class="site-card reveal" data-type="duplex">
+    <div class="site-card reveal" data-type="duplex" data-id="thirroul-corner">
       <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=85" alt="Thirroul Corner Block" loading="lazy" />
       <div class="site-overlay">
         <span class="site-tag">Duplex / Dual Occ</span>
@@ -264,7 +264,7 @@
       </div>
     </div>
 
-    <div class="site-card reveal" data-type="land">
+    <div class="site-card reveal" data-type="land" data-id="helensburgh-acreage">
       <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200&q=85" alt="Helensburgh Acreage" loading="lazy" />
       <div class="site-overlay">
         <span class="site-tag">Land &amp; Acreage</span>
@@ -276,7 +276,7 @@
       </div>
     </div>
 
-    <div class="site-card reveal" data-type="townhouse">
+    <div class="site-card reveal" data-type="townhouse" data-id="fairy-meadow-site">
       <img src="https://images.unsplash.com/photo-1577495508048-b635879837f1?w=1200&q=85" alt="Fairy Meadow Site" loading="lazy" />
       <div class="site-overlay">
         <span class="site-tag">Townhouse Site</span>
@@ -288,7 +288,7 @@
       </div>
     </div>
 
-    <div class="site-card reveal" data-type="duplex">
+    <div class="site-card reveal" data-type="duplex" data-id="corrimal-flat">
       <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1200&q=85" alt="Corrimal Flat Block" loading="lazy" />
       <div class="site-overlay">
         <span class="site-tag">Duplex / Dual Occ</span>
@@ -300,7 +300,7 @@
       </div>
     </div>
 
-    <div class="site-card reveal" data-type="large">
+    <div class="site-card reveal" data-type="large" data-id="shellharbour-land">
       <img src="https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?w=1200&q=85" alt="Shellharbour Land" loading="lazy" />
       <div class="site-overlay">
         <span class="site-tag">Large Scale</span>
@@ -312,7 +312,7 @@
       </div>
     </div>
 
-    <div class="site-card reveal" data-type="land">
+    <div class="site-card reveal" data-type="land" data-id="dapto-vacant">
       <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=1200&q=85" alt="Dapto Vacant Land" loading="lazy" />
       <div class="site-overlay">
         <span class="site-tag">Land &amp; Acreage</span>
@@ -357,6 +357,12 @@
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.08 });
   reveals.forEach(el => obs.observe(el));
+
+  document.querySelectorAll('.site-card[data-id]').forEach(card => {
+    card.addEventListener('click', () => {
+      window.location.href = 'site.html?id=' + card.dataset.id;
+    });
+  });
 
   function filterSites(type, btn) {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));

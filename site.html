@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Development Site — Innovate Property Group</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #000000; --black-soft: #0a0a0a;
+      --white: #ffffff; --white-mute: #f0f0fa;
+      --hairline: #e8e8e8; --ink-mute: #5a5a5f;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--white); color: var(--black); font-family: 'Inter', Arial, sans-serif; overflow-x: hidden; }
+
+    /* ─── NAV ──────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 48px; background: var(--white); border-bottom: 1px solid var(--hairline);
+    }
+    .nav-logo img { height: 72px; width: auto; display: block; }
+    .nav-links { display: flex; gap: 40px; list-style: none; align-items: center; }
+    .nav-links a {
+      font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--ink-mute); text-decoration: none; transition: color 0.3s; position: relative;
+    }
+    .nav-links a:hover { color: var(--black); }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px; background: var(--black); transform: scaleX(0);
+      transform-origin: left; transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
+    }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-cta {
+      font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--white); background: var(--black); border: 1px solid var(--black);
+      padding: 12px 24px; text-decoration: none; transition: all 0.3s;
+    }
+    .nav-cta:hover { background: var(--white); color: var(--black); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
+    .hamburger span { width: 26px; height: 1px; background: var(--black); display: block; }
+
+    /* ─── MOBILE NAV ────────────────────────────── */
+    .mobile-nav {
+      position: fixed; inset: 0; z-index: 999; background: var(--white);
+      display: flex; flex-direction: column; transform: translateX(100%);
+      transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
+    }
+    .mobile-nav.open { transform: translateX(0); }
+    .mobile-nav-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 28px; border-bottom: 1px solid var(--hairline); }
+    .mobile-nav-header img { height: 40px; }
+    .mobile-nav-close { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: none; border: 1px solid #e0e0e0; font-size: 18px; cursor: pointer; }
+    .mobile-nav-links { flex: 1; display: flex; flex-direction: column; padding: 20px 0; }
+    .mobile-nav-links a { font-size: 14px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--black); text-decoration: none; padding: 20px 28px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; justify-content: space-between; }
+    .mobile-nav-links a::after { content: '→'; font-size: 16px; color: var(--ink-mute); }
+    .mobile-nav-footer { padding: 28px; border-top: 1px solid var(--hairline); }
+    .mobile-nav-footer a { display: block; text-align: center; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); background: var(--black); padding: 16px; text-decoration: none; }
+
+    /* ─── HERO ──────────────────────────────────── */
+    .prop-hero {
+      margin-top: 92px; position: relative;
+      height: calc(100vh - 92px); overflow: hidden;
+    }
+    .prop-hero-img { width: 100%; height: 100%; object-fit: cover; }
+    .prop-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.6) 100%);
+    }
+    .prop-hero-grain {
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.12; mix-blend-mode: overlay;
+    }
+    .prop-hero-info {
+      position: absolute; inset: 0; z-index: 2;
+      display: flex; flex-direction: column;
+      justify-content: flex-end; padding: 60px 80px;
+    }
+    .prop-status {
+      font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--white); border: 1px solid rgba(255,255,255,0.5);
+      padding: 5px 14px; display: inline-block; margin-bottom: 16px; width: fit-content;
+    }
+    .prop-hero-name {
+      font-size: clamp(32px, 4.5vw, 64px); font-weight: 900; line-height: 0.95;
+      letter-spacing: -0.5px; text-transform: uppercase; color: var(--white); margin-bottom: 8px;
+    }
+    .prop-hero-location {
+      font-size: 12px; font-weight: 400; letter-spacing: 2px;
+      text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 8px;
+    }
+    .prop-hero-price { font-size: 24px; font-weight: 700; color: var(--white); margin-bottom: 32px; }
+
+    /* ─── STATS ON HERO ──────────────────────────── */
+    .prop-stats-hero { display: flex; gap: 32px; width: fit-content; }
+    .prop-stat-hero { display: flex; flex-direction: column; gap: 4px; }
+    .prop-stat-label { font-size: 9px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+    .prop-stat-value { font-size: 16px; font-weight: 700; color: var(--white); }
+
+    /* ─── ENQUIRE BUTTON FLOATING ────────────────── */
+    .prop-enquire-btn {
+      position: absolute; top: 32px; right: 80px; z-index: 3;
+      font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--black); background: var(--white);
+      padding: 14px 28px; text-decoration: none;
+      transition: background 0.3s, color 0.3s;
+      border: 1px solid var(--white);
+    }
+    .prop-enquire-btn:hover { background: transparent; color: var(--white); }
+
+    /* ─── DESCRIPTION ────────────────────────────── */
+    .prop-description-section {
+      padding: 64px 80px;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 80px; align-items: start;
+      border-bottom: 1px solid var(--hairline);
+    }
+    .section-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--ink-mute); padding-bottom: 16px; margin-bottom: 28px;
+      border-bottom: 1px solid var(--hairline);
+    }
+    .prop-description { font-size: 15px; font-weight: 300; line-height: 1.9; color: #333; }
+    .prop-desc-actions { display: flex; flex-direction: column; gap: 12px; min-width: 180px; padding-top: 48px; }
+    .btn-desc {
+      font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      padding: 14px 24px; text-decoration: none; text-align: center; transition: all 0.3s;
+    }
+    .btn-desc-solid { color: var(--white); background: var(--black); border: 1px solid var(--black); }
+    .btn-desc-solid:hover { background: var(--white); color: var(--black); }
+    .btn-desc-outline { color: var(--black); background: transparent; border: 1px solid #ccc; }
+    .btn-desc-outline:hover { border-color: var(--black); }
+
+    /* ─── GALLERY STRIP ──────────────────────────── */
+    .gallery-section { padding: 64px 80px; border-bottom: 1px solid var(--hairline); }
+    .gallery-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .gallery-img { aspect-ratio: 4/3; overflow: hidden; cursor: zoom-in; }
+    .gallery-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; display: block; }
+    .gallery-img:hover img { transform: scale(1.05); }
+
+    /* ─── LIGHTBOX ───────────────────────────────── */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 2000;
+      background: rgba(0,0,0,0.95); align-items: center; justify-content: center;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-img { max-width: 90vw; max-height: 88vh; object-fit: contain; user-select: none; display: block; }
+    .lightbox-close {
+      position: absolute; top: 24px; right: 28px;
+      background: none; border: none; color: rgba(255,255,255,0.7);
+      font-size: 28px; cursor: pointer; line-height: 1; padding: 4px; transition: color 0.2s;
+    }
+    .lightbox-close:hover { color: #fff; }
+    .lightbox-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: none; border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.7); width: 48px; height: 48px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 18px; transition: all 0.2s;
+    }
+    .lightbox-btn:hover { border-color: rgba(255,255,255,0.8); color: #fff; }
+    .lightbox-prev { left: 28px; }
+    .lightbox-next { right: 28px; }
+    .lightbox-counter {
+      position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+      font-size: 10px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+
+    /* ─── FOOTER ─────────────────────────────────── */
+    footer { background: var(--black-soft); border-top: 1px solid #1a1a1a; padding: 32px 80px; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 11px; font-weight: 300; color: var(--ink-mute); }
+    .footer-logo img { height: 36px; width: auto; filter: invert(1); }
+
+    /* ─── REVEAL ─────────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── RESPONSIVE ─────────────────────────────── */
+    @media (max-width: 1024px) {
+      nav { padding: 12px 24px; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .prop-hero-info { padding: 40px 28px; }
+      .prop-enquire-btn { top: 20px; right: 28px; }
+      .prop-stats-hero { flex-wrap: wrap; }
+      .prop-description-section { grid-template-columns: 1fr; gap: 32px; }
+      footer { padding: 32px 28px; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 10px 20px; }
+      .nav-logo img { height: 52px !important; }
+      .prop-hero { height: 100vh; }
+      .prop-hero-info { padding: 24px; }
+      .prop-enquire-btn { top: 16px; right: 24px; padding: 10px 20px; }
+      .prop-stats-hero { width: 100%; }
+      .prop-description-section, .gallery-section { padding: 40px 24px; }
+      .gallery-strip { grid-template-columns: repeat(2, 1fr); }
+      footer { padding: 28px 24px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    }
+    @media (hover: none) and (pointer: coarse) { body { cursor: auto; } a, button { cursor: pointer; } }
+  </style>
+</head>
+<body>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-header">
+    <img src="logo.png" alt="Innovate Property Group" />
+    <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
+  </div>
+  <div class="mobile-nav-links">
+    <a href="about.html">About</a>
+    <a href="properties.html">Prestige Homes</a>
+    <a href="development-sites.html">Development Sites</a>
+    <a href="projects.html">Projects</a>
+  </div>
+  <div class="mobile-nav-footer">
+    <a href="appraisal.html">Free Appraisal</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" style="height:72px;width:auto;" />
+  </a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="properties.html">Prestige Homes</a></li>
+    <li><a href="development-sites.html">Development Sites</a></li>
+    <li><a href="projects.html">Projects</a></li>
+  </ul>
+  <a href="appraisal.html" class="nav-cta">Free Appraisal</a>
+  <button class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- DYNAMIC CONTENT -->
+<div id="sitePage"></div>
+
+<script>
+  const mobileNav = document.getElementById('mobileNav');
+  function openMobileNav() { mobileNav.classList.add('open'); }
+  function closeMobileNav() { mobileNav.classList.remove('open'); }
+
+  /* ── SITE DATA ───────────────────────────────────── */
+  const sites = {
+    'escarpment-ridge': {
+      name: 'Escarpment Ridge',
+      location: 'Bulli, NSW',
+      price: '$4,800,000',
+      category: 'Large Scale',
+      area: '3.2 Ha',
+      zoning: 'R2',
+      potential: '28+ Lots',
+      img: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920&q=90',
+      gallery: [
+        'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80',
+        'https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?w=800&q=80',
+        'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800&q=80',
+      ],
+      description: `A rare large-scale development opportunity positioned along the base of the Illawarra Escarpment in sought-after Bulli. This 3.2-hectare parcel of R2 zoned land represents one of the most significant land releases in the Northern Illawarra in recent years, with capacity for 28 or more residential lots subject to council approval.\n\nThe site benefits from an elevated north-facing orientation with sweeping escarpment backdrop, strong existing infrastructure connections, and proximity to Bulli village, beach, and train station — creating compelling fundamentals for a premium residential subdivision.\n\nEarly-stage planning documentation is available to qualified parties. The site is being offered for the first time in over three decades, representing a generational opportunity for a developer seeking scale and quality of address.`,
+    },
+    'lawrence-street': {
+      name: 'Lawrence Street Site',
+      location: 'Wollongong, NSW',
+      price: '$1,950,000',
+      category: 'Townhouse Site',
+      area: '1,420 m²',
+      zoning: 'R3',
+      potential: '6–8 Townhouses',
+      img: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1920&q=90',
+      gallery: [
+        'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80',
+        'https://images.unsplash.com/photo-1577495508048-b635879837f1?w=800&q=80',
+        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+      ],
+      description: `A premium infill development site in the heart of Wollongong, zoned R3 Medium Density Residential and positioned to accommodate a boutique townhouse development of 6 to 8 dwellings, subject to council approval.\n\nThe 1,420m² level site offers a rectangular configuration that maximises design efficiency — ideal for a stacked or side-by-side townhouse product targeting the city's undersupplied medium-density market. Walking distance to Wollongong CBD, Crown Street Mall, university campus, and the waterfront precinct.\n\nService connections are in place and the site is cleared and ready for a development application. An opportunity well-suited to a small-to-medium developer seeking a straightforward, high-quality infill play in one of the Illawarra's strongest performing suburbs.`,
+    },
+    'thirroul-corner': {
+      name: 'Thirroul Corner Block',
+      location: 'Thirroul, NSW',
+      price: '$1,100,000',
+      category: 'Duplex / Dual Occ',
+      area: '810 m²',
+      zoning: 'R2',
+      potential: 'Corner Block',
+      img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=90',
+      gallery: [
+        'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80',
+        'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80',
+        'https://images.unsplash.com/photo-1577495508048-b635879837f1?w=800&q=80',
+      ],
+      description: `An exceptional corner block opportunity in the tightly held beachside village of Thirroul — one of the Northern Illawarra's most coveted addresses and a suburb where dual occupancy sites are seldom offered to the open market.\n\nAt 810m² with dual street frontage, the site is well-configured for a duplex or dual occupancy development under the current R2 Low Density Residential zoning, subject to council approval. The corner position allows for two separate driveways and maximises natural light for both dwellings.\n\nThirroul offers an unmatched lifestyle proposition: a thriving village strip, direct beach access, and a commuter train station connecting to Wollongong and Sydney — driving consistently strong demand from owner-occupiers and investors alike.`,
+    },
+    'helensburgh-acreage': {
+      name: 'Helensburgh Acreage',
+      location: 'Helensburgh, NSW',
+      price: '$2,300,000',
+      category: 'Land & Acreage',
+      area: '8.4 Ha',
+      zoning: 'RU4',
+      potential: 'Subdivision Potential',
+      img: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&q=90',
+      gallery: [
+        'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80',
+        'https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?w=800&q=80',
+        'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800&q=80',
+      ],
+      description: `A commanding 8.4-hectare holding on the edge of Helensburgh township, zoned RU4 Primary Production Small Lots — a classification that opens the door to a range of rural residential and small-lot subdivision opportunities, subject to council approval and LEP provisions.\n\nThe land sits within a rapidly growing corridor as Sydney's urban boundary continues to push south, with Helensburgh offering direct rail access to the CBD and a strong lifestyle appeal that is driving significant residential demand.\n\nThe property is cleared and useable across the majority of its area, with town water available to the boundary and a sealed road frontage. Strategic buyers with a medium-term horizon will recognise the significant uplift potential embedded in this landholding.`,
+    },
+    'fairy-meadow-site': {
+      name: 'Fairy Meadow Site',
+      location: 'Fairy Meadow, NSW',
+      price: '$2,650,000',
+      category: 'Townhouse Site',
+      area: '2,100 m²',
+      zoning: 'R3',
+      potential: '10–12 Townhouses',
+      img: 'https://images.unsplash.com/photo-1577495508048-b635879837f1?w=1920&q=90',
+      gallery: [
+        'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80',
+        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+        'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80',
+      ],
+      description: `One of the most significant medium-density sites currently available in the Northern Illawarra — a 2,100m² R3 zoned parcel in Fairy Meadow with preliminary planning advice supporting a development of 10 to 12 townhouses, subject to council approval.\n\nFairy Meadow is a suburb on the rise: cafes, lifestyle amenity, beaches, and a fast-growing owner-occupier base have driven consistent price growth. Demand for new medium-density product here significantly outpaces supply, creating a highly favourable pre-sales environment for any incoming developer.\n\nThe site is cleared, regular in shape, and serviced by all utilities at the boundary. A concept scheme prepared by a local architect is available to qualifying parties, demonstrating the yield and design viability of the site.`,
+    },
+    'corrimal-flat': {
+      name: 'Corrimal Flat Block',
+      location: 'Corrimal, NSW',
+      price: '$870,000',
+      category: 'Duplex / Dual Occ',
+      area: '695 m²',
+      zoning: 'R2',
+      potential: 'Flat Battleaxe',
+      img: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1920&q=90',
+      gallery: [
+        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+        'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80',
+        'https://images.unsplash.com/photo-1577495508048-b635879837f1?w=800&q=80',
+      ],
+      description: `An accessible entry point into the Illawarra development market — a 695m² battleaxe-configured block in Corrimal, zoned R2 and suited to a dual occupancy or duplex development for the right operator, subject to council approval.\n\nThe flat, regular block with rear battleaxe access is a configuration increasingly favoured by the market for its ability to deliver two fully private dwellings with separate titles, distinct frontages, and independent outdoor areas. The existing structure on the site holds no heritage listing and is ready for demolition.\n\nCorrimal offers strong rental yields and consistent buyer demand driven by its proximity to Wollongong CBD, the university, and the Northern Illawarra beach corridor — making a dual occupancy investment here a reliable hold for the medium term.`,
+    },
+    'shellharbour-land': {
+      name: 'Shellharbour Land',
+      location: 'Shellharbour, NSW',
+      price: '$7,200,000',
+      category: 'Large Scale',
+      area: '6.8 Ha',
+      zoning: 'R2',
+      potential: 'DA Approved 42 Lots',
+      img: 'https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?w=1920&q=90',
+      gallery: [
+        'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80',
+        'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80',
+        'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800&q=80',
+      ],
+      description: `A development-ready landholding of exceptional scale in Shellharbour — 6.8 hectares of R2 zoned land carrying a fully approved Development Application for 42 residential lots. This is a shovel-ready opportunity that eliminates planning risk and allows an incoming developer to move directly to construction documentation.\n\nShellharbour is one of the Illawarra's fastest growing local government areas, benefitting from the $2.3 billion Shellharbour City Centre urban renewal program, new retail and commercial precincts, and strong population growth driven by affordability relative to Sydney.\n\nWith engineering approvals progressed and civil contractor quotes in hand, this asset is positioned for immediate commencement. Offers are invited from qualified developers. Financial modelling and DA documentation available under NDA.`,
+    },
+    'dapto-vacant': {
+      name: 'Dapto Vacant Land',
+      location: 'Dapto, NSW',
+      price: '$980,000',
+      category: 'Land & Acreage',
+      area: '1.1 Ha',
+      zoning: 'RU4',
+      potential: 'Services Connected',
+      img: 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=1920&q=90',
+      gallery: [
+        'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80',
+        'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80',
+        'https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?w=800&q=80',
+      ],
+      description: `A fully serviced 1.1-hectare vacant land holding in Dapto — a suburb positioned at the epicentre of the Illawarra's growth corridor and benefitting from major infrastructure investment including the $400 million Dapto Town Centre revitalisation and the duplication of the Princes Motorway.\n\nThe site is zoned RU4 Primary Production Small Lots with town water, electricity, and sewer connected to the boundary — a rare combination that significantly reduces the cost and complexity of any future development. The cleared, level land offers straightforward construction access.\n\nWith Dapto station on the South Coast rail line providing a 20-minute commute to Wollongong and under 90 minutes to Sydney, this location appeals to the growing cohort of lifestyle buyers and remote workers seeking land, space, and connectivity.`,
+    },
+  };
+
+  /* ── LOAD SITE ───────────────────────────────────── */
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id') || 'escarpment-ridge';
+  const p = sites[id];
+
+  if (!p) { window.location.href = 'development-sites.html'; }
+
+  document.title = p.name + ' — Innovate Property Group';
+
+  document.getElementById('sitePage').innerHTML = `
+    <div class="prop-hero">
+      <img class="prop-hero-img" src="${p.img}" alt="${p.name}" />
+      <div class="prop-hero-overlay"></div>
+      <div class="prop-hero-grain"></div>
+      <a href="enquiry.html?site=${id}" class="prop-enquire-btn">Enquire</a>
+      <div class="prop-hero-info">
+        <div class="prop-status">${p.category}</div>
+        <div class="prop-hero-name">${p.name}</div>
+        <div class="prop-hero-location">${p.location}</div>
+        <div class="prop-hero-price">${p.price}</div>
+        <div class="prop-stats-hero">
+          <div class="prop-stat-hero"><div class="prop-stat-label">Site Area</div><div class="prop-stat-value">${p.area}</div></div>
+          <div class="prop-stat-hero"><div class="prop-stat-label">Zoning</div><div class="prop-stat-value">${p.zoning}</div></div>
+          <div class="prop-stat-hero"><div class="prop-stat-label">Potential</div><div class="prop-stat-value">${p.potential}</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prop-description-section reveal">
+      <div class="prop-desc-left">
+        <div class="section-label">About This Site</div>
+        <div class="prop-description">${p.description.replace(/\n/g, '<br><br>')}</div>
+      </div>
+      <div class="prop-desc-actions">
+        <a href="enquiry.html?site=${id}" class="btn-desc btn-desc-solid">Enquire Now</a>
+        <a href="offer.html?site=${id}" class="btn-desc btn-desc-outline">Make Offer</a>
+      </div>
+    </div>
+
+    <div class="gallery-section reveal">
+      <div class="section-label">Gallery</div>
+      <div class="gallery-strip">
+        ${p.gallery.map((g, i) => `<div class="gallery-img" onclick="openLightbox(${i})"><img src="${g}" alt="Site image" loading="lazy" /></div>`).join('')}
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Innovate Property Group Pty Ltd. All rights reserved. Licensed Real Estate Agent NSW. &nbsp;·&nbsp; <a href="privacy-policy.html" style="color:inherit;text-decoration:none;">Privacy Policy</a> &nbsp;·&nbsp; <a href="disclaimer.html" style="color:inherit;text-decoration:none;">Disclaimer</a> &nbsp;·&nbsp; Built by <a href="https://sanjstudio.com" target="_blank" style="color:inherit;text-decoration:none;opacity:0.6;transition:opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6">SanjSTUDIO</a></p>
+        <div class="footer-logo"><img src="logo.png" alt="Innovate Property Group" /></div>
+      </div>
+    </footer>
+  `;
+
+  /* ── REVEAL ──────────────────────────────────────── */
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => obs.observe(el));
+
+  /* ── LIGHTBOX ────────────────────────────────────── */
+  let lbImages = [];
+  let lbIndex = 0;
+
+  function openLightbox(index) {
+    lbImages = p.gallery;
+    lbIndex = index;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    updateLightbox();
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function lightboxNext() {
+    lbIndex = (lbIndex + 1) % lbImages.length;
+    updateLightbox();
+  }
+
+  function lightboxPrev() {
+    lbIndex = (lbIndex - 1 + lbImages.length) % lbImages.length;
+    updateLightbox();
+  }
+
+  function updateLightbox() {
+    document.getElementById('lbImg').src = lbImages[lbIndex];
+    document.getElementById('lbCounter').textContent = (lbIndex + 1) + ' / ' + lbImages.length;
+  }
+
+  document.addEventListener('keydown', e => {
+    const lb = document.getElementById('lightbox');
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'ArrowRight') lightboxNext();
+    else if (e.key === 'ArrowLeft') lightboxPrev();
+    else if (e.key === 'Escape') closeLightbox();
+  });
+</script>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="if(event.target===this)closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox-btn lightbox-prev" onclick="lightboxPrev()">&#8592;</button>
+  <img class="lightbox-img" id="lbImg" src="" alt="Site image" />
+  <button class="lightbox-btn lightbox-next" onclick="lightboxNext()">&#8594;</button>
+  <div class="lightbox-counter" id="lbCounter"></div>
+</div>
+
+</body>
+</html>
