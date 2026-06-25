@@ -144,12 +144,6 @@
     .gallery-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; display: block; }
     .gallery-img:hover img { transform: scale(1.05); }
 
-    /* ─── MORE PROPERTIES ────────────────────────── */
-    .more-section { padding: 64px 80px; }
-    .more-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 32px; }
-    .more-card { position: relative; overflow: hidden; aspect-ratio: 4/5; cursor: pointer; }
-    .more-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; display: block; }
-    .more-card:hover img { transform: scale(1.05); }
     .more-overlay {
       position: absolute; inset: 0;
       background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%);
@@ -181,8 +175,8 @@
       .prop-body { grid-template-columns: 1fr; }
       .prop-content { padding: 40px 28px; border-right: none; }
       .prop-sidebar { position: static; padding: 0 28px 48px; }
-      .more-section { padding: 48px 28px; }
-      .more-grid { grid-template-columns: repeat(2, 1fr); }
+      
+      
       footer { padding: 32px 28px; }
     }
     @media (max-width: 1024px) {
@@ -192,9 +186,9 @@
       .prop-hero-info { padding: 40px 28px; }
       .prop-enquire-btn { top: 20px; right: 28px; }
       .prop-stats-hero { flex-wrap: wrap; }
-      .prop-description-section, .gallery-section, .more-section { padding: 48px 28px; }
+      .prop-description-section, .gallery-section, 
       
-      .more-grid { grid-template-columns: repeat(2, 1fr); }
+      
     }
     @media (max-width: 640px) {
       nav { padding: 10px 20px; }
@@ -204,10 +198,10 @@
       .prop-enquire-btn { top: 16px; right: 24px; padding: 10px 20px; }
       .prop-stats-hero { width: 100%; }
       .prop-stat-hero { padding: 12px 16px; }
-      .prop-description-section, .gallery-section, .more-section { padding: 40px 24px; }
+      .prop-description-section, .gallery-section { padding: 40px 24px; }
       
       .gallery-strip { grid-template-columns: repeat(2, 1fr); }
-      .more-grid { grid-template-columns: 1fr; }
+      
       footer { padding: 28px 24px; }
       .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
     }
@@ -433,10 +427,6 @@
   // Update page title
   document.title = p.name + ' — Innovate Property Group';
 
-  // Other properties for "More Properties" section
-  const others = Object.entries(properties)
-    .filter(([k]) => k !== id)
-    .slice(0, 3);
 
   document.getElementById('propertyPage').innerHTML = `
     <!-- HERO — FULL SCREEN WITH STATS OVERLAID -->
@@ -470,25 +460,6 @@
       <div class="section-label">Gallery</div>
       <div class="gallery-strip">
         ${p.gallery.map(g => `<div class="gallery-img"><img src="${g}" alt="Property image" loading="lazy" /></div>`).join('')}
-      </div>
-    </div>
-
-    <!-- MORE PROPERTIES -->
-    <div class="more-section">
-      <div class="section-label">More Properties</div>
-      <div class="more-grid">
-        ${others.map(([key, prop]) => `
-          <a href="property.html?id=${key}" style="text-decoration:none;">
-            <div class="more-card">
-              <img src="${prop.img}" alt="${prop.name}" loading="lazy" />
-              <div class="more-overlay">
-                <div class="more-name">${prop.name}</div>
-                <div class="more-location">${prop.location}</div>
-                <div class="more-price">${prop.price}</div>
-              </div>
-            </div>
-          </a>
-        `).join('')}
       </div>
     </div>
 
