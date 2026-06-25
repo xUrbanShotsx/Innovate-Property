@@ -61,26 +61,6 @@
     .mobile-nav-footer { padding: 28px; border-top: 1px solid var(--hairline); }
     .mobile-nav-footer a { display: block; text-align: center; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); background: var(--black); padding: 16px; text-decoration: none; }
 
-    /* ─── PAGE HERO ─────────────────────────────────────────── */
-    .page-hero {
-      padding-top: 92px; min-height: 45vh;
-      position: relative; overflow: hidden;
-      display: flex; align-items: flex-end; background: var(--black);
-    }
-    .page-hero-bg {
-      position: absolute; inset: 0;
-      background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1920&q=90');
-      background-size: cover; background-position: center; opacity: 0.45;
-    }
-    .page-hero-grain {
-      position: absolute; inset: 0;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity: 0.12; mix-blend-mode: overlay;
-    }
-    .page-hero-content { position: relative; z-index: 2; padding: 60px 80px; }
-    .page-eyebrow { font-size: 10px; font-weight: 400; letter-spacing: 4px; text-transform: uppercase; color: var(--white-mute); margin-bottom: 16px; }
-    .page-title { font-size: clamp(40px, 6vw, 80px); font-weight: 900; line-height: 0.95; letter-spacing: 1px; text-transform: uppercase; color: var(--white); }
-
     /* ─── FILTER BAR ────────────────────────────────────────── */
     .filter-bar {
       border-bottom: 1px solid var(--hairline); padding: 0 80px;
@@ -99,7 +79,7 @@
     .results-count { font-size: 10px; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-mute); white-space: nowrap; }
 
     /* ─── SITES GRID ────────────────────────────────────────── */
-    .sites-section { padding: 40px 0 0; }
+    .sites-section { padding-top: 112px; }
     .sites-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -177,7 +157,6 @@
       nav { padding: 12px 24px; }
       .nav-links, .nav-cta { display: none; }
       .hamburger { display: flex; }
-      .page-hero-content { padding: 48px 28px; }
       .filter-bar { padding: 0 28px; }
       .sites-grid { grid-template-columns: repeat(2, 1fr); }
       .enquire-band { padding: 60px 28px; flex-direction: column; align-items: flex-start; }
@@ -186,7 +165,6 @@
     @media (max-width: 640px) {
       nav { padding: 10px 20px; }
       .nav-logo img { height: 52px !important; }
-      .page-hero-content { padding: 36px 24px; }
       .filter-bar { padding: 0 16px; }
       .sites-grid { grid-template-columns: 1fr; padding: 0 16px 16px; }
       .site-cta { opacity: 1; transform: none; }
@@ -233,16 +211,6 @@
   <a href="appraisal.html" class="nav-cta">Free Appraisal</a>
   <button class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></button>
 </nav>
-
-<!-- HERO -->
-<div class="page-hero">
-  <div class="page-hero-bg"></div>
-  <div class="page-hero-grain"></div>
-  <div class="page-hero-content">
-    <p class="page-eyebrow">Innovate Property Group</p>
-    <h1 class="page-title">DEVELOPMENT<br>SITES</h1>
-  </div>
-</div>
 
 <!-- FILTER BAR -->
 <div class="filter-bar">
