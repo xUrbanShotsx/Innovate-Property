@@ -325,6 +325,21 @@
   function openMobileNav() { mobileNav.classList.add('open'); }
   function closeMobileNav() { mobileNav.classList.remove('open'); }
 
+  const propertyImages = {
+    'clifftop-estate':    'https://images.unsplash.com/photo-1571055107559-3e67626fa8be?w=1920&q=90',
+    'escarpment-retreat': 'https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=1920&q=90',
+    'the-sanctuary':      'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1920&q=90',
+    'harbour-crown':      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1920&q=90',
+    'woonona-villa':      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=90',
+    'ridge-house':        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=90',
+    'seabreeze-estate':   'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1920&q=90',
+    'crown-penthouse':    'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=90',
+  };
+  const propId = new URLSearchParams(window.location.search).get('property');
+  if (propId && propertyImages[propId]) {
+    document.querySelector('.left-bg').style.backgroundImage = `url('${propertyImages[propId]}')`;
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
     const fields = ['firstName','lastName','phone','email','address'];
