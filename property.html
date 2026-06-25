@@ -117,8 +117,12 @@
 
     /* ─── DESCRIPTION ────────────────────────────── */
     .prop-description-section {
-      padding: 64px 80px; max-width: 900px;
+      padding: 64px 80px;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 80px; align-items: start;
+      border-bottom: 1px solid var(--hairline);
     }
+    .prop-desc-left {}
     .section-label {
       font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
       color: var(--ink-mute); padding-bottom: 16px; margin-bottom: 28px;
@@ -127,6 +131,21 @@
     .prop-description {
       font-size: 15px; font-weight: 300; line-height: 1.9; color: #333;
     }
+    .prop-desc-actions {
+      display: flex; flex-direction: column; gap: 12px; min-width: 180px; padding-top: 48px;
+    }
+    .btn-desc {
+      font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      padding: 14px 24px; text-decoration: none; text-align: center; transition: all 0.3s;
+    }
+    .btn-desc-solid {
+      color: var(--white); background: var(--black); border: 1px solid var(--black);
+    }
+    .btn-desc-solid:hover { background: var(--white); color: var(--black); }
+    .btn-desc-outline {
+      color: var(--black); background: transparent; border: 1px solid #ccc;
+    }
+    .btn-desc-outline:hover { border-color: var(--black); }
 
 
     .feature-item {
@@ -185,6 +204,7 @@
       .prop-hero-info { padding: 40px 28px; }
       .prop-enquire-btn { top: 20px; right: 28px; }
       .prop-stats-hero { flex-wrap: wrap; }
+      .prop-description-section { grid-template-columns: 1fr; gap: 32px; }
       .prop-description-section, .gallery-section, 
       
       
@@ -450,8 +470,14 @@
 
     <!-- DESCRIPTION -->
     <div class="prop-description-section reveal">
-      <div class="section-label">About This Property</div>
-      <div class="prop-description">${p.description.replace(/\n/g, '<br><br>')}</div>
+      <div class="prop-desc-left">
+        <div class="section-label">About This Property</div>
+        <div class="prop-description">${p.description.replace(/\n/g, '<br><br>')}</div>
+      </div>
+      <div class="prop-desc-actions">
+        <a href="appraisal.html" class="btn-desc btn-desc-solid">Enquire Now</a>
+        <a href="appraisal.html" class="btn-desc btn-desc-outline">Make Offer</a>
+      </div>
     </div>
 
     <!-- GALLERY -->
