@@ -114,6 +114,15 @@
     .btn-submit:hover { background: #222; }
     .btn-submit:disabled { background: #999; cursor: not-allowed; }
     .form-note { font-size: 11px; font-weight: 300; color: var(--ink-mute); text-align: center; margin-top: 14px; line-height: 1.6; }
+    .btn-back-top {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--ink-mute); text-decoration: none; margin-bottom: 28px;
+      transition: color 0.2s;
+    }
+    .btn-back-top:hover { color: var(--black); }
+    .btn-back-top svg { transition: transform 0.2s; }
+    .btn-back-top:hover svg { transform: translateX(-3px); }
 
     /* ─── SUCCESS ───────────────────────────────────────────── */
     .success { display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 16px; height: 100%; }
@@ -198,6 +207,12 @@
   <!-- RIGHT: Form -->
   <div class="right" id="formPanel">
     <form id="enquiryForm" onsubmit="handleSubmit(event)" novalidate>
+      <a href="javascript:history.back()" class="btn-back-top">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Back
+      </a>
       <div class="form-heading">Property Enquiry</div>
 
       <div class="form-row">
