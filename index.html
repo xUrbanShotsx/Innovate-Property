@@ -763,6 +763,14 @@
 
     /* ─── MEDIA QUERIES ────────────────────────────────────────────────── */
     @media (max-width: 1024px) {
+      /* disable sticky scroll on mobile — stack sections normally */
+      #stickyStack { height: auto; }
+      #hero, #developments, #properties, #flagship {
+        position: relative !important;
+        height: 100vh;
+      }
+      .hero-bg { will-change: auto; transform: scale(1) !important; transition: none !important; }
+
       nav { padding: 12px 24px; }
       nav.scrolled { padding: 10px 24px; }
       .nav-links { display: none; }
@@ -1159,12 +1167,14 @@
   }
   animateRing();
 
-  /* ── PARALLAX HERO ─────────────────────────────────────────────── */
+  /* ── PARALLAX HERO (desktop only) ──────────────────────────────── */
   const heroBg = document.getElementById('heroBg');
-  window.addEventListener('scroll', () => {
-    const y = window.scrollY;
-    heroBg.style.transform = `scale(1.05) translateY(${y * 0.3}px)`;
-  }, { passive: true });
+  if (window.innerWidth > 1024) {
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      heroBg.style.transform = `scale(1.05) translateY(${y * 0.3}px)`;
+    }, { passive: true });
+  }
 
   /* ── NAV SCROLL ────────────────────────────────────────────────── */
   const navbar = document.getElementById('navbar');
