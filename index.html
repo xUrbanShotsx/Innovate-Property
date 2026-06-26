@@ -863,7 +863,7 @@
     <li><a href="projects.html">Projects</a></li>
   </ul>
   <a href="appraisal.html" class="nav-cta">Free Appraisal</a>
-  <button class="hamburger" id="hamburger" onclick="openMobileNav()" aria-label="Menu">
+  <button class="hamburger" id="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
@@ -1175,6 +1175,7 @@
   /* ── MOBILE NAV ────────────────────────────────────────────────── */
   const mobileNav = document.getElementById('mobileNav');
   function openMobileNav() { mobileNav.classList.add('open'); }
+  function toggleMobileNav() { mobileNav.classList.toggle('open'); }
   function closeMobileNav() { mobileNav.classList.remove('open'); }
   document.getElementById('mobileClose').addEventListener('click', closeMobileNav);
 

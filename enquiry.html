@@ -185,7 +185,7 @@
     <li><a href="projects.html">Projects</a></li>
   </ul>
   <a href="appraisal.html" class="nav-cta">Free Appraisal</a>
-  <button class="hamburger" onclick="openMobileNav()">
+  <button class="hamburger" onclick="toggleMobileNav()">
     <span></span><span></span><span></span>
   </button>
 </nav>
@@ -259,6 +259,7 @@
 <script>
   const mobileNav = document.getElementById('mobileNav');
   function openMobileNav() { mobileNav.classList.add('open'); }
+  function toggleMobileNav() { mobileNav.classList.toggle('open'); }
   function closeMobileNav() { mobileNav.classList.remove('open'); }
 
   const properties = {
