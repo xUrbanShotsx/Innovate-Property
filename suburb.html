@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suburb Profile — Innovate Property Group</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #000000; --black-soft: #0a0a0a;
+      --white: #ffffff; --white-mute: #f0f0fa;
+      --hairline: #e8e8e8; --ink-mute: #5a5a5f;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--white); color: var(--black); font-family: 'Inter', Arial, sans-serif; overflow-x: hidden; }
+
+    /* ─── NAV ──────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 48px; background: var(--white); border-bottom: 1px solid var(--hairline);
+    }
+    .nav-logo img { height: 72px; width: auto; display: block; }
+    .nav-links { display: flex; gap: 40px; list-style: none; align-items: center; }
+    .nav-links a {
+      font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--ink-mute); text-decoration: none; transition: color 0.3s; position: relative;
+    }
+    .nav-links a:hover { color: var(--black); }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px; background: var(--black); transform: scaleX(0);
+      transform-origin: left; transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
+    }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-cta {
+      font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--white); background: var(--black); border: 1px solid var(--black);
+      padding: 12px 24px; text-decoration: none; transition: all 0.3s;
+    }
+    .nav-cta:hover { background: var(--white); color: var(--black); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
+    .hamburger span { width: 26px; height: 1px; background: var(--black); display: block; }
+
+    /* ─── MOBILE NAV ────────────────────────────── */
+    .mobile-nav {
+      position: fixed; inset: 0; z-index: 999; background: var(--white);
+      display: flex; flex-direction: column; transform: translateX(100%);
+      transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
+    }
+    .mobile-nav.open { transform: translateX(0); }
+    .mobile-nav-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 28px; border-bottom: 1px solid var(--hairline); }
+    .mobile-nav-header img { height: 40px; }
+    .mobile-nav-close { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: none; border: 1px solid #e0e0e0; font-size: 18px; cursor: pointer; }
+    .mobile-nav-links { flex: 1; display: flex; flex-direction: column; padding: 20px 0; }
+    .mobile-nav-links a { font-size: 14px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--black); text-decoration: none; padding: 20px 28px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; justify-content: space-between; }
+    .mobile-nav-links a::after { content: '→'; font-size: 16px; color: var(--ink-mute); }
+    .mobile-nav-footer { padding: 28px; border-top: 1px solid var(--hairline); }
+    .mobile-nav-footer a { display: block; text-align: center; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); background: var(--black); padding: 16px; text-decoration: none; }
+
+    /* ─── HERO ──────────────────────────────────── */
+    .suburb-hero {
+      margin-top: 92px; position: relative;
+      height: calc(55vh); overflow: hidden;
+      min-height: 360px;
+    }
+    .suburb-hero-img { width: 100%; height: 100%; object-fit: cover; }
+    .suburb-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.65) 100%);
+    }
+    .suburb-hero-grain {
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.12; mix-blend-mode: overlay;
+    }
+    .suburb-hero-info {
+      position: absolute; inset: 0; z-index: 2;
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 60px 80px;
+    }
+    .suburb-eyebrow {
+      font-size: 10px; font-weight: 400; letter-spacing: 4px; text-transform: uppercase;
+      color: rgba(255,255,255,0.6); margin-bottom: 12px;
+    }
+    .suburb-name {
+      font-size: clamp(36px, 5vw, 72px); font-weight: 900; line-height: 0.95;
+      letter-spacing: -0.5px; text-transform: uppercase; color: var(--white); margin-bottom: 8px;
+    }
+    .suburb-state {
+      font-size: 12px; font-weight: 400; letter-spacing: 2px;
+      text-transform: uppercase; color: rgba(255,255,255,0.55);
+    }
+
+    /* ─── STATS STRIP ────────────────────────────── */
+    .stats-strip {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-bottom: 1px solid var(--hairline);
+    }
+    .stat-block {
+      padding: 40px 48px; border-right: 1px solid var(--hairline);
+    }
+    .stat-block:last-child { border-right: none; }
+    .stat-label {
+      font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--ink-mute); margin-bottom: 12px;
+    }
+    .stat-value {
+      font-size: clamp(22px, 2.5vw, 32px); font-weight: 900; color: var(--black);
+      letter-spacing: -0.5px; line-height: 1;
+    }
+    .stat-sub {
+      font-size: 10px; font-weight: 400; color: var(--ink-mute); margin-top: 6px; letter-spacing: 0.5px;
+    }
+
+    /* ─── BODY ───────────────────────────────────── */
+    .suburb-body {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--hairline);
+    }
+    .suburb-overview {
+      padding: 64px 80px; border-right: 1px solid var(--hairline);
+    }
+    .section-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--ink-mute); padding-bottom: 16px; margin-bottom: 28px;
+      border-bottom: 1px solid var(--hairline);
+    }
+    .suburb-desc {
+      font-size: 15px; font-weight: 300; line-height: 1.9; color: #333;
+    }
+    .suburb-details { padding: 64px 80px; }
+    .detail-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 18px 0; border-bottom: 1px solid var(--hairline);
+    }
+    .detail-row:first-of-type { padding-top: 0; }
+    .detail-key {
+      font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-mute);
+    }
+    .detail-val {
+      font-size: 14px; font-weight: 600; color: var(--black); text-align: right;
+    }
+
+    /* ─── CTA ────────────────────────────────────── */
+    .suburb-cta {
+      padding: 80px; background: var(--black);
+      display: flex; align-items: center; justify-content: space-between; gap: 40px;
+    }
+    .suburb-cta-headline {
+      font-size: clamp(22px, 2.5vw, 36px); font-weight: 900; text-transform: uppercase;
+      color: var(--white); line-height: 1.05; letter-spacing: -0.3px;
+    }
+    .suburb-cta-body {
+      font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.6); margin-top: 12px; line-height: 1.7;
+    }
+    .suburb-cta-actions { display: flex; gap: 16px; flex-shrink: 0; }
+    .btn-white {
+      font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--black); background: var(--white); padding: 14px 28px; text-decoration: none; transition: background 0.3s, color 0.3s;
+    }
+    .btn-white:hover { background: #e0e0e0; }
+    .btn-ghost-white {
+      font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--white); background: transparent; border: 1px solid rgba(255,255,255,0.3);
+      padding: 14px 28px; text-decoration: none; transition: border-color 0.3s;
+    }
+    .btn-ghost-white:hover { border-color: var(--white); }
+
+    /* ─── FOOTER ─────────────────────────────────── */
+    footer { background: var(--black-soft); border-top: 1px solid #1a1a1a; padding: 32px 80px; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 11px; font-weight: 300; color: var(--ink-mute); }
+    .footer-logo img { height: 36px; width: auto; filter: invert(1); }
+
+    /* ─── REVEAL ─────────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── RESPONSIVE ─────────────────────────────── */
+    @media (max-width: 1024px) {
+      nav { padding: 12px 24px; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .suburb-hero-info { padding: 40px 28px; }
+      .stats-strip { grid-template-columns: repeat(2, 1fr); }
+      .stat-block:nth-child(2) { border-right: none; }
+      .stat-block:nth-child(3) { border-top: 1px solid var(--hairline); }
+      .stat-block:nth-child(4) { border-top: 1px solid var(--hairline); border-right: none; }
+      .suburb-body { grid-template-columns: 1fr; }
+      .suburb-overview { border-right: none; padding: 48px 28px; }
+      .suburb-details { padding: 0 28px 48px; }
+      .suburb-cta { padding: 60px 28px; flex-direction: column; align-items: flex-start; }
+      .suburb-cta-actions { flex-direction: column; width: 100%; }
+      .btn-white, .btn-ghost-white { text-align: center; }
+      footer { padding: 32px 28px; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 10px 20px; }
+      .nav-logo img { height: 52px !important; }
+      .suburb-hero { height: 45vh; min-height: 280px; }
+      .suburb-hero-info { padding: 24px; }
+      .stats-strip { grid-template-columns: 1fr 1fr; }
+      .stat-block { padding: 28px 24px; }
+      .suburb-overview { padding: 40px 24px; }
+      .suburb-details { padding: 0 24px 40px; }
+      .suburb-cta { padding: 48px 24px; }
+      footer { padding: 28px 24px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    }
+    @media (hover: none) and (pointer: coarse) { body { cursor: auto; } a, button { cursor: pointer; } }
+  </style>
+</head>
+<body>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-header">
+    <img src="logo.png" alt="Innovate Property Group" />
+    <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
+  </div>
+  <div class="mobile-nav-links">
+    <a href="about.html">About</a>
+    <a href="properties.html">Prestige Homes</a>
+    <a href="development-sites.html">Development Sites</a>
+    <a href="projects.html">Projects</a>
+  </div>
+  <div class="mobile-nav-footer">
+    <a href="appraisal.html">Free Appraisal</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" alt="Innovate Property Group" style="height:72px;width:auto;" />
+  </a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="properties.html">Prestige Homes</a></li>
+    <li><a href="development-sites.html">Development Sites</a></li>
+    <li><a href="projects.html">Projects</a></li>
+  </ul>
+  <a href="appraisal.html" class="nav-cta">Free Appraisal</a>
+  <button class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></button>
+</nav>
+
+<div id="suburbPage"></div>
+
+<script>
+  const mobileNav = document.getElementById('mobileNav');
+  function openMobileNav() { mobileNav.classList.add('open'); }
+  function closeMobileNav() { mobileNav.classList.remove('open'); }
+
+  /* ── SUBURB DATA ─────────────────────────────────── */
+  const suburbs = {
+    'shellharbour': {
+      name: 'Shellharbour',
+      state: 'NSW 2529',
+      img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&q=90',
+      avgSalePrice: '$1,180,000',
+      highestSale: '$4,200,000',
+      avgDaysOnMarket: '28',
+      totalSalesYear: '214',
+      medianRent: '$620 / wk',
+      rentalYield: '2.7%',
+      priceGrowth12m: '+6.4%',
+      description: `Shellharbour is one of the Illawarra's most dynamic and rapidly evolving coastal cities — a place where infrastructure investment, lifestyle amenity, and strong community identity are reshaping the property market at pace.\n\nThe Shellharbour City Centre urban renewal program — one of the most significant regional development projects in NSW — has transformed the commercial heart of the suburb, attracting new retail, dining, and commercial operators and driving sustained owner-occupier demand.\n\nWith direct beach access at Shellharbour Village, a protected harbour, boat ramp facilities, and a growing food and beverage scene, Shellharbour appeals to a diverse buyer profile — from young families priced out of the Northern Illawarra to lifestyle-driven upsizers and retirees seeking coastal living without metropolitan premiums.`,
+      details: {
+        'Postcode': '2529',
+        'LGA': 'Shellharbour City Council',
+        'Distance to Wollongong': '20 km south',
+        'Distance to Sydney': '~85 km north',
+        'School catchment': 'Shellharbour Public & Warilla High',
+        'Transport': 'Bus services; 10 min to Shellharbour Jct station',
+        'Population': 'Approx. 14,200',
+      },
+    },
+    'barrack-point': {
+      name: 'Barrack Point',
+      state: 'NSW 2532',
+      img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1920&q=90',
+      avgSalePrice: '$2,350,000',
+      highestSale: '$8,750,000',
+      avgDaysOnMarket: '41',
+      totalSalesYear: '18',
+      medianRent: '$1,100 / wk',
+      rentalYield: '2.4%',
+      priceGrowth12m: '+9.2%',
+      description: `Barrack Point is the Illawarra's most exclusive residential enclave — a tightly held coastal headland where demand consistently outstrips supply and prestige properties rarely reach the open market.\n\nPerched between the Tasman Sea and Shellharbour, the suburb is defined by its dramatic coastal geography: sweeping ocean panoramas, direct beach access, and a peninsula setting that gives almost every home a water outlook. The stock of properties is predominantly large-format family homes and architect-designed residences on generous land parcels.\n\nWith fewer than 20 properties sold per year and a median price that has consistently climbed in excess of Sydney's eastern suburbs growth rate over the past five years, Barrack Point represents one of the most compelling long-term capital growth propositions on the NSW coast.`,
+      details: {
+        'Postcode': '2532',
+        'LGA': 'Shellharbour City Council',
+        'Setting': 'Coastal headland / peninsula',
+        'Distance to Wollongong': '22 km south',
+        'Distance to Sydney': '~87 km north',
+        'Transport': 'Private vehicle; bus to Shellharbour Junction',
+        'Population': 'Approx. 1,800',
+      },
+    },
+    'shell-cove': {
+      name: 'Shell Cove',
+      state: 'NSW 2529',
+      img: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1920&q=90',
+      avgSalePrice: '$1,420,000',
+      highestSale: '$5,600,000',
+      avgDaysOnMarket: '33',
+      totalSalesYear: '127',
+      medianRent: '$720 / wk',
+      rentalYield: '2.6%',
+      priceGrowth12m: '+7.8%',
+      description: `Shell Cove is one of the NSW coast's most successful master-planned communities — a waterfront precinct centred around a man-made harbour, village marina, and an expanding retail and dining hub that has redefined expectations for new residential development in the Illawarra.\n\nDeveloped by Frasers Property and Shellharbour City Council, the Shell Cove community has attracted a broad buyer demographic — young professionals, upsizing families, and downsizers drawn to the walkability, water lifestyle, and quality of built form.\n\nThe marina village, completed boat harbour, beach club, and proximity to Shellharbour Village make Shell Cove one of the most liveable addresses on the South Coast, with strong ongoing demand from buyers who prioritise lifestyle infrastructure over traditional suburb premiums.`,
+      details: {
+        'Postcode': '2529',
+        'LGA': 'Shellharbour City Council',
+        'Setting': 'Master-planned marina community',
+        'Developer': 'Frasers Property Australia',
+        'Distance to Wollongong': '21 km south',
+        'Distance to Sydney': '~86 km north',
+        'Transport': 'Bus services; Shellharbour Junction station nearby',
+      },
+    },
+    'kiama': {
+      name: 'Kiama',
+      state: 'NSW 2533',
+      img: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=90',
+      avgSalePrice: '$1,680,000',
+      highestSale: '$9,200,000',
+      avgDaysOnMarket: '38',
+      totalSalesYear: '96',
+      medianRent: '$820 / wk',
+      rentalYield: '2.5%',
+      priceGrowth12m: '+8.1%',
+      description: `Kiama is arguably the most recognisable address on the NSW South Coast — a historic harbour town with world-famous blowholes, an exceptional dining and arts scene, and a property market that has outperformed most comparable regional markets over the past decade.\n\nThe township is characterised by an eclectic mix of Federation-era cottages, mid-century homes, and contemporary clifftop residences — each offering distinct price points and buyer profiles. The harbour and town beach are the geographic and social heart of the community, flanked by a Main Street that punches well above its weight in food, retail, and cultural offering.\n\nKiama's appeal to Sydney buyers — particularly post-pandemic remote workers — has been transformative. The ability to work from a home with harbour views, walk to a world-class café precinct, and be in the CBD in under two hours has driven extraordinary demand and set new price benchmarks across the market.`,
+      details: {
+        'Postcode': '2533',
+        'LGA': 'Kiama Municipal Council',
+        'Distance to Wollongong': '32 km south',
+        'Distance to Sydney': '~120 km north',
+        'Train': 'Kiama Station — South Coast Line',
+        'Travel to Sydney CBD': '~2 hrs by train; ~1.5 hrs by car',
+        'Population': 'Approx. 12,800',
+      },
+    },
+    'kiama-downs': {
+      name: 'Kiama Downs',
+      state: 'NSW 2533',
+      img: 'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=1920&q=90',
+      avgSalePrice: '$1,490,000',
+      highestSale: '$6,800,000',
+      avgDaysOnMarket: '35',
+      totalSalesYear: '52',
+      medianRent: '$750 / wk',
+      rentalYield: '2.6%',
+      priceGrowth12m: '+7.5%',
+      description: `Kiama Downs occupies one of the South Coast's most prized coastal positions — a residential suburb of elevated streets, ocean outlooks, and beach access that delivers the Kiama lifestyle at a historically more accessible price point than the township proper.\n\nThe suburb's elevated topography means that a significant proportion of homes enjoy Pacific Ocean views from the living areas — a feature that has driven a consistent premium over comparable non-coastal product and attracted a discerning buyer demographic from Sydney and Wollongong.\n\nProximity to Surf Beach, the Kiama Downs golf course, and the amenity of Kiama township — without the premium attached to a Kiama address — has made this suburb one of the most watched markets on the South Coast. Stock is tightly held, days on market are low, and buyer competition at the prestige end remains strong.`,
+      details: {
+        'Postcode': '2533',
+        'LGA': 'Kiama Municipal Council',
+        'Setting': 'Elevated coastal residential',
+        'Distance to Kiama township': '3 km north',
+        'Distance to Sydney': '~118 km north',
+        'Transport': 'Bus to Kiama Station; South Coast Line',
+        'Population': 'Approx. 5,200',
+      },
+    },
+  };
+
+  /* ── LOAD SUBURB ─────────────────────────────────── */
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  const s = id && suburbs[id];
+
+  if (!s) { window.location.href = 'index.html'; }
+
+  document.title = s.name + ' Suburb Profile — Innovate Property Group';
+
+  const detailRows = Object.entries(s.details).map(([k, v]) =>
+    `<div class="detail-row"><span class="detail-key">${k}</span><span class="detail-val">${v}</span></div>`
+  ).join('');
+
+  document.getElementById('suburbPage').innerHTML = `
+    <div class="suburb-hero">
+      <img class="suburb-hero-img" src="${s.img}" alt="${s.name}" />
+      <div class="suburb-hero-overlay"></div>
+      <div class="suburb-hero-grain"></div>
+      <div class="suburb-hero-info">
+        <div class="suburb-eyebrow">Suburb Profile</div>
+        <h1 class="suburb-name">${s.name}</h1>
+        <div class="suburb-state">${s.state}</div>
+      </div>
+    </div>
+
+    <div class="stats-strip">
+      <div class="stat-block reveal">
+        <div class="stat-label">Average Sale Price</div>
+        <div class="stat-value">${s.avgSalePrice}</div>
+        <div class="stat-sub">Median — houses</div>
+      </div>
+      <div class="stat-block reveal">
+        <div class="stat-label">Highest Sale Price</div>
+        <div class="stat-value">${s.highestSale}</div>
+        <div class="stat-sub">All time record</div>
+      </div>
+      <div class="stat-block reveal">
+        <div class="stat-label">Avg Days on Market</div>
+        <div class="stat-value">${s.avgDaysOnMarket}</div>
+        <div class="stat-sub">Days — last 12 months</div>
+      </div>
+      <div class="stat-block reveal">
+        <div class="stat-label">Price Growth</div>
+        <div class="stat-value">${s.priceGrowth12m}</div>
+        <div class="stat-sub">Year on year</div>
+      </div>
+    </div>
+
+    <div class="suburb-body">
+      <div class="suburb-overview reveal">
+        <div class="section-label">Suburb Overview</div>
+        <div class="suburb-desc">${s.description.replace(/\n/g, '<br><br>')}</div>
+      </div>
+      <div class="suburb-details reveal">
+        <div class="section-label">Key Details</div>
+        ${detailRows}
+        <div class="detail-row"><span class="detail-key">Annual Sales Volume</span><span class="detail-val">${s.totalSalesYear} properties</span></div>
+        <div class="detail-row"><span class="detail-key">Median Rent</span><span class="detail-val">${s.medianRent}</span></div>
+        <div class="detail-row"><span class="detail-key">Rental Yield</span><span class="detail-val">${s.rentalYield}</span></div>
+      </div>
+    </div>
+
+    <div class="suburb-cta">
+      <div>
+        <div class="suburb-cta-headline">Looking to buy or sell<br>in ${s.name}?</div>
+        <div class="suburb-cta-body">Our team specialises in this area. Get a free appraisal or browse current listings.</div>
+      </div>
+      <div class="suburb-cta-actions">
+        <a href="appraisal.html" class="btn-white">Free Appraisal</a>
+        <a href="properties.html" class="btn-ghost-white">View Listings</a>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Innovate Property Group Pty Ltd. All rights reserved. Licensed Real Estate Agent NSW. &nbsp;·&nbsp; <a href="privacy-policy.html" style="color:inherit;text-decoration:none;">Privacy Policy</a> &nbsp;·&nbsp; <a href="disclaimer.html" style="color:inherit;text-decoration:none;">Disclaimer</a> &nbsp;·&nbsp; Built by <a href="https://sanjstudio.com" target="_blank" style="color:inherit;text-decoration:none;opacity:0.6;transition:opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6">SanjSTUDIO</a></p>
+        <div class="footer-logo"><img src="logo.png" alt="Innovate Property Group" /></div>
+      </div>
+    </footer>
+  `;
+
+  /* ── REVEAL ──────────────────────────────────────── */
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
