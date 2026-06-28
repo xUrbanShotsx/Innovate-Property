@@ -6,13 +6,13 @@
   <title>Project — Innovate Property Group</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --black: #000000; --black-soft: #0a0a0a;
-      --white: #ffffff; --white-mute: #f0f0fa;
-      --hairline: #e8e8e8; --ink-mute: #5a5a5f;
+      --white: #ffffff; --off-white: #f7f6f4;
+      --hairline: #e0dedd; --ink-mute: #6b6b6f;
     }
     html { scroll-behavior: smooth; }
     body { background: var(--white); color: var(--black); font-family: 'Inter', Arial, sans-serif; overflow-x: hidden; }
@@ -28,7 +28,8 @@
     .nav-links a { font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-mute); text-decoration: none; transition: color 0.3s; position: relative; }
     .nav-links a:hover { color: var(--black); }
     .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px; background: var(--black); transform: scaleX(0); transform-origin: left; transition: transform 0.4s cubic-bezier(0.23,1,0.32,1); }
-    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+    .nav-links a.active { color: var(--black); }
     .nav-cta { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); background: var(--black); border: 1px solid var(--black); padding: 12px 24px; text-decoration: none; transition: all 0.3s; }
     .nav-cta:hover { background: var(--white); color: var(--black); }
     .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
@@ -46,105 +47,205 @@
     .mobile-nav-footer { padding: 28px; border-top: 1px solid var(--hairline); }
     .mobile-nav-footer a { display: block; text-align: center; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); background: var(--black); padding: 16px; text-decoration: none; }
 
-    /* ─── BACK BUTTON ───────────────────────────── */
-    .btn-back-top {
-      position: fixed; top: 104px; left: 48px; z-index: 500;
+    /* ─── BACK ──────────────────────────────────── */
+    .btn-back {
+      position: fixed; top: 112px; left: 48px; z-index: 500;
       display: inline-flex; align-items: center; gap: 8px;
-      font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
       color: var(--white); text-decoration: none; transition: gap 0.3s;
-      background: rgba(0,0,0,0.35); padding: 10px 16px;
-      backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.2);
     }
-    .btn-back-top:hover { gap: 12px; }
-    .btn-back-top svg { flex-shrink: 0; }
+    .btn-back:hover { gap: 12px; }
 
     /* ─── HERO ──────────────────────────────────── */
-    .proj-hero {
-      margin-top: 92px; position: relative;
-      height: calc(100vh - 92px); overflow: hidden;
+    .hero {
+      margin-top: 92px;
+      height: calc(100vh - 92px);
+      position: relative; overflow: hidden;
     }
-    .proj-hero-img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .proj-hero-overlay {
+    .hero-img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .hero-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.65) 100%);
+      background: linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.55) 70%, rgba(0,0,0,0.8) 100%);
     }
-    .proj-hero-grain {
-      position: absolute; inset: 0;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity: 0.12; mix-blend-mode: overlay;
-    }
-    .proj-hero-info {
+    .hero-content {
       position: absolute; inset: 0; z-index: 2;
-      display: flex; flex-direction: column; justify-content: flex-end; padding: 60px 80px;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 80px 72px;
     }
-    .proj-status {
-      font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
-      color: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.25);
-      padding: 5px 14px; display: inline-block; margin-bottom: 16px; width: fit-content;
+    .hero-eyebrow {
+      font-size: 10px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase;
+      color: rgba(255,255,255,0.5); margin-bottom: 20px;
     }
-    .proj-hero-name {
-      font-size: clamp(36px, 5vw, 72px); font-weight: 900; line-height: 0.93;
-      letter-spacing: -0.5px; text-transform: uppercase; color: var(--white); margin-bottom: 12px;
+    .hero-title {
+      font-size: clamp(48px, 7vw, 110px); font-weight: 900; line-height: 0.88;
+      letter-spacing: -1px; text-transform: uppercase; color: var(--white);
+      margin-bottom: 28px;
     }
-    .proj-hero-type {
-      font-size: 12px; font-weight: 400; letter-spacing: 3px;
-      text-transform: uppercase; color: rgba(255,255,255,0.55);
+    .hero-meta {
+      display: flex; align-items: center; gap: 32px;
+      font-size: 11px; font-weight: 400; letter-spacing: 3px; text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
     }
+    .hero-meta-divider { width: 1px; height: 14px; background: rgba(255,255,255,0.2); }
+    .hero-scroll-hint {
+      position: absolute; right: 48px; bottom: 72px; z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+    }
+    .hero-scroll-hint span {
+      font-size: 9px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+      color: rgba(255,255,255,0.35); writing-mode: vertical-rl;
+    }
+    .scroll-line {
+      width: 1px; height: 60px; background: rgba(255,255,255,0.2);
+      position: relative; overflow: hidden;
+    }
+    .scroll-line::after {
+      content: ''; position: absolute; top: -100%; left: 0;
+      width: 100%; height: 100%; background: rgba(255,255,255,0.6);
+      animation: scrollDrop 2s ease-in-out infinite;
+    }
+    @keyframes scrollDrop { 0% { top: -100%; } 100% { top: 100%; } }
 
-    /* ─── DESCRIPTION SECTION ───────────────────── */
-    .proj-body {
-      padding: 64px 80px;
-      display: grid; grid-template-columns: 1fr 300px;
-      gap: 80px; align-items: start;
+    /* ─── INTRO STATEMENT ───────────────────────── */
+    .intro {
+      padding: 120px 80px 100px;
+      display: grid; grid-template-columns: 1fr 2fr; gap: 80px; align-items: start;
       border-bottom: 1px solid var(--hairline);
     }
-    .section-label {
+    .intro-label {
       font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
-      color: var(--ink-mute); padding-bottom: 16px; margin-bottom: 28px;
+      color: var(--ink-mute); padding-top: 8px;
+    }
+    .intro-statement {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(24px, 2.8vw, 40px); font-weight: 400; line-height: 1.35;
+      color: var(--black); font-style: italic;
+    }
+
+    /* ─── STATS BAND ────────────────────────────── */
+    .stats-band {
+      display: grid; border-bottom: 1px solid var(--hairline);
+    }
+    .stat-item {
+      padding: 48px 56px; border-right: 1px solid var(--hairline);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-label {
+      font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--ink-mute); margin-bottom: 12px;
+    }
+    .stat-value {
+      font-size: clamp(18px, 1.8vw, 24px); font-weight: 700; color: var(--black); line-height: 1.1;
+    }
+
+    /* ─── DESCRIPTION ───────────────────────────── */
+    .description-section {
+      padding: 100px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 120px;
+      align-items: start; border-bottom: 1px solid var(--hairline);
+    }
+    .desc-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--ink-mute); margin-bottom: 32px;
+    }
+    .desc-body {
+      font-size: 15px; font-weight: 300; line-height: 1.95; color: #2a2a2a;
+    }
+    .desc-body p + p { margin-top: 20px; }
+    .desc-right { padding-top: 52px; }
+    .desc-headline {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(28px, 3vw, 46px); font-weight: 700; line-height: 1.15;
+      color: var(--black); margin-bottom: 40px;
+    }
+
+    /* ─── FULL IMAGE ────────────────────────────── */
+    .full-image {
+      width: 100%; aspect-ratio: 16/9; overflow: hidden;
+      border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline);
+    }
+    .full-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* ─── SPLIT SECTION ─────────────────────────── */
+    .split-section {
+      display: grid; grid-template-columns: 1fr 1fr;
       border-bottom: 1px solid var(--hairline);
     }
-    .proj-description {
-      font-size: 15px; font-weight: 300; line-height: 1.9; color: #333;
+    .split-img { overflow: hidden; aspect-ratio: auto; min-height: 600px; }
+    .split-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .split-text {
+      padding: 80px 72px; display: flex; flex-direction: column; justify-content: center;
+      background: var(--off-white);
     }
-    .proj-sidebar { display: flex; flex-direction: column; gap: 0; padding-top: 56px; }
-    .proj-stat {
-      padding: 20px 0; border-bottom: 1px solid var(--hairline);
-      display: flex; flex-direction: column; gap: 6px;
+    .split-section.reverse .split-img { order: 2; }
+    .split-section.reverse .split-text { order: 1; background: var(--white); border-right: 1px solid var(--hairline); }
+    .split-eyebrow {
+      font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--ink-mute); margin-bottom: 24px;
     }
-    .proj-stat:first-child { border-top: 1px solid var(--hairline); }
-    .proj-stat-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-mute); }
-    .proj-stat-value { font-size: 15px; font-weight: 700; color: var(--black); }
+    .split-headline {
+      font-size: clamp(20px, 2vw, 28px); font-weight: 900; text-transform: uppercase;
+      letter-spacing: 0.5px; color: var(--black); margin-bottom: 24px; line-height: 1.1;
+    }
+    .split-body {
+      font-size: 14px; font-weight: 300; line-height: 1.9; color: #444;
+    }
 
-    /* ─── GALLERY ───────────────────────────────── */
-    .gallery-section { padding: 64px 80px; border-bottom: 1px solid var(--hairline); }
-    .gallery-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-    .gallery-img { aspect-ratio: 4/3; overflow: hidden; cursor: zoom-in; }
-    .gallery-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; display: block; }
-    .gallery-img:hover img { transform: scale(1.05); }
+    /* ─── GALLERY GRID ──────────────────────────── */
+    .gallery-section { border-bottom: 1px solid var(--hairline); }
+    .gallery-header {
+      padding: 56px 80px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .gallery-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--ink-mute);
+    }
+    .gallery-count {
+      font-size: 11px; font-weight: 300; color: var(--ink-mute);
+    }
+    .gallery-grid {
+      display: grid; gap: 2px;
+    }
+    .gallery-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .gallery-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .gallery-cell {
+      aspect-ratio: 4/3; overflow: hidden; cursor: zoom-in; position: relative;
+    }
+    .gallery-cell img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.7s cubic-bezier(0.23,1,0.32,1);
+    }
+    .gallery-cell:hover img { transform: scale(1.04); }
+    .gallery-cell.wide { grid-column: span 2; aspect-ratio: 16/7; }
 
     /* ─── LIGHTBOX ──────────────────────────────── */
-    .lightbox { display: none; position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; }
+    .lightbox { display: none; position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.96); align-items: center; justify-content: center; }
     .lightbox.open { display: flex; }
     .lightbox-img { max-width: 90vw; max-height: 88vh; object-fit: contain; user-select: none; display: block; }
-    .lightbox-close { position: absolute; top: 24px; right: 28px; background: none; border: none; color: rgba(255,255,255,0.7); font-size: 28px; cursor: pointer; line-height: 1; padding: 4px; transition: color 0.2s; }
+    .lightbox-close { position: absolute; top: 28px; right: 32px; background: none; border: none; color: rgba(255,255,255,0.6); font-size: 24px; cursor: pointer; padding: 4px; transition: color 0.2s; line-height: 1; }
     .lightbox-close:hover { color: #fff; }
-    .lightbox-btn { position: absolute; top: 50%; transform: translateY(-50%); background: none; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.7); width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; transition: all 0.2s; }
-    .lightbox-btn:hover { border-color: rgba(255,255,255,0.8); color: #fff; }
-    .lightbox-prev { left: 28px; }
-    .lightbox-next { right: 28px; }
-    .lightbox-counter { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); font-size: 10px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+    .lightbox-btn { position: absolute; top: 50%; transform: translateY(-50%); background: none; border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.6); width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; transition: all 0.2s; }
+    .lightbox-btn:hover { border-color: rgba(255,255,255,0.7); color: #fff; }
+    .lightbox-prev { left: 32px; }
+    .lightbox-next { right: 32px; }
+    .lightbox-counter { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); font-size: 10px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.35); }
 
-    /* ─── CTA BAND ──────────────────────────────── */
-    .cta-band {
-      background: var(--black); padding: 80px clamp(32px, 8vw, 160px);
-      display: flex; align-items: center; justify-content: space-between; gap: 40px;
+    /* ─── CTA ───────────────────────────────────── */
+    .cta-section {
+      padding: 120px 80px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+      background: var(--black);
     }
-    .cta-band h2 { font-size: clamp(28px, 3.5vw, 48px); font-weight: 900; line-height: 0.95; letter-spacing: 1px; text-transform: uppercase; color: var(--white); }
-    .cta-actions { display: flex; gap: 16px; flex-shrink: 0; }
-    .btn-white-solid { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--black); background: var(--white); border: 1px solid var(--white); padding: 14px 28px; text-decoration: none; transition: all 0.3s; }
-    .btn-white-solid:hover { background: transparent; color: var(--white); }
-    .btn-ghost-white { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); background: transparent; border: 1px solid rgba(255,255,255,0.3); padding: 14px 28px; text-decoration: none; transition: border-color 0.3s; }
-    .btn-ghost-white:hover { border-color: var(--white); }
+    .cta-label { font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 24px; }
+    .cta-headline { font-size: clamp(32px, 4vw, 60px); font-weight: 900; text-transform: uppercase; line-height: 0.9; letter-spacing: -0.5px; color: var(--white); }
+    .cta-right { display: flex; flex-direction: column; gap: 16px; }
+    .cta-text { font-size: 14px; font-weight: 300; line-height: 1.8; color: rgba(255,255,255,0.5); margin-bottom: 24px; }
+    .btn-cta-white { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--black); background: var(--white); border: 1px solid var(--white); padding: 16px 32px; text-decoration: none; transition: all 0.3s; text-align: center; display: block; }
+    .btn-cta-white:hover { background: transparent; color: var(--white); }
+    .btn-cta-ghost { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); background: transparent; border: 1px solid rgba(255,255,255,0.25); padding: 16px 32px; text-decoration: none; transition: border-color 0.3s; text-align: center; display: block; }
+    .btn-cta-ghost:hover { border-color: var(--white); }
 
     /* ─── FOOTER ─────────────────────────────────── */
     footer { background: var(--black-soft); border-top: 1px solid #1a1a1a; padding: 32px 80px; }
@@ -153,37 +254,54 @@
     .footer-logo img { height: 36px; width: auto; filter: invert(1); }
 
     /* ─── REVEAL ────────────────────────────────── */
-    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
 
     /* ─── RESPONSIVE ─────────────────────────────── */
     @media (max-width: 1024px) {
       nav { padding: 12px 24px; }
       .nav-links, .nav-cta { display: none; }
       .hamburger { display: flex; }
-      .btn-back-top { left: 24px; top: 104px; }
-      .proj-hero-info { padding: 40px 28px; }
-      .proj-body { grid-template-columns: 1fr; gap: 40px; padding: 48px 28px; }
-      .proj-sidebar { padding-top: 0; flex-direction: row; flex-wrap: wrap; gap: 0; }
-      .proj-stat { flex: 1 1 50%; border-right: none; }
-      .gallery-section { padding: 48px 28px; }
-      .cta-band { padding: 60px 28px; flex-direction: column; align-items: flex-start; }
+      .btn-back { left: 24px; top: 108px; }
+      .hero-content { padding: 0 32px 56px; }
+      .hero-scroll-hint { display: none; }
+      .intro { grid-template-columns: 1fr; gap: 24px; padding: 72px 32px 64px; }
+      .stats-band { grid-template-columns: repeat(2, 1fr) !important; }
+      .stat-item { border-right: none !important; border-bottom: 1px solid var(--hairline); padding: 36px 32px; }
+      .stat-item:nth-child(odd) { border-right: 1px solid var(--hairline) !important; }
+      .description-section { grid-template-columns: 1fr; gap: 48px; padding: 72px 32px; }
+      .desc-right { padding-top: 0; }
+      .split-section { grid-template-columns: 1fr; }
+      .split-img { min-height: 360px; }
+      .split-section.reverse .split-img { order: 0; }
+      .split-section.reverse .split-text { order: 0; border-right: none; }
+      .split-text { padding: 56px 32px; }
+      .gallery-header { padding: 48px 32px 32px; }
+      .gallery-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
+      .gallery-cell.wide { grid-column: span 2; }
+      .cta-section { grid-template-columns: 1fr; gap: 48px; padding: 80px 32px; }
       footer { padding: 32px 28px; }
     }
     @media (max-width: 640px) {
       nav { padding: 10px 20px; }
       .nav-logo img { height: 52px !important; }
-      .btn-back-top { left: 20px; font-size: 9px; padding: 8px 12px; }
-      .proj-hero { height: 100vh; }
-      .proj-hero-info { padding: 24px; }
-      .proj-body { padding: 40px 24px; }
-      .gallery-strip { grid-template-columns: repeat(2, 1fr); }
-      .gallery-section { padding: 40px 24px; }
-      .cta-actions { flex-direction: column; width: 100%; }
+      .hero-content { padding: 0 24px 48px; }
+      .hero-title { letter-spacing: -0.5px; }
+      .hero-meta { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .hero-meta-divider { display: none; }
+      .intro { padding: 56px 24px 48px; }
+      .stats-band { grid-template-columns: 1fr 1fr !important; }
+      .stat-item { padding: 28px 20px; }
+      .description-section { padding: 56px 24px; }
+      .gallery-grid.cols-3, .gallery-grid.cols-2 { grid-template-columns: 1fr; }
+      .gallery-cell.wide { grid-column: span 1; aspect-ratio: 4/3; }
+      .cta-section { padding: 64px 24px; }
       footer { padding: 28px 24px; }
       .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
     }
-    @media (hover: none) and (pointer: coarse) { body { cursor: auto; } a, button { cursor: pointer; } }
+    @media (hover: none) and (pointer: coarse) { a, button { cursor: pointer; } }
   </style>
 </head>
 <body>
@@ -221,11 +339,11 @@
   <button class="hamburger" onclick="toggleMobileNav()"><span></span><span></span><span></span></button>
 </nav>
 
-<a href="javascript:history.back()" class="btn-back-top">
+<a href="javascript:history.back()" class="btn-back">
   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
-  Back
+  Projects
 </a>
 
 <!-- DYNAMIC CONTENT -->
@@ -240,15 +358,6 @@
   <div class="lightbox-counter" id="lbCounter"></div>
 </div>
 
-<!-- CTA BAND -->
-<div class="cta-band">
-  <h2>INTERESTED IN<br>OUR NEXT PROJECT?</h2>
-  <div class="cta-actions">
-    <a href="index.html#contact" class="btn-white-solid">Get In Touch</a>
-    <a href="projects.html" class="btn-ghost-white">All Projects</a>
-  </div>
-</div>
-
 <!-- FOOTER -->
 <footer>
   <div class="footer-bottom">
@@ -258,7 +367,6 @@
 </footer>
 
 <script>
-  /* ── MOBILE NAV ─────────────────────────────── */
   const mobileNav = document.getElementById('mobileNav');
   function toggleMobileNav() { mobileNav.classList.toggle('open'); }
   function closeMobileNav() { mobileNav.classList.remove('open'); }
@@ -271,36 +379,44 @@
       type: 'High End Townhouses',
       status: 'Sold',
       img: 'BarrackPoint.jpg',
-      gallery: [
-        'BarrackPoint.jpg',
-        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80',
-        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80',
-      ],
+      statement: 'A rare collection of high-end townhouses set above one of the Illawarra\'s most coveted clifftop addresses.',
+      descLeft: 'Barrack Point is one of the Illawarra\'s most prestigious coastal enclaves — a tightly held clifftop suburb renowned for its dramatic ocean outlooks, rock pool, and absolute waterfront lifestyle.\n\nInnovate Property Group was exclusively engaged to market and sell this boutique collection of high-end townhouses, delivering a result that reflected the exceptional calibre of the product and the depth of buyer demand for premium coastal living in this suburb.',
+      descHeadline: 'Where clifftop living meets considered design.',
+      descRight: 'Each residence was crafted with refined finishes, generous proportions, and an unwavering attention to the quality of materials — positioning the project firmly at the top of the Barrack Point market.\n\nThe project sold in full, with buyers drawn from both the local region and interstate, underlining the national profile that Barrack Point commands as one of NSW\'s great coastal addresses.',
       stats: [
-        { label: 'Project Type', value: 'Townhouses' },
+        { label: 'Project Type', value: 'Boutique Townhouses' },
         { label: 'Status', value: 'Sold' },
         { label: 'Location', value: 'Barrack Point, NSW' },
       ],
-      description: `Barrack Point is one of the Illawarra's most prestigious coastal addresses — a clifftop enclave renowned for its dramatic ocean outlooks, rock pool, and absolute waterfront lifestyle.\n\nInnovate Property Group exclusively marketed and sold this boutique collection of high-end townhouses, delivering a result that reflected the exceptional calibre of the product and the demand for premium coastal living in this tightly held suburb.\n\nEach residence was crafted with refined finishes and generous proportions, offering buyers a rare opportunity to secure a foothold in one of the region's most coveted locations. The project was sold in full.`,
+      gallery: [
+        'BarrackPoint.jpg',
+        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=85',
+        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&q=85',
+        'https://images.unsplash.com/photo-1571055107559-3e67626fa8be?w=1200&q=85',
+      ],
     },
     'bluewater-apartments': {
       name: 'Bluewater Apartments',
       location: 'Illawarra, NSW',
-      type: 'Apartments — Off The Plan',
+      type: '20 Apartments — Off The Plan',
       status: 'Sold',
       img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1920&q=90',
-      gallery: [
-        'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80',
-        'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&q=80',
-        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80',
-      ],
+      statement: 'Twenty contemporary apartments sold entirely off the plan — a complete campaign result driven by strategy, buyer relationships, and relentless execution.',
+      descLeft: 'Bluewater Apartments represented a flagship off-the-plan release across 20 contemporary residences. Innovate Property Group managed the full sales campaign from pre-launch strategy through to final settlement.\n\nAll 20 apartments were sold off the plan — before construction commenced — a result achieved through meticulous pre-marketing, targeted buyer engagement, and a campaign that built sustained momentum from the outset.',
+      descHeadline: 'Twenty apartments. Sold before a brick was laid.',
+      descRight: 'The success of Bluewater Apartments reflects the strength of our developer sales methodology: early buyer identification, a compelling project narrative, and the ability to convert interest into committed contracts with speed and confidence.\n\nFor the developer, the result provided complete financial certainty at the earliest possible stage of the project lifecycle.',
       stats: [
         { label: 'Project Type', value: 'Apartments' },
         { label: 'Total Dwellings', value: '20 Apartments' },
         { label: 'Sale Method', value: 'Off The Plan' },
         { label: 'Status', value: 'Sold' },
       ],
-      description: `Bluewater Apartments represented a flagship off-the-plan release across 20 contemporary apartments in the Illawarra region.\n\nInnovate Property Group managed the full sales campaign from pre-launch strategy through to settlement, achieving complete sell-through of all 20 apartments off the plan — before a single brick was laid.\n\nThe result was a testament to the strength of the project's positioning, the depth of our buyer network, and our ability to generate early momentum and sustained demand throughout the campaign lifecycle.`,
+      gallery: [
+        'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&q=85',
+        'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1200&q=85',
+        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=85',
+        'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=85',
+      ],
     },
     'calderwood': {
       name: 'Calderwood',
@@ -308,134 +424,206 @@
       type: 'Custom Project Home',
       status: 'Sold',
       img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=90',
-      gallery: [
-        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
-        'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80',
-        'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80',
-      ],
+      statement: 'A bespoke custom home delivered to the highest specification and sold at the pinnacle of the Calderwood market.',
+      descLeft: 'Set within the growing Calderwood community, this custom project home was a showcase of considered design and quality construction — purpose-built to a high specification by an experienced builder-developer partnership.\n\nInnovate Property Group was engaged to handle the sale of this bespoke residence, applying our prestige sales approach to a product that sat well above the standard new-build offering in the precinct.',
+      descHeadline: 'A benchmark for quality in a community defined by it.',
+      descRight: 'The property attracted significant buyer interest from families and lifestyle purchasers seeking a high-specification home within a masterplanned environment — without the wait times associated with building from scratch.\n\nThe home sold, delivering an outstanding result for our client and setting a new benchmark for what premium project housing can achieve within Calderwood.',
       stats: [
         { label: 'Project Type', value: 'Custom Home' },
         { label: 'Location', value: 'Calderwood, NSW' },
         { label: 'Status', value: 'Sold' },
       ],
-      description: `Set within the growing Calderwood community, this custom project home was a showcase of considered design and quality construction — purpose-built to a high specification by an experienced builder-developer partnership.\n\nInnovate Property Group was engaged to handle the sale of this bespoke residence, applying our prestige sales approach to a product that sat well above the standard new-build offering in the precinct.\n\nThe home sold, delivering an outstanding result for our client and setting a benchmark for the quality of project housing achievable in the Calderwood masterplanned estate.`,
+      gallery: [
+        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=85',
+        'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1200&q=85',
+        'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=85',
+        'https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=1200&q=85',
+      ],
     },
     'elevation-77': {
       name: 'Elevation 77',
       location: 'Illawarra, NSW',
-      type: 'Apartments — Off The Plan',
+      type: '77 Apartments — Off The Plan',
       status: 'Sold',
       img: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1920&q=90',
-      gallery: [
-        'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&q=80',
-        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80',
-        'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80',
-      ],
+      statement: '52 of 77 apartments secured off the plan — a large-scale campaign result defined by sustained buyer demand and strategic sales management.',
+      descLeft: 'Elevation 77 was one of the most significant apartment projects Innovate Property Group has been involved in — a 77-apartment development that required a disciplined, phased sales strategy to convert buyer interest into committed off-the-plan contracts.\n\nOur team achieved 52 sales off the plan across the campaign, establishing strong pre-construction momentum and providing the developer with the financial certainty needed to proceed with confidence.',
+      descHeadline: 'Scale, strategy, and sustained sales performance.',
+      descRight: 'Managing a project of this scale demands more than marketing — it requires a deep buyer pipeline, a compelling project story, and the operational capacity to manage concurrent enquiries, inspections, contracts, and negotiations without loss of momentum.\n\nThe Elevation 77 result demonstrated our capability to perform at the highest level across large-scale residential development campaigns.',
       stats: [
         { label: 'Project Type', value: 'Apartments' },
         { label: 'Total Dwellings', value: '77 Apartments' },
         { label: 'Sold Off The Plan', value: '52 / 77' },
         { label: 'Status', value: 'Sold' },
       ],
-      description: `Elevation 77 was one of the most significant apartment projects Innovate Property Group has been involved in — a 77-apartment development that required a disciplined, phased sales strategy to convert buyer interest into committed off-the-plan contracts.\n\nOur team achieved 52 sales off the plan across the campaign, establishing strong pre-construction sales momentum and providing the developer with the confidence and cash flow certainty needed to proceed.\n\nThe result reflected our capability to manage large-scale project campaigns, build and sustain buyer pipelines, and deliver consistent performance across an extended campaign timeline.`,
+      gallery: [
+        'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1200&q=85',
+        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&q=85',
+        'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&q=85',
+        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=85',
+      ],
     },
     'oak-flats': {
       name: 'Oak Flats',
       location: 'Oak Flats, NSW',
-      type: 'Modern Villas',
+      type: '3 Modern Villas',
       status: 'Sold',
       img: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1920&q=90',
-      gallery: [
-        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80',
-        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
-        'https://images.unsplash.com/photo-1571055107559-3e67626fa8be?w=800&q=80',
-      ],
+      statement: 'Three modern villas brought to market with precision — and sold with three-way competition that reflects the strength of the product and the campaign.',
+      descLeft: 'A tightly designed collection of three modern villas in Oak Flats, each offering contemporary finishes, generous floorplans, and low-maintenance living — positioned to appeal to downsizers, investors, and owner-occupiers seeking quality new product in an established lake-side suburb.\n\nInnovate Property Group ran a targeted on-market campaign, leveraging our local buyer network and digital platform to generate strong, simultaneous interest across all three dwellings.',
+      descHeadline: 'Three villas. Three buyers. One exceptional result.',
+      descRight: 'The campaign attracted competition between multiple buyer types, validating the product\'s broad appeal and the strength of the Oak Flats market for well-presented new residential product.\n\nAll three villas were sold, with the result underlining the consistent demand for quality new builds in this sought-after Lake Illawarra suburb.',
       stats: [
         { label: 'Project Type', value: 'Modern Villas' },
         { label: 'Total Dwellings', value: '3 Villas' },
-        { label: 'Sale Method', value: 'On Market' },
+        { label: 'Location', value: 'Oak Flats, NSW' },
         { label: 'Status', value: 'All Sold' },
       ],
-      description: `A tightly designed collection of three modern villas in Oak Flats, each offering contemporary finishes, generous floorplans, and low-maintenance living — positioned to appeal to downsizers, investors, and owner-occupiers alike.\n\nInnovate Property Group ran a targeted on-market campaign, leveraging our local buyer network and digital marketing capability to generate strong competition across all three dwellings.\n\nAll three villas were sold, with competition between buyers underscoring the demand for well-presented new product in this sought-after Lake Illawarra suburb.`,
+      gallery: [
+        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&q=85',
+        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=85',
+        'https://images.unsplash.com/photo-1571055107559-3e67626fa8be?w=1200&q=85',
+        'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=85',
+      ],
     },
     'shellharbour-village': {
       name: 'Shellharbour Village',
       location: 'Shellharbour, NSW',
-      type: 'Boutique Townhouses',
+      type: '3 Boutique Townhouses',
       status: 'Sold',
       img: 'Shellharbour.jpg',
-      gallery: [
-        'Shellharbour.jpg',
-        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80',
-        'https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=800&q=80',
-      ],
+      statement: 'Three boutique townhouses in one of the Illawarra\'s most loved village precincts — sold on market with buyers drawn to both the product and the address.',
+      descLeft: 'Shellharbour Village is one of the Illawarra\'s most vibrant coastal precincts — home to a celebrated mix of restaurants, boutiques, and the iconic harbour foreshore that gives the suburb its enduring lifestyle appeal.\n\nThis boutique development of three townhouses was expertly positioned to capture the lifestyle premium that the Village address commands, attracting a field of buyers who understood both the quality of the product and the scarcity of the location.',
+      descHeadline: 'Village living at its absolute finest.',
+      descRight: 'Innovate Property Group managed the full on-market campaign, drawing on our local expertise, established buyer relationships, and an understanding of what makes Shellharbour Village a genuinely unique address in the Illawarra.\n\nAll three townhouses were sold, delivering an exceptional result for our developer client and reinforcing the enduring demand for high-quality product within this tightly held coastal precinct.',
       stats: [
         { label: 'Project Type', value: 'Boutique Townhouses' },
         { label: 'Total Dwellings', value: '3 Townhouses' },
-        { label: 'Sale Method', value: 'On Market' },
+        { label: 'Location', value: 'Shellharbour, NSW' },
         { label: 'Status', value: 'All Sold' },
       ],
-      description: `Shellharbour Village is one of the Illawarra's most vibrant and walkable coastal precincts — home to an eclectic mix of restaurants, boutiques, and the famous Shellharbour harbour foreshore.\n\nThis boutique development of three townhouses was expertly positioned to capture the lifestyle premium that the Village address commands. Innovate Property Group managed the on-market campaign, attracting strong buyer interest from both locals and purchasers relocating to the coast.\n\nAll three townhouses sold, delivering an exceptional result for our developer client and reinforcing the ongoing demand for quality product within the Shellharbour Village precinct.`,
+      gallery: [
+        'Shellharbour.jpg',
+        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=85',
+        'https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=1200&q=85',
+        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&q=85',
+      ],
     },
   };
 
-  /* ── RENDER PAGE ────────────────────────────── */
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get('id');
+  /* ── RENDER ─────────────────────────────────── */
+  const id = new URLSearchParams(window.location.search).get('id');
   const p = projects[id];
   const container = document.getElementById('projectPage');
 
   if (!p) {
-    container.innerHTML = '<div style="padding:120px 80px;text-align:center;"><h2 style="font-size:24px;">Project not found.</h2><a href="projects.html" style="display:inline-block;margin-top:24px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#000;">← Back to Projects</a></div>';
+    container.innerHTML = `<div style="padding:160px 80px;text-align:center;">
+      <p style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--ink-mute);margin-bottom:24px;">Project not found</p>
+      <a href="projects.html" style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--black);">← Back to Projects</a>
+    </div>`;
   } else {
     document.title = p.name + ' — Innovate Property Group';
 
-    const galleryHTML = p.gallery.map((src, i) => `
-      <div class="gallery-img" onclick="openLightbox(${i})">
-        <img src="${src}" alt="${p.name} image ${i + 1}" loading="lazy" />
-      </div>`).join('');
-
+    const numCols = p.stats.length <= 3 ? p.stats.length : 4;
     const statsHTML = p.stats.map(s => `
-      <div class="proj-stat">
-        <div class="proj-stat-label">${s.label}</div>
-        <div class="proj-stat-value">${s.value}</div>
+      <div class="stat-item">
+        <div class="stat-label">${s.label}</div>
+        <div class="stat-value">${s.value}</div>
       </div>`).join('');
 
-    const descParagraphs = p.description.split('\n\n').map(para => `<p class="proj-description" style="margin-bottom:20px;">${para}</p>`).join('');
+    const descParasLeft = p.descLeft.split('\n\n').map(t => `<p>${t}</p>`).join('');
+    const descParasRight = p.descRight.split('\n\n').map(t => `<p>${t}</p>`).join('');
+
+    const g = p.gallery;
+    let galleryHTML = '';
+    if (g.length >= 4) {
+      galleryHTML = `
+        <div class="gallery-grid cols-3">
+          <div class="gallery-cell wide" onclick="openLightbox(0)"><img src="${g[0]}" alt="${p.name} 1" loading="lazy" /></div>
+          <div class="gallery-cell" onclick="openLightbox(1)"><img src="${g[1]}" alt="${p.name} 2" loading="lazy" /></div>
+          <div class="gallery-cell" onclick="openLightbox(2)"><img src="${g[2]}" alt="${p.name} 3" loading="lazy" /></div>
+          <div class="gallery-cell" onclick="openLightbox(3)"><img src="${g[3]}" alt="${p.name} 4" loading="lazy" /></div>
+        </div>`;
+    } else {
+      galleryHTML = `<div class="gallery-grid cols-${Math.min(g.length, 3)}">${g.map((src, i) => `<div class="gallery-cell" onclick="openLightbox(${i})"><img src="${src}" alt="${p.name} ${i+1}" loading="lazy"/></div>`).join('')}</div>`;
+    }
 
     container.innerHTML = `
-      <div class="proj-hero">
-        <img class="proj-hero-img" src="${p.img}" alt="${p.name}" />
-        <div class="proj-hero-overlay"></div>
-        <div class="proj-hero-grain"></div>
-        <div class="proj-hero-info">
-          <div class="proj-status">${p.status}</div>
-          <div class="proj-hero-name">${p.name}</div>
-          <div class="proj-hero-type">${p.type}${p.location ? ' &nbsp;·&nbsp; ' + p.location : ''}</div>
+      <!-- HERO -->
+      <div class="hero">
+        <img class="hero-img" src="${p.img}" alt="${p.name}" />
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="hero-eyebrow reveal">Completed Project</div>
+          <h1 class="hero-title reveal reveal-delay-1">${p.name}</h1>
+          <div class="hero-meta reveal reveal-delay-2">
+            <span>${p.type}</span>
+            <span class="hero-meta-divider"></span>
+            <span>${p.location}</span>
+            <span class="hero-meta-divider"></span>
+            <span>${p.status}</span>
+          </div>
+        </div>
+        <div class="hero-scroll-hint">
+          <div class="scroll-line"></div>
+          <span>Scroll</span>
         </div>
       </div>
 
-      <div class="proj-body reveal">
+      <!-- STATEMENT -->
+      <div class="intro reveal">
+        <div class="intro-label">Overview</div>
+        <p class="intro-statement">${p.statement}</p>
+      </div>
+
+      <!-- STATS BAND -->
+      <div class="stats-band reveal" style="grid-template-columns: repeat(${numCols}, 1fr);">
+        ${statsHTML}
+      </div>
+
+      <!-- DESCRIPTION -->
+      <div class="description-section">
+        <div class="reveal">
+          <div class="desc-label">The Project</div>
+          <div class="desc-body">${descParasLeft}</div>
+        </div>
+        <div class="desc-right reveal reveal-delay-1">
+          <p class="desc-headline">${p.descHeadline}</p>
+          <div class="desc-body">${descParasRight}</div>
+        </div>
+      </div>
+
+      <!-- FULL BLEED IMAGE -->
+      <div class="full-image reveal">
+        <img src="${g[1] || g[0]}" alt="${p.name}" loading="lazy" />
+      </div>
+
+      <!-- GALLERY -->
+      <div class="gallery-section">
+        <div class="gallery-header reveal">
+          <span class="gallery-label">Gallery</span>
+          <span class="gallery-count">${g.length} Images</span>
+        </div>
+        ${galleryHTML}
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-section">
         <div>
-          <div class="section-label">About This Project</div>
-          ${descParagraphs}
+          <div class="cta-label reveal">Work With Us</div>
+          <h2 class="cta-headline reveal reveal-delay-1">SELL YOUR<br>PROJECT WITH<br>INNOVATE.</h2>
         </div>
-        <div class="proj-sidebar">
-          ${statsHTML}
+        <div class="cta-right reveal reveal-delay-2">
+          <p class="cta-text">We partner with developers across the Illawarra to market and sell new residential projects — from boutique townhouse releases to large-scale off-the-plan campaigns.</p>
+          <a href="index.html#contact" class="btn-cta-white">Get In Touch</a>
+          <a href="projects.html" class="btn-cta-ghost">View All Projects</a>
         </div>
       </div>
-
-      ${p.gallery.length > 1 ? `
-      <div class="gallery-section reveal">
-        <div class="section-label">Gallery</div>
-        <div class="gallery-strip">${galleryHTML}</div>
-      </div>` : ''}
     `;
 
-    /* reveal on scroll */
     const obs = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.08 });
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   }
 
