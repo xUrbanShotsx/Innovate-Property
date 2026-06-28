@@ -109,6 +109,43 @@
     .hero-meta-divider { width: 1px; height: 14px; background: var(--hairline); }
     .scroll-line { display: none; }
 
+    /* ─── SLIDESHOW ─────────────────────────────── */
+    .slideshow {
+      position: relative; overflow: hidden;
+      border-bottom: 1px solid var(--hairline);
+    }
+    .slideshow-track {
+      display: flex; transition: transform 0.65s cubic-bezier(0.23,1,0.32,1);
+    }
+    .slideshow-slide {
+      min-width: 100%; aspect-ratio: 16/8; flex-shrink: 0;
+    }
+    .slideshow-slide img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .slideshow-controls {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 80px; height: 72px;
+      border-top: 1px solid var(--hairline);
+    }
+    .slideshow-counter {
+      font-size: 11px; font-weight: 400; letter-spacing: 3px; color: var(--ink-mute);
+    }
+    .slideshow-arrows { display: flex; gap: 0; }
+    .slideshow-arrow {
+      width: 52px; height: 52px; display: flex; align-items: center; justify-content: center;
+      background: none; border: 1px solid var(--hairline); cursor: pointer;
+      font-size: 16px; color: var(--black); transition: background 0.3s, color 0.3s;
+      margin-left: -1px;
+    }
+    .slideshow-arrow:hover { background: var(--black); color: var(--white); border-color: var(--black); }
+    .slideshow-dots { display: flex; gap: 8px; align-items: center; }
+    .slideshow-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--hairline); cursor: pointer; transition: background 0.3s, transform 0.3s;
+    }
+    .slideshow-dot.active { background: var(--black); transform: scale(1.3); }
+
     /* ─── INTRO STATEMENT ───────────────────────── */
     .intro {
       padding: 120px 80px 100px;
@@ -269,6 +306,8 @@
       .hero-status { left: 32px; top: 24px; }
       .hero-title-bar { padding: 0 32px; flex-direction: column; align-items: flex-start; justify-content: center; gap: 12px; }
       .hero-meta { gap: 16px; }
+      .slideshow-controls { padding: 0 32px; }
+      .slideshow-slide { aspect-ratio: 4/3; }
       .intro { grid-template-columns: 1fr; gap: 24px; padding: 72px 32px 64px; }
       .stats-band { grid-template-columns: repeat(2, 1fr) !important; }
       .stat-item { border-right: none !important; border-bottom: 1px solid var(--hairline); padding: 36px 32px; }
@@ -574,6 +613,23 @@
         </div>
       </div>
 
+      <!-- SLIDESHOW -->
+      <div class="slideshow">
+        <div class="slideshow-track" id="slideshowTrack">
+          ${g.map((src, i) => `<div class="slideshow-slide"><img src="${src}" alt="${p.name} ${i+1}" loading="${i === 0 ? 'eager' : 'lazy'}" /></div>`).join('')}
+        </div>
+        <div class="slideshow-controls">
+          <div class="slideshow-dots" id="slideshowDots">
+            ${g.map((_, i) => `<div class="slideshow-dot${i === 0 ? ' active' : ''}" onclick="slideshowGo(${i})"></div>`).join('')}
+          </div>
+          <span class="slideshow-counter" id="slideshowCounter">1 / ${g.length}</span>
+          <div class="slideshow-arrows">
+            <button class="slideshow-arrow" onclick="slideshowPrev()" aria-label="Previous">←</button>
+            <button class="slideshow-arrow" onclick="slideshowNext()" aria-label="Next">→</button>
+          </div>
+        </div>
+      </div>
+
       <!-- STATEMENT -->
       <div class="intro reveal">
         <div class="intro-label">Overview</div>
@@ -630,6 +686,27 @@
     }, { threshold: 0.08 });
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   }
+
+  /* ── SLIDESHOW ─────────────────────────────── */
+  let ssIndex = 0;
+  function slideshowUpdate() {
+    const track = document.getElementById('slideshowTrack');
+    const counter = document.getElementById('slideshowCounter');
+    const dots = document.querySelectorAll('.slideshow-dot');
+    if (!track) return;
+    track.style.transform = `translateX(-${ssIndex * 100}%)`;
+    counter.textContent = `${ssIndex + 1} / ${p.gallery.length}`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === ssIndex));
+  }
+  function slideshowNext() {
+    ssIndex = (ssIndex + 1) % p.gallery.length;
+    slideshowUpdate();
+  }
+  function slideshowPrev() {
+    ssIndex = (ssIndex - 1 + p.gallery.length) % p.gallery.length;
+    slideshowUpdate();
+  }
+  function slideshowGo(i) { ssIndex = i; slideshowUpdate(); }
 
   /* ── LIGHTBOX ───────────────────────────────── */
   let lbImages = [], lbIndex = 0;
