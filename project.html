@@ -117,7 +117,7 @@
       display: flex; transition: transform 0.65s cubic-bezier(0.23,1,0.32,1);
     }
     .slideshow-slide {
-      min-width: 100%; aspect-ratio: 16/8; flex-shrink: 0;
+      min-width: 100%; height: calc(50vh - 72px); flex-shrink: 0;
     }
     .slideshow-slide img {
       width: 100%; height: 100%; object-fit: cover; display: block;
@@ -144,6 +144,22 @@
       background: var(--hairline); cursor: pointer; transition: background 0.3s, transform 0.3s;
     }
     .slideshow-dot.active { background: var(--black); transform: scale(1.3); }
+
+    /* ─── ARCH BRIEF ────────────────────────────── */
+    .arch-brief {
+      padding: 80px 80px 88px;
+      text-align: center; border-bottom: 1px solid var(--hairline);
+      background: var(--off-white);
+    }
+    .arch-brief-label {
+      font-size: 9px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--ink-mute); margin-bottom: 28px;
+    }
+    .arch-brief-text {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(18px, 2.2vw, 30px); font-weight: 400; line-height: 1.55;
+      color: var(--black); max-width: 760px; margin: 0 auto; font-style: italic;
+    }
 
     /* ─── INTRO STATEMENT ───────────────────────── */
     .intro {
@@ -425,6 +441,7 @@
       type: 'High End Townhouses',
       status: 'Sold',
       img: 'BarrackPoint.jpg',
+      archBrief: 'Designed to the highest residential standard, the Barrack Point townhouses draw on the drama of the clifftop setting — natural materials, generous proportions, and an architecture that defers to the landscape rather than competing with it.',
       statement: 'A rare collection of high-end townhouses set above one of the Illawarra\'s most coveted clifftop addresses.',
       descLeft: 'Barrack Point is one of the Illawarra\'s most prestigious coastal enclaves — a tightly held clifftop suburb renowned for its dramatic ocean outlooks, rock pool, and absolute waterfront lifestyle.\n\nInnovate Property Group was exclusively engaged to market and sell this boutique collection of high-end townhouses, delivering a result that reflected the exceptional calibre of the product and the depth of buyer demand for premium coastal living in this suburb.',
       descHeadline: 'Where clifftop living meets considered design.',
@@ -447,6 +464,7 @@
       type: '20 Apartments — Off The Plan',
       status: 'Sold',
       img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1920&q=90',
+      archBrief: 'Bluewater Apartments was conceived as a contemporary residential benchmark — clean lines, considered materiality, and a design language that responds to the coastal character of the Illawarra without resorting to cliché.',
       statement: 'Twenty contemporary apartments sold entirely off the plan — a complete campaign result driven by strategy, buyer relationships, and relentless execution.',
       descLeft: 'Bluewater Apartments represented a flagship off-the-plan release across 20 contemporary residences. Innovate Property Group managed the full sales campaign from pre-launch strategy through to final settlement.\n\nAll 20 apartments were sold off the plan — before construction commenced — a result achieved through meticulous pre-marketing, targeted buyer engagement, and a campaign that built sustained momentum from the outset.',
       descHeadline: 'Twenty apartments. Sold before a brick was laid.',
@@ -470,6 +488,7 @@
       type: 'Custom Project Home',
       status: 'Sold',
       img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=90',
+      archBrief: 'The Calderwood home was purpose-designed for its site — a bespoke floorplan with premium finishes throughout, balancing the warmth of family living with the precision of a well-considered architectural brief.',
       statement: 'A bespoke custom home delivered to the highest specification and sold at the pinnacle of the Calderwood market.',
       descLeft: 'Set within the growing Calderwood community, this custom project home was a showcase of considered design and quality construction — purpose-built to a high specification by an experienced builder-developer partnership.\n\nInnovate Property Group was engaged to handle the sale of this bespoke residence, applying our prestige sales approach to a product that sat well above the standard new-build offering in the precinct.',
       descHeadline: 'A benchmark for quality in a community defined by it.',
@@ -492,6 +511,7 @@
       type: '77 Apartments — Off The Plan',
       status: 'Sold',
       img: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1920&q=90',
+      archBrief: 'Elevation 77 set a new standard for apartment design in the region — architecturally resolved with a focus on liveability, natural light, and material quality that positioned every residence well above the typical new-build offering.',
       statement: '52 of 77 apartments secured off the plan — a large-scale campaign result defined by sustained buyer demand and strategic sales management.',
       descLeft: 'Elevation 77 was one of the most significant apartment projects Innovate Property Group has been involved in — a 77-apartment development that required a disciplined, phased sales strategy to convert buyer interest into committed off-the-plan contracts.\n\nOur team achieved 52 sales off the plan across the campaign, establishing strong pre-construction momentum and providing the developer with the financial certainty needed to proceed with confidence.',
       descHeadline: 'Scale, strategy, and sustained sales performance.',
@@ -515,6 +535,7 @@
       type: '3 Modern Villas',
       status: 'Sold',
       img: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1920&q=90',
+      archBrief: 'Each Oak Flats villa was designed with a clean, contemporary palette — open-plan living, quality fixtures, and low-maintenance exteriors that speak to the demands of modern lifestyle buyers without sacrificing warmth or character.',
       statement: 'Three modern villas brought to market with precision — and sold with three-way competition that reflects the strength of the product and the campaign.',
       descLeft: 'A tightly designed collection of three modern villas in Oak Flats, each offering contemporary finishes, generous floorplans, and low-maintenance living — positioned to appeal to downsizers, investors, and owner-occupiers seeking quality new product in an established lake-side suburb.\n\nInnovate Property Group ran a targeted on-market campaign, leveraging our local buyer network and digital platform to generate strong, simultaneous interest across all three dwellings.',
       descHeadline: 'Three villas. Three buyers. One exceptional result.',
@@ -538,6 +559,7 @@
       type: '3 Boutique Townhouses',
       status: 'Sold',
       img: 'Shellharbour.jpg',
+      archBrief: 'The Shellharbour Village townhouses were crafted to complement their surroundings — a boutique scale, refined finishes, and a design sensibility that respects the character of the Village precinct while delivering a thoroughly contemporary standard of living.',
       statement: 'Three boutique townhouses in one of the Illawarra\'s most loved village precincts — sold on market with buyers drawn to both the product and the address.',
       descLeft: 'Shellharbour Village is one of the Illawarra\'s most vibrant coastal precincts — home to a celebrated mix of restaurants, boutiques, and the iconic harbour foreshore that gives the suburb its enduring lifestyle appeal.\n\nThis boutique development of three townhouses was expertly positioned to capture the lifestyle premium that the Village address commands, attracting a field of buyers who understood both the quality of the product and the scarcity of the location.',
       descHeadline: 'Village living at its absolute finest.',
@@ -627,6 +649,12 @@
             <button class="slideshow-arrow" onclick="slideshowNext()" aria-label="Next">→</button>
           </div>
         </div>
+      </div>
+
+      <!-- ARCH BRIEF -->
+      <div class="arch-brief reveal">
+        <div class="arch-brief-label">The Design</div>
+        <p class="arch-brief-text">${p.archBrief}</p>
       </div>
 
       <!-- STATEMENT -->
