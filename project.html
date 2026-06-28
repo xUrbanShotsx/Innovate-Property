@@ -21,19 +21,31 @@
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 10px 48px; background: var(--white); border-bottom: 1px solid var(--hairline);
+      padding: 10px 48px;
+      background: transparent; border-bottom: 1px solid transparent;
+      transition: background 0.4s ease, border-color 0.4s ease;
     }
-    .nav-logo img { height: 72px; width: auto; display: block; }
+    nav.scrolled {
+      background: var(--white); border-bottom-color: var(--hairline);
+    }
+    .nav-logo img { height: 72px; width: auto; display: block; filter: invert(1); transition: filter 0.4s ease; }
+    nav.scrolled .nav-logo img { filter: invert(0); }
     .nav-links { display: flex; gap: 40px; list-style: none; align-items: center; }
-    .nav-links a { font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-mute); text-decoration: none; transition: color 0.3s; position: relative; }
-    .nav-links a:hover { color: var(--black); }
-    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px; background: var(--black); transform: scaleX(0); transform-origin: left; transition: transform 0.4s cubic-bezier(0.23,1,0.32,1); }
+    .nav-links a { font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.3s; position: relative; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px; background: var(--white); transform: scaleX(0); transform-origin: left; transition: transform 0.4s cubic-bezier(0.23,1,0.32,1); }
     .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
-    .nav-links a.active { color: var(--black); }
-    .nav-cta { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); background: var(--black); border: 1px solid var(--black); padding: 12px 24px; text-decoration: none; transition: all 0.3s; }
-    .nav-cta:hover { background: var(--white); color: var(--black); }
+    .nav-links a.active { color: var(--white); }
+    nav.scrolled .nav-links a { color: var(--ink-mute); }
+    nav.scrolled .nav-links a:hover, nav.scrolled .nav-links a.active { color: var(--black); }
+    nav.scrolled .nav-links a::after { background: var(--black); }
+    .nav-cta { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--black); background: var(--white); border: 1px solid var(--white); padding: 12px 24px; text-decoration: none; transition: all 0.3s; }
+    .nav-cta:hover { background: transparent; color: var(--white); }
+    nav.scrolled .nav-cta { background: var(--black); color: var(--white); border-color: var(--black); }
+    nav.scrolled .nav-cta:hover { background: var(--white); color: var(--black); }
     .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
-    .hamburger span { width: 26px; height: 1px; background: var(--black); display: block; }
+    .hamburger span { width: 26px; height: 1px; background: var(--white); display: block; transition: background 0.4s; }
+    nav.scrolled .hamburger span { background: var(--black); }
 
     /* ─── MOBILE NAV ────────────────────────────── */
     .mobile-nav { position: fixed; inset: 0; z-index: 999; background: var(--white); display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.23,1,0.32,1); }
@@ -360,6 +372,12 @@
   const mobileNav = document.getElementById('mobileNav');
   function toggleMobileNav() { mobileNav.classList.toggle('open'); }
   function closeMobileNav() { mobileNav.classList.remove('open'); }
+
+  /* ── NAV SCROLL ─────────────────────────────── */
+  const navEl = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    navEl.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
 
   /* ── PROJECT DATA ───────────────────────────── */
   const projects = {
