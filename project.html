@@ -649,15 +649,15 @@
       </div>
 
       <!-- SLIDESHOW -->
-      <div class="slideshow">
+      <div class="slideshow" id="slideshowSection">
         <div class="slideshow-track" id="slideshowTrack">
-          ${[g[g.length - 1], ...g, g[0]].map((src, i) => `<div class="slideshow-slide"><img src="${src}" alt="${p.name}" loading="${i <= 1 ? 'eager' : 'lazy'}" /></div>`).join('')}
+          ${(sg => [sg[sg.length-1], ...sg, sg[0]].map((src, i) => `<div class="slideshow-slide"><img src="${src}" alt="${p.name}" loading="${i<=1?'eager':'lazy'}" /></div>`).join(''))(g.slice(2, 6))}
         </div>
         <div class="slideshow-controls">
           <div class="slideshow-dots" id="slideshowDots">
-            ${g.map((_, i) => `<div class="slideshow-dot${i === 0 ? ' active' : ''}" onclick="slideshowGo(${i})"></div>`).join('')}
+            ${g.slice(2, 6).map((_, i) => `<div class="slideshow-dot${i === 0 ? ' active' : ''}" onclick="slideshowGo(${i})"></div>`).join('')}
           </div>
-          <span class="slideshow-counter" id="slideshowCounter">1 / ${g.length}</span>
+          <span class="slideshow-counter" id="slideshowCounter">1 / ${Math.min(g.length - 2, 4)}</span>
           <div class="slideshow-arrows">
             <button class="slideshow-arrow" onclick="slideshowPrev()" aria-label="Previous">←</button>
             <button class="slideshow-arrow" onclick="slideshowNext()" aria-label="Next">→</button>
@@ -710,7 +710,7 @@
 
   /* ── SLIDESHOW ─────────────────────────────── */
   const SS_GAP = 20;
-  const ssTotal = p ? p.gallery.length : 0;
+  const ssTotal = p ? Math.min(p.gallery.length - 2, 4) : 0;
   let ssIndex = 1; // 0 = clone of last, 1..n = real, n+1 = clone of first
 
   function slideshowMove(animate) {
