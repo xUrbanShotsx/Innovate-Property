@@ -196,8 +196,14 @@
 
     /* ─── DESCRIPTION ───────────────────────────── */
     .description-section {
-      padding: 100px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 120px;
+      padding: 100px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 0;
       align-items: start; border-bottom: 1px solid var(--hairline);
+      position: relative;
+    }
+    .description-section::after {
+      content: ''; position: absolute;
+      left: 50%; top: 60px; bottom: 60px;
+      width: 1px; background: var(--hairline);
     }
     .desc-label {
       font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
@@ -207,11 +213,11 @@
       font-size: 15px; font-weight: 300; line-height: 1.95; color: #2a2a2a;
     }
     .desc-body p + p { margin-top: 20px; }
-    .desc-right { padding-top: 52px; }
+    .desc-left { padding-right: 60px; }
+    .desc-right { padding-top: 0; padding-left: 60px; }
     .desc-headline {
-      font-family: 'Inter', Arial, sans-serif;
-      font-size: clamp(16px, 1.5vw, 22px); font-weight: 500; line-height: 1.4;
-      color: var(--black); margin-bottom: 40px; letter-spacing: 0.5px;
+      font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--ink-mute); margin-bottom: 32px;
     }
 
     /* ─── FULL IMAGE ────────────────────────────── */
