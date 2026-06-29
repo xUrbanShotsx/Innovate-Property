@@ -217,6 +217,15 @@
       color: var(--ink-mute); margin-bottom: 32px;
     }
 
+    /* ─── FEATURE IMAGE ─────────────────────────── */
+    .feature-image {
+      display: flex; justify-content: center;
+      padding: 0 12.5%;
+    }
+    .feature-image img {
+      width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block;
+    }
+
     /* ─── FULL IMAGE ────────────────────────────── */
     .full-image {
       width: 100%; aspect-ratio: 16/9; overflow: hidden;
@@ -660,6 +669,11 @@
       <div class="arch-brief reveal">
         <div class="arch-brief-label">The Design</div>
         <p class="arch-brief-text">${p.archBrief}</p>
+      </div>
+
+      <!-- FEATURE IMAGE -->
+      <div class="feature-image reveal">
+        <img src="${g[1] || g[0]}" alt="${p.name}" loading="lazy" />
       </div>
 
       <!-- DESCRIPTION -->
