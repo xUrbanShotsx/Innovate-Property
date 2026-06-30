@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sold Properties — Innovate Property Group</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #000000;
+      --black-soft: #0a0a0a;
+      --white: #ffffff;
+      --white-mute: #f0f0fa;
+      --hairline: #e8e8e8;
+      --ink-mute: #5a5a5f;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--white); color: var(--black); font-family: 'Inter', Arial, sans-serif; overflow-x: hidden; }
+
+    /* ─── NAV ──────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 48px;
+      background: var(--white); border-bottom: 1px solid var(--hairline);
+    }
+    .nav-logo img { height: 72px; width: auto; display: block; }
+    .nav-links { display: flex; gap: 40px; list-style: none; align-items: center; }
+    .nav-links a {
+      font-size: 11px; font-weight: 500; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--ink-mute);
+      text-decoration: none; transition: color 0.3s; position: relative;
+    }
+    .nav-links a.active, .nav-links a:hover { color: var(--black); }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px; background: var(--black);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
+    }
+    .nav-links a.active::after, .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-cta {
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--white);
+      background: var(--black); border: 1px solid var(--black);
+      padding: 12px 24px; text-decoration: none; transition: all 0.3s;
+    }
+    .nav-cta:hover { background: var(--white); color: var(--black); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
+    .hamburger span { width: 26px; height: 1px; background: var(--black); display: block; }
+    /* Dropdown */
+    .nav-dropdown { position: relative; }
+    .nav-dropdown > a::after { display: none; }
+    .nav-dropdown-menu {
+      position: absolute; top: 100%; left: 50%;
+      transform: translateX(-50%);
+      padding-top: 16px; background: transparent;
+      min-width: 180px; opacity: 0; pointer-events: none;
+      transition: opacity 0.2s ease; z-index: 200;
+    }
+    .nav-dropdown-menu-inner { background: var(--white); border: 1px solid var(--hairline); }
+    .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; pointer-events: auto; }
+    .nav-dropdown-menu a {
+      display: block; padding: 13px 20px;
+      font-size: 11px; font-weight: 500; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--ink-mute);
+      text-decoration: none; border-bottom: 1px solid var(--hairline);
+      transition: color 0.2s, background 0.2s; white-space: nowrap;
+    }
+    .nav-dropdown-menu a:last-child { border-bottom: none; }
+    .nav-dropdown-menu a:hover { color: var(--black); background: #f9f9f9; }
+    .nav-dropdown-menu a::after { display: none !important; }
+
+    /* ─── MOBILE NAV ────────────────────────────────────────── */
+    .mobile-nav {
+      position: fixed; inset: 0; z-index: 999; background: var(--white);
+      display: flex; flex-direction: column;
+      transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
+    }
+    .mobile-nav.open { transform: translateX(0); }
+    .mobile-nav-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 28px; }
+    .mobile-nav-header img { height: 40px; width: auto; }
+    .mobile-nav-close { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: none; border: 1px solid #e0e0e0; font-size: 18px; cursor: pointer; }
+    .mobile-nav-links { flex: 1; display: flex; flex-direction: column; padding: 20px 0; }
+    .mobile-nav-links a { font-size: 14px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--black); text-decoration: none; padding: 20px 28px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; justify-content: space-between; }
+    .mobile-nav-links a::after { content: '→'; font-size: 16px; color: var(--ink-mute); }
+    .mobile-nav-footer { padding: 28px; border-top: 1px solid var(--hairline); }
+    .mobile-nav-footer a { display: block; text-align: center; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); background: var(--black); padding: 16px; text-decoration: none; }
+
+    /* ─── PAGE HEADER ───────────────────────────────────────── */
+    .page-header {
+      padding: 148px 80px 48px;
+      border-bottom: 1px solid var(--hairline);
+    }
+    .page-eyebrow {
+      font-size: 10px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--ink-mute); margin-bottom: 16px;
+    }
+    .page-title {
+      font-size: clamp(32px, 5vw, 72px); font-weight: 900;
+      line-height: 0.95; letter-spacing: 1px; text-transform: uppercase;
+    }
+    .page-count {
+      font-size: 10px; font-weight: 400; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--ink-mute); margin-top: 20px;
+    }
+
+    /* ─── PROPERTIES GRID ───────────────────────────────────── */
+    .properties-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      padding: 24px;
+    }
+    .property-card {
+      position: relative; overflow: hidden;
+      aspect-ratio: 4/5;
+      background: #f0f0f0;
+      cursor: pointer; text-decoration: none; display: block;
+    }
+    .property-card img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.8s cubic-bezier(0.23,1,0.32,1);
+      display: block;
+    }
+    .property-card:hover img { transform: scale(1.05); }
+    .property-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 36px; transition: background 0.4s;
+    }
+    .property-card:hover .property-overlay {
+      background: linear-gradient(to top, rgba(0,0,0,0.97) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.1) 100%);
+    }
+    .property-status {
+      font-size: 9px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--white);
+      border: 1px solid rgba(255,255,255,0.5);
+      padding: 5px 12px; display: inline-block;
+      width: fit-content; margin-bottom: 12px;
+    }
+    .property-name {
+      font-size: 22px; font-weight: 900; line-height: 1.05;
+      letter-spacing: -0.2px; text-transform: uppercase;
+      color: var(--white); margin-bottom: 6px;
+    }
+    .property-location {
+      font-size: 10px; font-weight: 400; letter-spacing: 2px;
+      text-transform: uppercase; color: rgba(255,255,255,0.6);
+      margin-bottom: 16px;
+    }
+    .property-meta {
+      display: flex; gap: 20px;
+      font-size: 10px; font-weight: 500; letter-spacing: 1px;
+      text-transform: uppercase; color: rgba(255,255,255,0.5);
+      padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.15);
+    }
+    .property-cta {
+      display: inline-block;
+      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--black);
+      background: var(--white); padding: 12px 20px;
+      text-decoration: none; width: fit-content; margin-top: 16px;
+      opacity: 0; transform: translateY(8px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .property-card:hover .property-cta { opacity: 1; transform: translateY(0); }
+
+    /* ─── ENQUIRE BAND ──────────────────────────────────────── */
+    .enquire-band {
+      background: var(--black); padding: 80px;
+      display: flex; align-items: center; justify-content: space-between; gap: 40px;
+    }
+    .enquire-band h2 {
+      font-size: clamp(28px, 3.5vw, 48px); font-weight: 900;
+      line-height: 0.95; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--white);
+    }
+    .enquire-band p { font-size: 13px; font-weight: 300; line-height: 1.8; color: var(--ink-mute); margin-top: 16px; max-width: 400px; }
+    .enquire-actions { display: flex; gap: 16px; flex-shrink: 0; }
+    .btn-white { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--black); background: var(--white); border: 1px solid var(--white); padding: 14px 28px; text-decoration: none; transition: all 0.3s; }
+    .btn-white:hover { background: transparent; color: var(--white); }
+    .btn-ghost-white { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); background: transparent; border: 1px solid rgba(255,255,255,0.3); padding: 14px 28px; text-decoration: none; transition: all 0.3s; }
+    .btn-ghost-white:hover { border-color: var(--white); }
+
+    /* ─── FOOTER ────────────────────────────────────────────── */
+    footer { background: var(--black-soft); border-top: 1px solid #1a1a1a; padding: 40px 80px 32px; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 11px; font-weight: 300; color: var(--ink-mute); }
+    .footer-logo img { height: 36px; width: auto; filter: invert(1); }
+
+    /* ─── REVEAL ────────────────────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── RESPONSIVE ────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      nav { padding: 12px 24px; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .page-header { padding: 128px 28px 40px; }
+      .properties-grid { grid-template-columns: repeat(2, 1fr); }
+      .enquire-band { padding: 60px 28px; flex-direction: column; align-items: flex-start; }
+      footer { padding: 40px 28px 28px; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 10px 20px; }
+      .nav-logo img { height: 52px !important; }
+      .page-header { padding: 108px 24px 32px; }
+      .properties-grid { grid-template-columns: 1fr; padding: 16px; gap: 12px; }
+      .property-overlay { padding: 24px; }
+      .property-name { font-size: 18px; }
+      .property-cta { opacity: 1; transform: none; }
+      .enquire-band { padding: 48px 24px; }
+      .enquire-actions { flex-direction: column; width: 100%; }
+      .btn-white, .btn-ghost-white { text-align: center; }
+      footer { padding: 32px 24px; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+    }
+    @media (hover: none) and (pointer: coarse) {
+      .property-cta { opacity: 1; transform: none; }
+      body { cursor: auto; } a, button { cursor: pointer; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-header">
+    <img src="logo.png" alt="Innovate Property Group" />
+    <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
+  </div>
+  <div class="mobile-nav-links">
+    <a href="about.html">About</a>
+    <a href="properties.html">Prestige Homes</a>
+    <a href="development-sites.html">Development Sites</a>
+    <a href="projects.html">Projects</a>
+    <a href="appraisal.html">Sell With Us</a>
+    <a href="sold-properties.html">Sold Properties</a>
+  </div>
+  <div class="mobile-nav-footer">
+    <a href="index.html#contact">Enquire Now</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" alt="Innovate Property Group" style="height:72px; width:auto;" />
+  </a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="properties.html">Prestige Homes</a></li>
+    <li><a href="development-sites.html">Development Sites</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li class="nav-dropdown">
+      <a href="#" class="active">Sell</a>
+      <div class="nav-dropdown-menu">
+        <div class="nav-dropdown-menu-inner">
+          <a href="appraisal.html">Sell With Us</a>
+          <a href="sold-properties.html">Sold Properties</a>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <a href="appraisal.html" class="nav-cta">Free Appraisal</a>
+  <button class="hamburger" onclick="toggleMobileNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <p class="page-eyebrow">Our Track Record</p>
+  <h1 class="page-title">Sold<br>Properties</h1>
+  <p class="page-count" id="resultsCount">5 Properties</p>
+</div>
+
+<!-- GRID -->
+<div class="properties-grid">
+
+  <a href="project.html?id=bluewater-apartments" class="property-card reveal">
+    <img src="Bluewater1.jpg" alt="Bluewater Apartments" loading="lazy" />
+    <div class="property-overlay">
+      <span class="property-status">Sold</span>
+      <div class="property-name">Bluewater<br>Apartments</div>
+      <div class="property-location">Illawarra, NSW</div>
+      <div class="property-meta"><span>20 Apartments</span><span>Off The Plan</span></div>
+      <span class="property-cta">View Project</span>
+    </div>
+  </a>
+
+  <a href="project.html?id=calderwood" class="property-card reveal">
+    <img src="Calderwood1.jpg" alt="Calderwood" loading="lazy" />
+    <div class="property-overlay">
+      <span class="property-status">Sold</span>
+      <div class="property-name">Calderwood</div>
+      <div class="property-location">Calderwood, NSW</div>
+      <div class="property-meta"><span>Custom Project Home</span></div>
+      <span class="property-cta">View Project</span>
+    </div>
+  </a>
+
+  <a href="project.html?id=elevation-77" class="property-card reveal">
+    <img src="Elevation1.jpg" alt="Elevation 77" loading="lazy" />
+    <div class="property-overlay">
+      <span class="property-status">Sold</span>
+      <div class="property-name">Elevation 77</div>
+      <div class="property-location">Illawarra, NSW</div>
+      <div class="property-meta"><span>77 Apartments</span><span>Off The Plan</span></div>
+      <span class="property-cta">View Project</span>
+    </div>
+  </a>
+
+  <a href="project.html?id=oak-flats" class="property-card reveal">
+    <img src="Oakflats1.jpg" alt="Oak Flats" loading="lazy" />
+    <div class="property-overlay">
+      <span class="property-status">Sold</span>
+      <div class="property-name">Oak Flats</div>
+      <div class="property-location">Oak Flats, NSW</div>
+      <div class="property-meta"><span>3 Modern Villas</span></div>
+      <span class="property-cta">View Project</span>
+    </div>
+  </a>
+
+  <a href="project.html?id=shellharbour-village" class="property-card reveal">
+    <img src="ShellharbourVillage1.jpg" alt="Shellharbour Village" loading="lazy" />
+    <div class="property-overlay">
+      <span class="property-status">Sold</span>
+      <div class="property-name">Shellharbour<br>Village</div>
+      <div class="property-location">Shellharbour, NSW</div>
+      <div class="property-meta"><span>3 Boutique Townhouses</span></div>
+      <span class="property-cta">View Project</span>
+    </div>
+  </a>
+
+</div>
+
+<!-- ENQUIRE BAND -->
+<div class="enquire-band">
+  <div>
+    <h2>READY TO<br>SELL YOUR<br>PROPERTY?</h2>
+    <p>Our track record speaks for itself. Get a free appraisal and find out what your property is worth with Innovate Property Group.</p>
+  </div>
+  <div class="enquire-actions">
+    <a href="appraisal.html" class="btn-white">Free Appraisal</a>
+    <a href="index.html#contact" class="btn-ghost-white">Speak to an Agent</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 Innovate Property Group Pty Ltd. All rights reserved. Licensed Real Estate Agent NSW. &nbsp;·&nbsp; <a href="privacy-policy.html" style="color:inherit;text-decoration:none;">Privacy Policy</a> &nbsp;·&nbsp; <a href="disclaimer.html" style="color:inherit;text-decoration:none;">Disclaimer</a> &nbsp;·&nbsp; Built by <a href="https://sanjstudio.com" target="_blank" style="color:inherit;text-decoration:none;opacity:0.6;transition:opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6">SanjSTUDIO</a></p>
+    <div class="footer-logo"><img src="logo.png" alt="Innovate Property Group" /></div>
+  </div>
+</footer>
+
+<script>
+  const mobileNav = document.getElementById('mobileNav');
+  function toggleMobileNav() { mobileNav.classList.toggle('open'); }
+  function closeMobileNav() { mobileNav.classList.remove('open'); }
+
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
