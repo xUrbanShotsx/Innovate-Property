@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sell With Us — Innovate Property Group</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #000000;
+      --black-soft: #0a0a0a;
+      --white: #ffffff;
+      --hairline: #e8e8e8;
+      --ink-mute: #5a5a5f;
+      --gold: #b8965a;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--white); color: var(--black); font-family: 'Inter', Arial, sans-serif; overflow-x: hidden; }
+
+    /* ─── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 48px;
+      background: var(--white); border-bottom: 1px solid var(--hairline);
+    }
+    .nav-logo img { height: 72px; width: auto; display: block; }
+    .nav-links { display: flex; gap: 40px; list-style: none; align-items: center; }
+    .nav-links a { font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-mute); text-decoration: none; transition: color 0.3s; position: relative; }
+    .nav-links a.active, .nav-links a:hover { color: var(--black); }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px; background: var(--black); transform: scaleX(0); transform-origin: left; transition: transform 0.4s cubic-bezier(0.23,1,0.32,1); }
+    .nav-links a.active::after, .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-cta { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); background: var(--black); border: 1px solid var(--black); padding: 12px 24px; text-decoration: none; transition: all 0.3s; }
+    .nav-cta:hover { background: var(--white); color: var(--black); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
+    .hamburger span { width: 26px; height: 1px; background: var(--black); display: block; }
+    .nav-dropdown { position: relative; }
+    .nav-dropdown > a::after { display: none; }
+    .nav-dropdown-menu { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); padding-top: 16px; background: transparent; min-width: 180px; opacity: 0; pointer-events: none; transition: opacity 0.2s ease; z-index: 200; }
+    .nav-dropdown-menu-inner { background: var(--white); border: 1px solid var(--hairline); }
+    .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; pointer-events: auto; }
+    .nav-dropdown-menu a { display: block; padding: 13px 20px; font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-mute); text-decoration: none; border-bottom: 1px solid var(--hairline); transition: color 0.2s, background 0.2s; white-space: nowrap; }
+    .nav-dropdown-menu a:last-child { border-bottom: none; }
+    .nav-dropdown-menu a:hover { color: var(--black); background: #f9f9f9; }
+    .nav-dropdown-menu a::after { display: none !important; }
+
+    /* ─── MOBILE NAV ── */
+    .mobile-nav { position: fixed; inset: 0; z-index: 999; background: var(--white); display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.23,1,0.32,1); }
+    .mobile-nav.open { transform: translateX(0); }
+    .mobile-nav-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 28px; }
+    .mobile-nav-header img { height: 40px; width: auto; }
+    .mobile-nav-close { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: none; border: 1px solid #e0e0e0; font-size: 18px; cursor: pointer; }
+    .mobile-nav-links { flex: 1; display: flex; flex-direction: column; padding: 20px 0; }
+    .mobile-nav-links a { font-size: 14px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--black); text-decoration: none; padding: 20px 28px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; justify-content: space-between; }
+    .mobile-nav-links a::after { content: '→'; font-size: 16px; color: var(--ink-mute); }
+    .mobile-nav-footer { padding: 28px; border-top: 1px solid var(--hairline); }
+    .mobile-nav-footer a { display: block; text-align: center; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); background: var(--black); padding: 16px; text-decoration: none; }
+
+    /* ─── HERO ── */
+    .hero {
+      height: 100vh; background: var(--black);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('PrestigeHomesBackground.jpg');
+      background-size: cover; background-position: center;
+      opacity: 0.45;
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 80px 80px;
+    }
+    .hero-eyebrow {
+      font-size: 10px; font-weight: 700; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 24px; opacity: 0;
+      animation: fadeUp 0.8s ease 0.3s forwards;
+    }
+    .hero-title {
+      font-size: clamp(48px, 7vw, 112px); font-weight: 900;
+      line-height: 0.92; letter-spacing: -1px; text-transform: uppercase;
+      color: var(--white); margin-bottom: 32px;
+      opacity: 0; animation: fadeUp 0.9s ease 0.5s forwards;
+    }
+    .hero-body {
+      font-size: 15px; font-weight: 300; line-height: 1.8;
+      color: rgba(255,255,255,0.65); max-width: 520px; margin-bottom: 40px;
+      opacity: 0; animation: fadeUp 0.9s ease 0.7s forwards;
+    }
+    .hero-cta {
+      display: inline-block; font-size: 11px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--black); background: var(--white);
+      border: 1px solid var(--white); padding: 16px 36px;
+      text-decoration: none; transition: all 0.3s;
+      opacity: 0; animation: fadeUp 0.9s ease 0.9s forwards;
+    }
+    .hero-cta:hover { background: transparent; color: var(--white); }
+    .hero-scroll {
+      position: absolute; right: 48px; bottom: 80px; z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+      opacity: 0; animation: fadeIn 1s ease 1.2s forwards;
+    }
+    .scroll-line { width: 1px; height: 60px; background: rgba(255,255,255,0.3); }
+    .scroll-label { font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.4); writing-mode: vertical-rl; }
+
+    /* ─── WHY US ── */
+    .why-section {
+      padding: 120px 80px; display: grid;
+      grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+      border-bottom: 1px solid var(--hairline);
+    }
+    .why-left {}
+    .section-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+    .section-title { font-size: clamp(28px, 3.5vw, 52px); font-weight: 900; line-height: 1; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 28px; }
+    .section-body { font-size: 15px; font-weight: 300; line-height: 1.9; color: var(--ink-mute); }
+    .why-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+    .stat-box {
+      padding: 36px 32px; background: #f7f7f7;
+      border: 1px solid var(--hairline);
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .stat-box.visible { opacity: 1; transform: translateY(0); }
+    .stat-box:nth-child(2) { transition-delay: 0.1s; }
+    .stat-box:nth-child(3) { transition-delay: 0.2s; }
+    .stat-box:nth-child(4) { transition-delay: 0.3s; }
+    .stat-number { font-size: 44px; font-weight: 900; line-height: 1; color: var(--black); margin-bottom: 8px; }
+    .stat-label { font-size: 10px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-mute); }
+
+    /* ─── TIMELINE ── */
+    .timeline-section { padding: 120px 80px; background: var(--black); }
+    .timeline-header { text-align: center; margin-bottom: 80px; }
+    .timeline-header .section-eyebrow { color: var(--gold); }
+    .timeline-header .section-title { color: var(--white); }
+    .timeline-wrap { position: relative; max-width: 900px; margin: 0 auto; }
+
+    /* vertical line */
+    .timeline-line {
+      position: absolute; left: 50%; top: 0; bottom: 0;
+      width: 1px; background: rgba(255,255,255,0.1);
+      transform: translateX(-50%);
+    }
+    .timeline-line-fill {
+      position: absolute; top: 0; left: 0; right: 0;
+      background: var(--gold); height: 0%;
+      transition: height 0.6s ease;
+    }
+
+    .timeline-step {
+      display: grid; grid-template-columns: 1fr 60px 1fr;
+      align-items: center; gap: 0; margin-bottom: 64px;
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .timeline-step.visible { opacity: 1; transform: translateY(0); }
+    .timeline-step:last-child { margin-bottom: 0; }
+
+    /* left-aligned steps */
+    .timeline-step .step-content {
+      padding: 36px 40px; background: #111;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative; cursor: default;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .timeline-step .step-content:hover {
+      background: #161616; border-color: var(--gold);
+    }
+    .timeline-step .step-empty { grid-column: span 1; }
+
+    /* odd steps: content left, empty right */
+    .timeline-step.left .step-content { grid-column: 1; grid-row: 1; }
+    .timeline-step.left .step-node  { grid-column: 2; grid-row: 1; }
+    .timeline-step.left .step-empty { grid-column: 3; grid-row: 1; }
+
+    /* even steps: empty left, content right */
+    .timeline-step.right .step-empty { grid-column: 1; grid-row: 1; }
+    .timeline-step.right .step-node  { grid-column: 2; grid-row: 1; }
+    .timeline-step.right .step-content { grid-column: 3; grid-row: 1; }
+
+    .step-node {
+      display: flex; align-items: center; justify-content: center;
+      position: relative; z-index: 2;
+    }
+    .step-dot {
+      width: 14px; height: 14px; border-radius: 50%;
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+      transition: background 0.4s, border-color 0.4s, transform 0.4s;
+    }
+    .timeline-step.visible .step-dot {
+      background: var(--gold); border-color: var(--gold);
+      transform: scale(1.2);
+    }
+
+    .step-num {
+      font-size: 9px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 14px;
+    }
+    .step-title {
+      font-size: 18px; font-weight: 700; letter-spacing: 0.5px;
+      color: var(--white); margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+    .step-body {
+      font-size: 13px; font-weight: 300; line-height: 1.85;
+      color: rgba(255,255,255,0.5);
+    }
+    .step-tag {
+      display: inline-block; margin-top: 16px;
+      font-size: 9px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--gold);
+      border: 1px solid rgba(184,150,90,0.35); padding: 5px 12px;
+    }
+
+    /* ─── APPROACH ── */
+    .approach-section {
+      padding: 120px 80px; border-bottom: 1px solid var(--hairline);
+    }
+    .approach-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--hairline); margin-top: 64px;
+      border: 1px solid var(--hairline);
+    }
+    .approach-card {
+      background: var(--white); padding: 48px 40px;
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .approach-card.visible { opacity: 1; transform: translateY(0); }
+    .approach-card:nth-child(2) { transition-delay: 0.12s; }
+    .approach-card:nth-child(3) { transition-delay: 0.24s; }
+    .approach-icon {
+      width: 40px; height: 40px; margin-bottom: 28px;
+      border: 1px solid var(--hairline);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .approach-icon svg { width: 18px; height: 18px; stroke: var(--black); fill: none; stroke-width: 1.5; }
+    .approach-title { font-size: 14px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; }
+    .approach-body { font-size: 13px; font-weight: 300; line-height: 1.9; color: var(--ink-mute); }
+
+    /* ─── CTA ── */
+    .cta-section {
+      padding: 120px 80px; background: var(--black);
+      text-align: center;
+    }
+    .cta-section .section-eyebrow { color: var(--gold); margin-bottom: 20px; }
+    .cta-title { font-size: clamp(36px, 5vw, 80px); font-weight: 900; line-height: 0.92; letter-spacing: 1px; text-transform: uppercase; color: var(--white); margin-bottom: 32px; }
+    .cta-body { font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.55); max-width: 480px; margin: 0 auto 48px; line-height: 1.8; }
+    .cta-actions { display: flex; gap: 16px; justify-content: center; }
+    .btn-gold-solid { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); background: var(--gold); border: 1px solid var(--gold); padding: 16px 36px; text-decoration: none; transition: all 0.3s; }
+    .btn-gold-solid:hover { background: transparent; color: var(--gold); }
+    .btn-ghost-white { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); background: transparent; border: 1px solid rgba(255,255,255,0.3); padding: 16px 36px; text-decoration: none; transition: all 0.3s; }
+    .btn-ghost-white:hover { border-color: var(--white); }
+
+    /* ─── FOOTER ── */
+    footer { background: var(--black-soft); border-top: 1px solid #1a1a1a; padding: 40px 80px 32px; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 11px; font-weight: 300; color: var(--ink-mute); }
+    .footer-logo img { height: 36px; width: auto; filter: invert(1); }
+
+    /* ─── ANIMATIONS ── */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.15s; }
+    .reveal-delay-2 { transition-delay: 0.3s; }
+
+    /* ─── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      nav { padding: 12px 24px; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .hero-content { padding: 0 32px 64px; }
+      .hero-scroll { display: none; }
+      .why-section { grid-template-columns: 1fr; gap: 48px; padding: 80px 32px; }
+      .timeline-section { padding: 80px 32px; }
+      .timeline-step { grid-template-columns: 1fr; gap: 0; }
+      .timeline-line { display: none; }
+      .timeline-step.left .step-content,
+      .timeline-step.right .step-content { grid-column: 1; grid-row: 2; }
+      .timeline-step.left .step-node,
+      .timeline-step.right .step-node { grid-column: 1; grid-row: 1; justify-content: flex-start; padding-left: 4px; margin-bottom: 16px; }
+      .timeline-step.left .step-empty,
+      .timeline-step.right .step-empty { display: none; }
+      .approach-section { padding: 80px 32px; }
+      .approach-grid { grid-template-columns: 1fr; }
+      .cta-section { padding: 80px 32px; }
+      footer { padding: 40px 28px; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 10px 20px; }
+      .nav-logo img { height: 52px !important; }
+      .hero-content { padding: 0 24px 48px; }
+      .why-section { padding: 64px 24px; }
+      .why-stats { grid-template-columns: 1fr 1fr; }
+      .timeline-section { padding: 64px 24px; }
+      .step-content { padding: 28px 24px; }
+      .approach-section { padding: 64px 24px; }
+      .approach-card { padding: 36px 28px; }
+      .cta-section { padding: 64px 24px; }
+      .cta-actions { flex-direction: column; align-items: center; }
+      footer { padding: 32px 24px; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-header">
+    <img src="logo.png" alt="Innovate Property Group" />
+    <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
+  </div>
+  <div class="mobile-nav-links">
+    <a href="about.html">About</a>
+    <a href="properties.html">Prestige Homes</a>
+    <a href="development-sites.html">Development Sites</a>
+    <a href="projects.html">Projects</a>
+    <a href="sell-with-us.html">Sell With Us</a>
+    <a href="sold-properties.html">Sold Properties</a>
+  </div>
+  <div class="mobile-nav-footer">
+    <a href="index.html#contact">Enquire Now</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" alt="Innovate Property Group" style="height:72px; width:auto;" />
+  </a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="properties.html">Prestige Homes</a></li>
+    <li><a href="development-sites.html">Development Sites</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li class="nav-dropdown">
+      <a href="#" class="active">Sell</a>
+      <div class="nav-dropdown-menu">
+        <div class="nav-dropdown-menu-inner">
+          <a href="sell-with-us.html">Sell With Us</a>
+          <a href="sold-properties.html">Sold Properties</a>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <a href="appraisal.html" class="nav-cta">Free Appraisal</a>
+  <button class="hamburger" onclick="toggleMobileNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Innovate Property Group</p>
+    <h1 class="hero-title">Sell With<br>Confidence</h1>
+    <p class="hero-body">We combine deep local knowledge, a curated buyer network, and a proven sales process to achieve exceptional results for prestige property owners across the Illawarra.</p>
+    <a href="appraisal.html" class="hero-cta">Get a Free Appraisal</a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span class="scroll-label">Scroll</span>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-section">
+  <div class="why-left">
+    <p class="section-eyebrow reveal">Why Innovate</p>
+    <h2 class="section-title reveal reveal-delay-1">A Different<br>Approach To<br>Selling</h2>
+    <p class="section-body reveal reveal-delay-2">We don't just list your property — we build a campaign around it. Every sale is treated as a bespoke opportunity, with strategy tailored to the property, the market, and the buyer profile most likely to pay a premium.</p>
+  </div>
+  <div class="why-stats">
+    <div class="stat-box">
+      <div class="stat-number">100%</div>
+      <div class="stat-label">Sale Rate</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number">5+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number">$0</div>
+      <div class="stat-label">Unsold Stock</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number">48hr</div>
+      <div class="stat-label">Avg. Response Time</div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <div class="timeline-header">
+    <p class="section-eyebrow reveal">Our Process</p>
+    <h2 class="section-title reveal reveal-delay-1">How We Sell<br>Prestige Homes</h2>
+  </div>
+  <div class="timeline-wrap">
+    <div class="timeline-line"><div class="timeline-line-fill" id="timelineFill"></div></div>
+
+    <div class="timeline-step left">
+      <div class="step-content">
+        <div class="step-num">Step 01</div>
+        <div class="step-title">Private Consultation</div>
+        <div class="step-body">We begin with a confidential meeting at your property. We listen to your goals, timeline, and expectations before offering any advice — because the right strategy starts with the right understanding.</div>
+        <span class="step-tag">Week 1</span>
+      </div>
+      <div class="step-node"><div class="step-dot"></div></div>
+      <div class="step-empty"></div>
+    </div>
+
+    <div class="timeline-step right">
+      <div class="step-empty"></div>
+      <div class="step-node"><div class="step-dot"></div></div>
+      <div class="step-content">
+        <div class="step-num">Step 02</div>
+        <div class="step-title">Market Appraisal &amp; Strategy</div>
+        <div class="step-body">We provide a detailed, data-backed appraisal of your property and present a tailored sales strategy — including method of sale, pricing guidance, campaign timing, and target buyer profile.</div>
+        <span class="step-tag">Week 1–2</span>
+      </div>
+    </div>
+
+    <div class="timeline-step left">
+      <div class="step-content">
+        <div class="step-num">Step 03</div>
+        <div class="step-title">Presentation &amp; Styling</div>
+        <div class="step-body">First impressions drive premium prices. We coordinate professional photography, videography, and styling where appropriate, ensuring your property is presented at its absolute best across all platforms.</div>
+        <span class="step-tag">Week 2–3</span>
+      </div>
+      <div class="step-node"><div class="step-dot"></div></div>
+      <div class="step-empty"></div>
+    </div>
+
+    <div class="timeline-step right">
+      <div class="step-empty"></div>
+      <div class="step-node"><div class="step-dot"></div></div>
+      <div class="step-content">
+        <div class="step-num">Step 04</div>
+        <div class="step-title">Campaign Launch</div>
+        <div class="step-body">We launch your campaign across our full digital and network channels — including targeted digital advertising, database marketing to qualified buyers, and exclusive pre-market exposure to our private buyer list.</div>
+        <span class="step-tag">Week 3–4</span>
+      </div>
+    </div>
+
+    <div class="timeline-step left">
+      <div class="step-content">
+        <div class="step-num">Step 05</div>
+        <div class="step-title">Buyer Qualification</div>
+        <div class="step-body">Every enquiry is personally handled by our team. We qualify buyers, arrange private inspections, and maintain constant communication — ensuring only serious, capable buyers proceed to the negotiation stage.</div>
+        <span class="step-tag">Ongoing</span>
+      </div>
+      <div class="step-node"><div class="step-dot"></div></div>
+      <div class="step-empty"></div>
+    </div>
+
+    <div class="timeline-step right">
+      <div class="step-empty"></div>
+      <div class="step-node"><div class="step-dot"></div></div>
+      <div class="step-content">
+        <div class="step-num">Step 06</div>
+        <div class="step-title">Negotiation &amp; Exchange</div>
+        <div class="step-body">We negotiate with precision on your behalf, leveraging competitive interest and deep market knowledge to achieve the strongest possible outcome. We manage the full negotiation through to exchange of contracts.</div>
+        <span class="step-tag">When Offers Received</span>
+      </div>
+    </div>
+
+    <div class="timeline-step left">
+      <div class="step-content">
+        <div class="step-num">Step 07</div>
+        <div class="step-title">Settlement &amp; Beyond</div>
+        <div class="step-body">Our service doesn't end at exchange. We coordinate with solicitors, manage the settlement process, and remain available to you throughout — and beyond — ensuring a seamless experience from listing to handover.</div>
+        <span class="step-tag">Settlement Day</span>
+      </div>
+      <div class="step-node"><div class="step-dot"></div></div>
+      <div class="step-empty"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- APPROACH PILLARS -->
+<section class="approach-section">
+  <div class="reveal"><p class="section-eyebrow">The Innovate Difference</p></div>
+  <h2 class="section-title reveal reveal-delay-1">What Sets Us<br>Apart</h2>
+  <div class="approach-grid">
+    <div class="approach-card">
+      <div class="approach-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </div>
+      <div class="approach-title">Local Expertise</div>
+      <div class="approach-body">We live and breathe the Illawarra market. Our depth of local knowledge — from suburb trends to off-market activity — gives your property a decisive advantage when it matters most.</div>
+    </div>
+    <div class="approach-card">
+      <div class="approach-icon">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div class="approach-title">Curated Buyer Network</div>
+      <div class="approach-body">Years of relationship-building have given us access to a private database of qualified, active buyers — many of whom purchase before a property ever reaches the public market.</div>
+    </div>
+    <div class="approach-card">
+      <div class="approach-icon">
+        <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+      </div>
+      <div class="approach-title">Results-Focused</div>
+      <div class="approach-body">We are paid to perform. Our fee structure is aligned with your outcome — we succeed when you succeed. Every decision we make is driven by achieving the highest possible price in the shortest possible time.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <p class="section-eyebrow reveal">Take the First Step</p>
+  <h2 class="cta-title reveal reveal-delay-1">Ready to<br>Sell?</h2>
+  <p class="cta-body reveal reveal-delay-2">Get a confidential, obligation-free appraisal of your property from our prestige sales specialists.</p>
+  <div class="cta-actions reveal reveal-delay-2">
+    <a href="appraisal.html" class="btn-gold-solid">Book a Free Appraisal</a>
+    <a href="index.html#contact" class="btn-ghost-white">Speak to an Agent</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 Innovate Property Group Pty Ltd. All rights reserved. Licensed Real Estate Agent NSW. &nbsp;·&nbsp; <a href="privacy-policy.html" style="color:inherit;text-decoration:none;">Privacy Policy</a> &nbsp;·&nbsp; <a href="disclaimer.html" style="color:inherit;text-decoration:none;">Disclaimer</a> &nbsp;·&nbsp; Built by <a href="https://sanjstudio.com" target="_blank" style="color:inherit;text-decoration:none;opacity:0.6;transition:opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6">SanjSTUDIO</a></p>
+    <div class="footer-logo"><img src="logo.png" alt="Innovate Property Group" /></div>
+  </div>
+</footer>
+
+<script>
+  const mobileNav = document.getElementById('mobileNav');
+  function toggleMobileNav() { mobileNav.classList.toggle('open'); }
+  function closeMobileNav() { mobileNav.classList.remove('open'); }
+
+  /* ── REVEAL ON SCROLL ── */
+  const allReveals = document.querySelectorAll('.reveal, .stat-box, .approach-card, .timeline-step');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.15 });
+  allReveals.forEach(el => obs.observe(el));
+
+  /* ── TIMELINE FILL LINE ── */
+  const timelineSection = document.querySelector('.timeline-section');
+  const fill = document.getElementById('timelineFill');
+  if (fill && timelineSection) {
+    window.addEventListener('scroll', () => {
+      const rect = timelineSection.getBoundingClientRect();
+      const sectionH = timelineSection.offsetHeight;
+      const progress = Math.min(Math.max(-rect.top / (sectionH - window.innerHeight), 0), 1);
+      fill.style.height = (progress * 100) + '%';
+    }, { passive: true });
+  }
+
+  /* ── COUNTER ANIMATION ── */
+  function animateCounter(el, target, suffix = '') {
+    let start = 0;
+    const duration = 1200;
+    const step = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(eased * target) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  const statObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const num = e.target.querySelector('.stat-number');
+        if (num && !num.dataset.animated) {
+          num.dataset.animated = '1';
+          const text = num.textContent;
+          if (text === '100%') animateCounter(num, 100, '%');
+          else if (text === '5+') animateCounter(num, 5, '+');
+          else if (text === '$0') { num.textContent = '$0'; }
+          else if (text === '48hr') animateCounter(num, 48, 'hr');
+        }
+        statObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.stat-box').forEach(el => statObs.observe(el));
+</script>
+</body>
+</html>
