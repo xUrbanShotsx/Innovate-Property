@@ -101,6 +101,32 @@
     }
     .nav-links a:hover { color: var(--black); }
     .nav-links a:hover::after { transform: scaleX(1); }
+    /* ── NAV DROPDOWN ── */
+    .nav-dropdown { position: relative; }
+    .nav-dropdown > a::after { display: none; }
+    .nav-dropdown-menu {
+      position: absolute; top: calc(100% + 16px); left: 50%;
+      transform: translateX(-50%);
+      background: var(--white); border: 1px solid var(--hairline);
+      min-width: 180px; opacity: 0; pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      transform: translateX(-50%) translateY(-6px);
+      z-index: 200;
+    }
+    .nav-dropdown:hover .nav-dropdown-menu {
+      opacity: 1; pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+    .nav-dropdown-menu a {
+      display: block; padding: 13px 20px;
+      font-size: 11px; font-weight: 500; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--ink-mute);
+      text-decoration: none; border-bottom: 1px solid var(--hairline);
+      transition: color 0.2s, background 0.2s; white-space: nowrap;
+    }
+    .nav-dropdown-menu a:last-child { border-bottom: none; }
+    .nav-dropdown-menu a:hover { color: var(--black); background: #f9f9f9; }
+    .nav-dropdown-menu a::after { display: none !important; }
     .nav-cta {
       font-size: 11px; font-weight: 700; letter-spacing: 2px;
       text-transform: uppercase; color: var(--white);
@@ -870,6 +896,13 @@
     <li><a href="properties.html">Prestige Homes</a></li>
     <li><a href="development-sites.html">Development Sites</a></li>
     <li><a href="projects.html">Projects</a></li>
+    <li class="nav-dropdown">
+      <a href="#">Sell</a>
+      <div class="nav-dropdown-menu">
+        <a href="appraisal.html">Sell With Us</a>
+        <a href="projects.html">Sold Properties</a>
+      </div>
+    </li>
   </ul>
   <a href="appraisal.html" class="nav-cta">Free Appraisal</a>
   <button class="hamburger" id="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
