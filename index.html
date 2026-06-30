@@ -105,17 +105,19 @@
     .nav-dropdown { position: relative; }
     .nav-dropdown > a::after { display: none; }
     .nav-dropdown-menu {
-      position: absolute; top: calc(100% + 16px); left: 50%;
+      position: absolute; top: 100%; left: 50%;
       transform: translateX(-50%);
-      background: var(--white); border: 1px solid var(--hairline);
+      padding-top: 16px;
+      background: transparent;
       min-width: 180px; opacity: 0; pointer-events: none;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-      transform: translateX(-50%) translateY(-6px);
+      transition: opacity 0.2s ease;
       z-index: 200;
+    }
+    .nav-dropdown-menu-inner {
+      background: var(--white); border: 1px solid var(--hairline);
     }
     .nav-dropdown:hover .nav-dropdown-menu {
       opacity: 1; pointer-events: auto;
-      transform: translateX(-50%) translateY(0);
     }
     .nav-dropdown-menu a {
       display: block; padding: 13px 20px;
@@ -899,8 +901,10 @@
     <li class="nav-dropdown">
       <a href="#">Sell</a>
       <div class="nav-dropdown-menu">
-        <a href="appraisal.html">Sell With Us</a>
-        <a href="projects.html">Sold Properties</a>
+        <div class="nav-dropdown-menu-inner">
+          <a href="appraisal.html">Sell With Us</a>
+          <a href="projects.html">Sold Properties</a>
+        </div>
       </div>
     </li>
   </ul>
