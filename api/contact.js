@@ -44,7 +44,7 @@ export default async function handler(req) {
       },
       body: JSON.stringify({
         from: 'Innovate Property Group <enquiries@innovatepropertygroup.com.au>',
-        to: ['jye@spinellire.com'],
+        to: ['mark@innovatepg.com.au'],
         reply_to: email,
         subject: `New Enquiry from ${firstName} ${lastName || ''} — ${interest || 'General'}`,
         html,
