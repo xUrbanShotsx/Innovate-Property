@@ -14,14 +14,16 @@ export default async function handler(req) {
   const abParams = new URLSearchParams({
     version: '2',
     client_id: process.env.AGENTBOX_CLIENT_ID,
-    type: 'Residential',
+    type: 'Sale',      // listing type: Sale (not Lease)
+    include: 'images', // include images array in response
     limit: '100',
   });
 
   if (section === 'sold') {
-    abParams.set('status', 'sold');
+    abParams.set('status', 'Settled');
   } else {
-    abParams.set('status', 'current');
+    // Available = active for sale listings
+    abParams.set('status', 'Available');
   }
 
   try {
@@ -44,19 +46,25 @@ export default async function handler(req) {
     const data = await res.json();
     const all = data?.response?.listings || [];
 
+    // Filter to Residential properties only, then split by category
+    const residential = all.filter(l =>
+      (l.property?.type || '').toLowerCase() === 'residential'
+    );
+
     let listings;
     if (section === 'development') {
-      // Residential + Land category only
-      listings = all.filter(l =>
-        (l.category || '').toLowerCase() === 'land'
+      // Residential + Land category → Development Sites
+      listings = residential.filter(l =>
+        (l.property?.category || '').toLowerCase() === 'land'
       );
     } else if (section === 'prestige') {
-      // Residential, exclude Land category
-      listings = all.filter(l =>
-        (l.category || '').toLowerCase() !== 'land'
+      // Residential, anything except Land → Prestige Homes
+      listings = residential.filter(l =>
+        (l.property?.category || '').toLowerCase() !== 'land'
       );
     } else {
-      listings = all;
+      // sold: return all residential (already filtered by Settled status)
+      listings = residential;
     }
 
     return new Response(JSON.stringify({ listings }), {

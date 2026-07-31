@@ -268,28 +268,32 @@
   }
 
   function getImage(listing) {
-    const imgs = listing.images || listing.media || [];
-    const sorted = [...imgs].sort((a, b) => (a.rank || a.order || 0) - (b.rank || b.order || 0));
-    return sorted[0]?.url || sorted[0]?.uri || '';
+    const imgs = listing.images || [];
+    const sorted = [...imgs].sort((a, b) => (parseInt(a.order) || 0) - (parseInt(b.order) || 0));
+    const first = sorted[0];
+    if (!first) return '';
+    const thumb = (first.thumbnails || []).find(t => t.size === 'c');
+    return thumb?.url || first.url || '';
   }
 
   function getAddress(listing) {
-    const a = listing.address || {};
-    return a.streetAddress || a.street || listing.displayAddress || '';
+    const a = listing.property?.address || {};
+    return a.streetAddress || '';
   }
 
   function getLocation(listing) {
-    const a = listing.address || {};
+    const a = listing.property?.address || {};
     return [a.suburb, a.state].filter(Boolean).join(', ');
   }
 
   function renderCard(listing) {
-    const id = listing.id || listing.listingId || '';
+    const id = listing.id || '';
     const img = getImage(listing);
     const addr = getAddress(listing);
     const loc = getLocation(listing);
-    const price = listing.displayPrice || listing.searchPrice || '';
-    const landSize = listing.landSize ? `${listing.landSize} m²` : '';
+    const price = listing.displayPrice || '';
+    const land = listing.property?.landArea;
+    const landSize = land?.value ? `${land.value} ${land.unit || 'm²'}` : (listing.property?.landSizeText || '');
 
     return `
       <div class="site-card reveal" onclick="window.location.href='site.html?id=${id}'">

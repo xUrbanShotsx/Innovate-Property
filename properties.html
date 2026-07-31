@@ -319,36 +319,40 @@
   }
 
   function getImage(listing) {
-    const imgs = listing.images || listing.media || [];
-    const sorted = [...imgs].sort((a, b) => (a.rank || a.order || 0) - (b.rank || b.order || 0));
-    return sorted[0]?.url || sorted[0]?.uri || '';
+    const imgs = listing.images || [];
+    const sorted = [...imgs].sort((a, b) => (parseInt(a.order) || 0) - (parseInt(b.order) || 0));
+    const first = sorted[0];
+    if (!first) return '';
+    // Use size 'c' thumbnail (730px wide) for cards
+    const thumb = (first.thumbnails || []).find(t => t.size === 'c');
+    return thumb?.url || first.url || '';
   }
 
   function getAddress(listing) {
-    const a = listing.address || {};
-    return a.streetAddress || a.street || listing.displayAddress || '';
+    const a = listing.property?.address || {};
+    return a.streetAddress || '';
   }
 
   function getLocation(listing) {
-    const a = listing.address || {};
+    const a = listing.property?.address || {};
     const parts = [a.suburb, a.state].filter(Boolean);
     return parts.join(', ');
   }
 
   function getCars(listing) {
-    return (parseInt(listing.garages) || 0) + (parseInt(listing.carports) || 0);
+    return parseInt(listing.property?.totalParking) || 0;
   }
 
   function renderCard(listing) {
-    const id = listing.id || listing.listingId || '';
+    const id = listing.id || '';
     const img = getImage(listing);
     const addr = getAddress(listing);
     const loc = getLocation(listing);
-    const price = listing.displayPrice || listing.searchPrice || '';
-    const beds = listing.bedrooms || '';
-    const baths = listing.bathrooms || '';
+    const price = listing.displayPrice || '';
+    const beds = listing.property?.bedrooms || '';
+    const baths = listing.property?.bathrooms || '';
     const cars = getCars(listing);
-    const status = listing.status === 'sold' ? 'Sold' : 'For Sale';
+    const status = listing.status === 'Settled' ? 'Sold' : 'For Sale';
 
     const metaParts = [
       beds ? `<span>${beds} Bed</span>` : '',
