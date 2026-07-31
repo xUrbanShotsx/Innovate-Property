@@ -27,6 +27,12 @@ export default async function handler(req) {
   let parsed;
   try { parsed = JSON.parse(body); } catch { parsed = null; }
 
+  if (status !== 200) {
+    return new Response(JSON.stringify({ info, abStatus: status, errorBody: body, requestUrl: url }), {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
   const listings = parsed?.response?.listings || [];
   const sample = listings.slice(0, 3).map(l => ({
     id: l.id,
