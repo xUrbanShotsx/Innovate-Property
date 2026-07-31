@@ -27,9 +27,9 @@ export default async function handler(req) {
     return new Response('Invalid JSON', { status: 400 });
   }
 
-  const { firstName, lastName, email, phone, interest, message } = body;
+  const { firstName, lastName, phone, email, address } = body;
 
-  if (!firstName || !email) {
+  if (!firstName || !email || !address) {
     return new Response('Missing required fields', { status: 400 });
   }
 
@@ -37,15 +37,14 @@ export default async function handler(req) {
   const html = `
     <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:32px;background:#f9f9f9;">
       <div style="background:#000;padding:24px 32px;margin-bottom:24px;">
-        <h1 style="color:#fff;font-size:20px;margin:0;letter-spacing:2px;text-transform:uppercase;">New Enquiry — Innovate Property Group</h1>
+        <h1 style="color:#fff;font-size:20px;margin:0;letter-spacing:2px;text-transform:uppercase;">New Appraisal Request — Innovate Property Group</h1>
       </div>
       <div style="background:#fff;padding:32px;border:1px solid #e5e5e5;">
         <table style="width:100%;border-collapse:collapse;">
           <tr><td style="padding:10px 0;border-bottom:1px solid #f0f0f0;color:#888;font-size:12px;text-transform:uppercase;letter-spacing:1px;width:140px;">Name</td><td style="padding:10px 0;border-bottom:1px solid #f0f0f0;font-size:15px;">${firstName} ${lastName || ''}</td></tr>
           <tr><td style="padding:10px 0;border-bottom:1px solid #f0f0f0;color:#888;font-size:12px;text-transform:uppercase;letter-spacing:1px;">Email</td><td style="padding:10px 0;border-bottom:1px solid #f0f0f0;font-size:15px;"><a href="mailto:${email}" style="color:#000;">${email}</a></td></tr>
           <tr><td style="padding:10px 0;border-bottom:1px solid #f0f0f0;color:#888;font-size:12px;text-transform:uppercase;letter-spacing:1px;">Phone</td><td style="padding:10px 0;border-bottom:1px solid #f0f0f0;font-size:15px;">${phone || '—'}</td></tr>
-          <tr><td style="padding:10px 0;border-bottom:1px solid #f0f0f0;color:#888;font-size:12px;text-transform:uppercase;letter-spacing:1px;">Interested In</td><td style="padding:10px 0;border-bottom:1px solid #f0f0f0;font-size:15px;">${interest || '—'}</td></tr>
-          <tr><td style="padding:10px 0;color:#888;font-size:12px;text-transform:uppercase;letter-spacing:1px;vertical-align:top;">Message</td><td style="padding:10px 0;font-size:15px;line-height:1.6;">${message ? message.replace(/\n/g, '<br>') : '—'}</td></tr>
+          <tr><td style="padding:10px 0;color:#888;font-size:12px;text-transform:uppercase;letter-spacing:1px;">Property Address</td><td style="padding:10px 0;font-size:15px;">${address}</td></tr>
         </table>
       </div>
     </div>
@@ -61,15 +60,13 @@ export default async function handler(req) {
       from: 'Innovate Property Group <enquiries@innovatepropertygroup.com.au>',
       to: ['mark@innovatepg.com.au'],
       reply_to: email,
-      subject: `New Enquiry from ${firstName} ${lastName || ''} — ${interest || 'General'}`,
+      subject: `New Appraisal Request from ${firstName} ${lastName || ''} — ${address}`,
       html,
     }),
   });
 
   if (!emailRes.ok) {
-    const err = await emailRes.text();
-    console.error('Resend error:', err);
-    return new Response('Email failed to send', { status: 500 });
+    console.error('Resend error:', await emailRes.text());
   }
 
   // ── 2. Create contact in Agent Box ────────────────────────────────────────
@@ -81,7 +78,7 @@ export default async function handler(req) {
         lastName: lastName || '',
         email,
         mobile: phone || '',
-        class: 'Buyer',
+        class: 'Seller',
         source: 'Website',
       },
     });
@@ -96,26 +93,23 @@ export default async function handler(req) {
     console.error('Agent Box contact exception:', err);
   }
 
-  // ── 3. Create enquiry in Agent Box ────────────────────────────────────────
+  // ── 3. Create appraisal in Agent Box ─────────────────────────────────────
   if (contactId) {
     try {
-      const enquiryRes = await agentboxRequest('/enquiries', 'POST', {
-        enquiry: {
+      const appraisalRes = await agentboxRequest('/appraisals', 'POST', {
+        appraisal: {
           contact: { id: contactId },
-          type: 'Email',
+          property: { streetAddress: address },
+          classification: 'Residential',
           source: 'Website',
-          comments: [
-            interest ? `Interested in: ${interest}` : '',
-            message || '',
-          ].filter(Boolean).join('\n\n'),
         },
       });
 
-      if (!enquiryRes.ok) {
-        console.error('Agent Box enquiry error:', await enquiryRes.text());
+      if (!appraisalRes.ok) {
+        console.error('Agent Box appraisal error:', await appraisalRes.text());
       }
     } catch (err) {
-      console.error('Agent Box enquiry exception:', err);
+      console.error('Agent Box appraisal exception:', err);
     }
   }
 

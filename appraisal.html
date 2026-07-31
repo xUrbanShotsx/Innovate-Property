@@ -340,7 +340,7 @@
     document.querySelector('.left-bg').style.backgroundImage = `url('${propertyImages[propId]}')`;
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     const fields = ['firstName','lastName','phone','email','address'];
     let valid = true;
@@ -353,13 +353,37 @@
       }
     });
     if (!valid) return;
+
     const btn = document.getElementById('submitBtn');
     btn.textContent = 'Submitting...';
     btn.disabled = true;
-    setTimeout(() => {
-      document.getElementById('appraisalForm').style.display = 'none';
-      document.getElementById('successScreen').classList.add('show');
-    }, 800);
+
+    try {
+      const res = await fetch('/api/appraisal', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName: document.getElementById('firstName').value.trim(),
+          lastName: document.getElementById('lastName').value.trim(),
+          phone: document.getElementById('phone').value.trim(),
+          email: document.getElementById('email').value.trim(),
+          address: document.getElementById('address').value.trim(),
+        }),
+      });
+
+      if (res.ok) {
+        document.getElementById('appraisalForm').style.display = 'none';
+        document.getElementById('successScreen').classList.add('show');
+      } else {
+        btn.textContent = 'Request Appraisal';
+        btn.disabled = false;
+        alert('Something went wrong. Please try again or call us directly.');
+      }
+    } catch {
+      btn.textContent = 'Request Appraisal';
+      btn.disabled = false;
+      alert('Something went wrong. Please try again or call us directly.');
+    }
   }
 </script>
 </body>
