@@ -24,14 +24,22 @@ export default async function handler(req) {
   const pingRes = await fetch(pingUrl);
   const pingStatus = pingRes.status;
 
-  // Test 2a: with lowercase header
+  // Check Vercel's outbound IP
+  const ipRes = await fetch('https://api.ipify.org?format=json');
+  const ipData = await ipRes.json().catch(() => ({}));
+
+  // API call with User-Agent header
   const url = `https://api.agentboxcrm.com.au/listings?version=2&client_id=${encodeURIComponent(clientId)}&limit=10`;
   const resLower = await fetch(url, {
-    headers: { 'x-api-key': apiKey, 'accept': 'application/json' },
+    headers: {
+      'X-Api-Key': apiKey,
+      'Accept': 'application/json',
+      'User-Agent': 'Mozilla/5.0 (compatible; InnovatePropertyBot/1.0)',
+    },
   });
   const lowerStatus = resLower.status;
 
-  // Test 2b: with original casing
+  // API call without User-Agent (original)
   const res = await fetch(url, {
     headers: { 'X-Api-Key': apiKey, 'Accept': 'application/json' },
   });
@@ -43,7 +51,7 @@ export default async function handler(req) {
   try { parsed = JSON.parse(body); } catch { parsed = null; }
 
   if (status !== 200) {
-    return new Response(JSON.stringify({ info, pingStatus, lowerStatus, abStatus: status, errorBody: body.slice(0, 200), requestUrl: url }), {
+    return new Response(JSON.stringify({ info, outboundIp: ipData.ip, pingStatus, withUAStatus: lowerStatus, withoutUAStatus: status, errorBody: body.slice(0, 200), requestUrl: url }), {
       headers: { 'Content-Type': 'application/json' },
     });
   }
