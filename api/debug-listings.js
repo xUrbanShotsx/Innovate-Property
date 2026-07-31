@@ -24,8 +24,14 @@ export default async function handler(req) {
   const pingRes = await fetch(pingUrl);
   const pingStatus = pingRes.status;
 
-  // Test 2: actual API call
+  // Test 2a: with lowercase header
   const url = `https://api.agentboxcrm.com.au/listings?version=2&client_id=${encodeURIComponent(clientId)}&limit=10`;
+  const resLower = await fetch(url, {
+    headers: { 'x-api-key': apiKey, 'accept': 'application/json' },
+  });
+  const lowerStatus = resLower.status;
+
+  // Test 2b: with original casing
   const res = await fetch(url, {
     headers: { 'X-Api-Key': apiKey, 'Accept': 'application/json' },
   });
@@ -37,7 +43,7 @@ export default async function handler(req) {
   try { parsed = JSON.parse(body); } catch { parsed = null; }
 
   if (status !== 200) {
-    return new Response(JSON.stringify({ info, pingStatus, abStatus: status, errorBody: body, requestUrl: url }), {
+    return new Response(JSON.stringify({ info, pingStatus, lowerStatus, abStatus: status, errorBody: body.slice(0, 200), requestUrl: url }), {
       headers: { 'Content-Type': 'application/json' },
     });
   }
