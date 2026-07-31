@@ -10,6 +10,9 @@ export default async function handler(req) {
     clientIdPrefix: clientId ? clientId.slice(0, 8) : null,
   };
 
+  // Show enough of each var to verify format (not the full value)
+  info.apiKeyFormat = apiKey ? `${apiKey.slice(0,4)}...${apiKey.slice(-4)} (len=${apiKey.length})` : null;
+
   if (!clientId || !apiKey) {
     return new Response(JSON.stringify({ info, error: 'missing env vars' }), {
       headers: { 'Content-Type': 'application/json' },
