@@ -8,19 +8,24 @@ export default async function handler(req) {
   }
 
   const { searchParams } = new URL(req.url);
-  const type = searchParams.get('type') || 'residential';   // residential | commercial | land
-  const status = searchParams.get('status') || 'current';   // current | sold
+  // section: prestige | development | sold
+  const section = searchParams.get('section') || 'prestige';
 
-  const params = new URLSearchParams({
+  const abParams = new URLSearchParams({
     version: '2',
     client_id: process.env.AGENTBOX_CLIENT_ID,
-    status,
-    type,
-    limit: '50',
+    type: 'Residential',
+    limit: '100',
   });
 
+  if (section === 'sold') {
+    abParams.set('status', 'sold');
+  } else {
+    abParams.set('status', 'current');
+  }
+
   try {
-    const res = await fetch(`${AB_BASE}/listings?${params}`, {
+    const res = await fetch(`${AB_BASE}/listings?${abParams}`, {
       headers: {
         'X-Api-Key': process.env.AGENTBOX_API_KEY,
         'Accept': 'application/json',
@@ -30,15 +35,31 @@ export default async function handler(req) {
     if (!res.ok) {
       const err = await res.text();
       console.error('Agent Box listings error:', err);
-      return new Response(JSON.stringify({ error: 'Failed to fetch listings' }), {
-        status: 502,
+      return new Response(JSON.stringify({ listings: [] }), {
+        status: 200,
         headers: { 'Content-Type': 'application/json' },
       });
     }
 
     const data = await res.json();
+    const all = data?.response?.listings || [];
 
-    return new Response(JSON.stringify(data), {
+    let listings;
+    if (section === 'development') {
+      // Residential + Land category only
+      listings = all.filter(l =>
+        (l.category || '').toLowerCase() === 'land'
+      );
+    } else if (section === 'prestige') {
+      // Residential, exclude Land category
+      listings = all.filter(l =>
+        (l.category || '').toLowerCase() !== 'land'
+      );
+    } else {
+      listings = all;
+    }
+
+    return new Response(JSON.stringify({ listings }), {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
@@ -47,8 +68,8 @@ export default async function handler(req) {
     });
   } catch (err) {
     console.error('Listings handler error:', err);
-    return new Response(JSON.stringify({ error: 'Server error' }), {
-      status: 500,
+    return new Response(JSON.stringify({ listings: [] }), {
+      status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
   }
