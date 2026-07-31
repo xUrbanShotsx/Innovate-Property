@@ -19,6 +19,12 @@ export default async function handler(req) {
     });
   }
 
+  // Test 1: plain GET with no auth (to check basic connectivity)
+  const pingUrl = 'https://api.agentboxcrm.com.au/';
+  const pingRes = await fetch(pingUrl);
+  const pingStatus = pingRes.status;
+
+  // Test 2: actual API call
   const url = `https://api.agentboxcrm.com.au/listings?version=2&client_id=${encodeURIComponent(clientId)}&limit=10`;
   const res = await fetch(url, {
     headers: { 'X-Api-Key': apiKey, 'Accept': 'application/json' },
@@ -31,7 +37,7 @@ export default async function handler(req) {
   try { parsed = JSON.parse(body); } catch { parsed = null; }
 
   if (status !== 200) {
-    return new Response(JSON.stringify({ info, abStatus: status, errorBody: body, requestUrl: url }), {
+    return new Response(JSON.stringify({ info, pingStatus, abStatus: status, errorBody: body, requestUrl: url }), {
       headers: { 'Content-Type': 'application/json' },
     });
   }
