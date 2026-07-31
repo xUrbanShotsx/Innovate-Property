@@ -1,4 +1,4 @@
-export const config = { runtime: 'edge' };
+// Node.js runtime (not Edge) to test different IP pool
 
 export default async function handler(req) {
   const clientId = process.env.AGENTBOX_CLIENT_ID;
