@@ -322,7 +322,8 @@
   function renderProperty(listing) {
     const id = listing.id;
     const addr = listing.property?.address || {};
-    const name = listing.mainHeadline || addr.streetAddress || 'Property';
+    const headline = listing.mainHeadline || '';
+    const streetAddress = addr.streetAddress || '';
     const location = [addr.suburb, addr.state].filter(Boolean).join(', ');
     const price = listing.displayPrice || '';
     const statusLabel = listing.status === 'Settled' ? 'Sold' : 'For Sale';
@@ -337,18 +338,18 @@
     const heroImg = getHeroImage(listing);
     const gallery = getGalleryImages(listing);
 
-    document.title = name + ' — Innovate Property Group';
+    document.title = (streetAddress || headline) + ' — Innovate Property Group';
 
     document.getElementById('propertyPage').innerHTML = `
       <div class="prop-hero">
         ${heroImg
-          ? `<img class="prop-hero-img" src="${heroImg}" alt="${name}" />`
+          ? `<img class="prop-hero-img" src="${heroImg}" alt="${streetAddress || headline}" />`
           : `<div class="prop-hero-img" style="background:#111;"></div>`}
         <div class="prop-hero-overlay"></div>
         <div class="prop-hero-grain"></div>
         <div class="prop-hero-info">
           <div class="prop-status">${statusLabel}</div>
-          <div class="prop-hero-name">${name}</div>
+          ${streetAddress ? `<div class="prop-hero-name">${streetAddress}</div>` : ''}
           ${location ? `<div class="prop-hero-location">${location}</div>` : ''}
           ${price ? `<div class="prop-hero-price">${price}</div>` : ''}
           <div class="prop-stats-hero">
@@ -363,6 +364,7 @@
       <div class="prop-description-section reveal">
         <div class="prop-desc-left">
           <div class="section-label">About This Property</div>
+          ${headline ? `<div style="font-size:clamp(22px,2.5vw,36px);font-weight:900;text-transform:uppercase;letter-spacing:-0.3px;line-height:1.05;margin-bottom:24px;">${headline}</div>` : ''}
           <div class="prop-description">${description || 'Contact us for more information about this property.'}</div>
         </div>
         <div class="prop-desc-actions">
