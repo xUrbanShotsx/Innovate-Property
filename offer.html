@@ -314,26 +314,33 @@
     document.getElementById('solicitorFields').classList.toggle('show', val === 'yes');
   }
 
-  const properties = {
-    'clifftop-estate':    { name: 'The Clifftop Estate',   location: 'Thirroul, NSW',      price: '$8,750,000', img: 'https://images.unsplash.com/photo-1571055107559-3e67626fa8be?w=1920&q=90' },
-    'escarpment-retreat': { name: 'Escarpment Retreat',    location: 'Bulli, NSW',          price: '$5,200,000', img: 'https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=1920&q=90' },
-    'the-sanctuary':      { name: 'The Sanctuary',         location: 'Austinmer, NSW',      price: '$6,400,000', img: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1920&q=90' },
-    'harbour-crown':      { name: 'Harbour Crown',         location: 'Wollongong CBD',      price: '$4,100,000', img: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1920&q=90' },
-    'woonona-villa':      { name: 'Woonona Villa',         location: 'Woonona, NSW',        price: '$7,850,000', img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=90' },
-    'ridge-house':        { name: 'Ridge House',           location: 'Stanwell Park, NSW',  price: '$4,950,000', img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=90' },
-    'seabreeze-estate':   { name: 'Seabreeze Estate',      location: 'Coledale, NSW',       price: '$9,200,000', img: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1920&q=90' },
-    'crown-penthouse':    { name: 'The Crown Penthouse',   location: 'Wollongong CBD',      price: '$5,600,000', img: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=90' },
-  };
-
   const propId = new URLSearchParams(window.location.search).get('property');
-  const p = propId && properties[propId];
-  if (p) {
-    document.getElementById('leftBg').style.backgroundImage = `url('${p.img}')`;
-    document.getElementById('leftName').textContent = p.name;
-    document.getElementById('leftLocation').textContent = p.location;
-    document.getElementById('leftPrice').textContent = p.price;
-    document.title = p.name + ' — Make an Offer — Innovate Property Group';
+
+  async function loadListing() {
+    if (!propId) return;
+    try {
+      const [prestige, development, sold] = await Promise.all([
+        fetch('/data/prestige.json').then(r => r.json()),
+        fetch('/data/development.json').then(r => r.json()),
+        fetch('/data/sold.json').then(r => r.json()),
+      ]);
+      const listing = [...prestige, ...development, ...sold].find(l => l.id === propId);
+      if (!listing) return;
+
+      const addr = listing.property?.address || {};
+      const streetAddress = addr.streetAddress || '';
+      const location = [addr.suburb, addr.state].filter(Boolean).join(', ');
+      const imgs = [...(listing.images || [])].sort((a, b) => (parseInt(a.order) || 0) - (parseInt(b.order) || 0));
+      const firstImg = imgs[0]?.url || '';
+
+      if (firstImg) document.getElementById('leftBg').style.backgroundImage = `url('${firstImg}')`;
+      document.getElementById('leftName').textContent = streetAddress;
+      document.getElementById('leftLocation').textContent = location;
+      document.title = streetAddress + ' — Make an Offer — Innovate Property Group';
+    } catch {}
   }
+
+  loadListing();
 
   function handleSubmit(e) {
     e.preventDefault();
