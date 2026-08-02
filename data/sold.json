@@ -1,0 +1,1057 @@
+[
+  {
+    "id": "12P0496",
+    "type": "Sale",
+    "status": "Settled",
+    "displayPrice": "$2,950,000 - 19/09/08",
+    "soldPrice": "2950000",
+    "soldPriceConfidential": true,
+    "mainHeadline": "a home to fill your heart with pride",
+    "property": {
+      "type": "Residential",
+      "category": "House",
+      "address": {
+        "streetAddress": "27 Margaret Street",
+        "levelNum": "",
+        "lotNum": "",
+        "unitNum": "",
+        "streetNum": "27",
+        "streetName": "Margaret",
+        "streetType": "Street",
+        "suburb": "Fairlight",
+        "state": "NSW",
+        "postcode": "2094",
+        "country": "Australia",
+        "region": "Northern Beaches",
+        "hideAddress": false
+      },
+      "bedrooms": "4",
+      "bathrooms": "2",
+      "totalParking": "2",
+      "landArea": {
+        "value": "644",
+        "unit": "sqm"
+      }
+    },
+    "images": [
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322409555.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322409555-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322409555-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322409555-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322409555-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "532"
+          }
+        ]
+      },
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322400330.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322400330-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322400330-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322400330-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322400330-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "531"
+          }
+        ]
+      },
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322402249.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322402249-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322402249-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322402249-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322402249-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "532"
+          }
+        ]
+      },
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322400007.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322400007-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322400007-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322400007-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322400007-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "532"
+          }
+        ]
+      },
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322405306.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322405306-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322405306-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322405306-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322405306-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "531"
+          }
+        ]
+      },
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322405093.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322405093-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322405093-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322405093-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0496/1322405093-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "531"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "12P0512",
+    "type": "Sale",
+    "status": "Settled",
+    "displayPrice": "$2,105,000 ",
+    "soldPrice": "2105000",
+    "soldPriceConfidential": true,
+    "mainHeadline": "oustanding oppertunity - architectual residence",
+    "property": {
+      "type": "Residential",
+      "category": "House",
+      "address": {
+        "streetAddress": "43 Headland Road",
+        "levelNum": "",
+        "lotNum": "",
+        "unitNum": "",
+        "streetNum": "43",
+        "streetName": "Headland",
+        "streetType": "Road",
+        "suburb": "North Curl Curl",
+        "state": "NSW",
+        "postcode": "2099",
+        "country": "Australia",
+        "region": "Northern Beaches",
+        "hideAddress": false
+      },
+      "bedrooms": "5",
+      "bathrooms": "3",
+      "totalParking": "2",
+      "landArea": {
+        "value": "",
+        "unit": ""
+      }
+    },
+    "images": [
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322415398.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322415398-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322415398-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322415398-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322415398-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "531"
+          }
+        ]
+      },
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322419181.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322419181-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322419181-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322419181-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322419181-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "531"
+          }
+        ]
+      },
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322410098.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322410098-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322410098-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322410098-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322410098-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "531"
+          }
+        ]
+      },
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322419271.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322419271-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322419271-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322419271-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322419271-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "532"
+          }
+        ]
+      },
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322414621.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322414621-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322414621-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322414621-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322414621-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "531"
+          }
+        ]
+      },
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322415252.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322415252-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322415252-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322415252-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0512/1322415252-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "531"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "12P0580",
+    "type": "Sale",
+    "status": "Settled",
+    "displayPrice": "Over $635,000",
+    "soldPrice": "640000",
+    "soldPriceConfidential": true,
+    "mainHeadline": "stylish apartment with extras",
+    "property": {
+      "type": "Residential",
+      "category": "Apartment",
+      "address": {
+        "streetAddress": "11 High Street",
+        "levelNum": "",
+        "lotNum": "",
+        "unitNum": "",
+        "streetNum": "11",
+        "streetName": "High",
+        "streetType": "Street",
+        "suburb": "Manly",
+        "state": "NSW",
+        "postcode": "2095",
+        "country": "Australia",
+        "region": "Northern Beaches",
+        "hideAddress": false
+      },
+      "bedrooms": "2",
+      "bathrooms": "1",
+      "totalParking": "0",
+      "landArea": {
+        "value": "",
+        "unit": ""
+      }
+    },
+    "images": [
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322438003.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322438003-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322438003-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322438003-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322438003-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "533"
+          }
+        ]
+      },
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322433187.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322433187-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322433187-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322433187-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322433187-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "533"
+          }
+        ]
+      },
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322439609.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322439609-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322439609-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322439609-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322439609-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "533"
+          }
+        ]
+      },
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322433223.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322433223-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322433223-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322433223-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322433223-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "533"
+          }
+        ]
+      },
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322439938.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322439938-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322439938-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322439938-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322439938-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "533"
+          }
+        ]
+      },
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322431768.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322431768-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322431768-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322431768-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0580/1322431768-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "533"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "12P0591",
+    "type": "Sale",
+    "status": "Settled",
+    "displayPrice": "$3,220,000 ",
+    "soldPrice": "3450000",
+    "soldPriceConfidential": true,
+    "mainHeadline": "Landmark residence \"uralla\"",
+    "property": {
+      "type": "Residential",
+      "category": "House",
+      "address": {
+        "streetAddress": "13 Quinton Road",
+        "levelNum": "",
+        "lotNum": "",
+        "unitNum": "",
+        "streetNum": "13",
+        "streetName": "Quinton",
+        "streetType": "Road",
+        "suburb": "Manly",
+        "state": "NSW",
+        "postcode": "2095",
+        "country": "Australia",
+        "region": "Northern Beaches",
+        "hideAddress": false
+      },
+      "bedrooms": "5",
+      "bathrooms": "4",
+      "totalParking": "4",
+      "landArea": {
+        "value": "",
+        "unit": ""
+      }
+    },
+    "images": [
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322437112.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322437112-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322437112-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322437112-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322437112-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "531"
+          }
+        ]
+      },
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322430731.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322430731-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322430731-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322430731-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322430731-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "531"
+          }
+        ]
+      },
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322438233.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322438233-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322438233-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322438233-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322438233-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "531"
+          }
+        ]
+      },
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322434420.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322434420-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322434420-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322434420-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322434420-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "531"
+          }
+        ]
+      },
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322431163.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322431163-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322431163-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322431163-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322431163-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "531"
+          }
+        ]
+      },
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322431475.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322431475-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322431475-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322431475-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0591/1322431475-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "531"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "12P0600",
+    "type": "Sale",
+    "status": "Settled",
+    "displayPrice": "$2,160,000 ",
+    "soldPrice": "2160000",
+    "soldPriceConfidential": true,
+    "mainHeadline": "absolute harbourfront bliss",
+    "property": {
+      "type": "Residential",
+      "category": "Unit",
+      "address": {
+        "streetAddress": "1 Addison Road",
+        "levelNum": "",
+        "lotNum": "",
+        "unitNum": "",
+        "streetNum": "1",
+        "streetName": "Addison",
+        "streetType": "Road",
+        "suburb": "Manly",
+        "state": "NSW",
+        "postcode": "2095",
+        "country": "Australia",
+        "region": "Northern Beaches",
+        "hideAddress": false
+      },
+      "bedrooms": "3",
+      "bathrooms": "2",
+      "totalParking": "2",
+      "landArea": {
+        "value": "",
+        "unit": ""
+      }
+    },
+    "images": [
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322447715.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322447715-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322447715-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322447715-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322447715-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "531"
+          }
+        ]
+      },
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322447288.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322447288-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322447288-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322447288-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322447288-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "531"
+          }
+        ]
+      },
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322442270.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322442270-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322442270-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322442270-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322442270-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "531"
+          }
+        ]
+      },
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322447848.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322447848-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322447848-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322447848-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322447848-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "531"
+          }
+        ]
+      },
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322446650.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322446650-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322446650-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322446650-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322446650-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "531"
+          }
+        ]
+      },
+      {
+        "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322445884.jpg",
+        "thumbnails": [
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322445884-rsa.jpg",
+            "size": "a",
+            "width": "220",
+            "height": "147"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322445884-rsb.jpg",
+            "size": "b",
+            "width": "450",
+            "height": "300"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322445884-rsc.jpg",
+            "size": "c",
+            "width": "730",
+            "height": "486"
+          },
+          {
+            "url": "https://agentboxcdn.com.au/clients-data/3677/public_html/media/lt/1/12P0600/1322445884-rsd.jpg",
+            "size": "d",
+            "width": "800",
+            "height": "533"
+          }
+        ]
+      }
+    ]
+  }
+]
