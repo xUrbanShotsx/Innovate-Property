@@ -304,255 +304,130 @@
   function toggleMobileNav() { mobileNav.classList.toggle('open'); }
   function closeMobileNav() { mobileNav.classList.remove('open'); }
 
-  /* ── PROPERTY DATA ───────────────────────────────── */
-  const properties = {
-    'clifftop-estate': {
-      name: 'The Clifftop Estate',
-      location: 'Thirroul, NSW',
-      price: '$8,750,000',
-      status: 'For Sale',
-      bed: 5, bath: 4, car: 3, land: '820 m²', type: 'House',
-      img: 'https://images.unsplash.com/photo-1571055107559-3e67626fa8be?w=1920&q=90',
-      gallery: [
-        'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80',
-        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80',
-        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80',
-      ],
-      description: `Perched above one of the Illawarra's most dramatic coastlines, The Clifftop Estate is a rare expression of luxury residential architecture that captures the raw beauty of the NSW south coast in every detail.\n\nSet on 820m² of exclusive clifftop land, this residence was architecturally designed to dissolve the boundary between interior and exterior. Floor-to-ceiling glazing frames uninterrupted panoramas of the Pacific Ocean from every principal room, while the open-plan living and dining pavilion opens onto a cantilevered terrace — a stage for the horizon.\n\nThe home is finished with a curated palette of natural materials: limestone flooring, blackbutt timber, raw concrete, and matte black fixtures throughout. The kitchen is centred around a 4-metre island in Calacatta marble, anchored by Sub-Zero and Wolf appliances. Five bedrooms, each with ensuite access, are positioned to maximise privacy and outlook.`,
-      features: [
-        'Uninterrupted ocean views', 'Cantilevered entertaining terrace', 'Calacatta marble kitchen',
-        'Sub-Zero & Wolf appliances', 'Heated pool & spa', 'Limestone & blackbutt interiors',
-        'Home cinema', 'Wine cellar', 'Smart home automation', 'Triple garage with EV charging',
-        'Ducted air conditioning', '100m to beach access',
-      ],
-    },
-    'escarpment-retreat': {
-      name: 'Escarpment Retreat',
-      location: 'Bulli, NSW',
-      price: '$5,200,000',
-      status: 'For Sale',
-      bed: 4, bath: 3, car: 2, land: '1,240 m²', type: 'House',
-      img: 'https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=1920&q=90',
-      gallery: [
-        'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80',
-        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
-        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80',
-      ],
-      description: `Carved into the Illawarra Escarpment with precision and care, Escarpment Retreat is a masterclass in site-responsive architecture — a home that feels as though it has always belonged to this landscape.\n\nFrom the moment you arrive, the sense of privacy is absolute. A discreet entry through native landscaping gives way to a double-height entrance hall that opens immediately to the living pavilion, where the escarpment beyond serves as the artwork. The rear of the home steps down the hillside across three levels, each offering a different aspect of the surrounding bushland and distant ocean horizon.\n\nSet on 1,240m² with full DA approval for a detached studio, the property represents a compelling opportunity for buyers seeking scale, privacy, and connection to nature without sacrifice of luxury.`,
-      features: [
-        'Escarpment & ocean views', 'Three-level hillside design', 'Double-height entry hall',
-        'Approved DA for detached studio', 'Infinity-edge pool', 'Spotted gum joinery throughout',
-        'Outdoor kitchen & fire pit', 'Rainwater harvesting system', 'Solar 13.2kW system',
-        'Native landscaping by Dangar Barin Wolf', 'Double garage', 'Walking distance to Bulli village',
-      ],
-    },
-    'the-sanctuary': {
-      name: 'The Sanctuary',
-      location: 'Austinmer, NSW',
-      price: '$6,400,000',
-      status: 'For Sale',
-      bed: 5, bath: 5, car: 4, land: '1,680 m²', type: 'House',
-      img: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1920&q=90',
-      gallery: [
-        'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&q=80',
-        'https://images.unsplash.com/photo-1571055107559-3e67626fa8be?w=800&q=80',
-        'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80',
-      ],
-      description: `The Sanctuary occupies one of Austinmer's most coveted addresses — a 1,680m² parcel of manicured grounds behind a discreet gate, moments from the rock pool and beach that make this village unlike any other on the coast.\n\nDesigned for a family that wanted absolutely nothing left out, this five-bedroom, five-bathroom residence operates at the peak of the market. A formal entry leads to a sequence of reception and living spaces that culminate in a vast open-plan kitchen and family room, oriented north-east to capture morning light and ocean glimpses through the established canopy.\n\nOutdoor amenity is extraordinary: a 20-metre pool flanked by a fully equipped cabana, a floodlit north-facing tennis court, and multiple terraced entertaining zones across the grounds. A secondary dwelling provides self-contained guest or staff quarters.`,
-      features: [
-        '20m heated pool & cabana', 'Floodlit north-facing tennis court', 'Secondary guest dwelling',
-        'Ocean glimpses through canopy', 'Formal & informal living zones', 'Chef\'s kitchen with butler\'s pantry',
-        'Home gym & sauna', 'Cellar for 1,200 bottles', '4-car garage with workshop',
-        'Gated & fully secured estate', 'Minutes to Austinmer rock pool', 'Ducted zoned air conditioning',
-      ],
-    },
-    'harbour-crown': {
-      name: 'Harbour Crown',
-      location: 'Wollongong CBD',
-      price: '$4,100,000',
-      status: 'For Sale',
-      bed: 3, bath: 3, car: 2, land: '—', type: 'Sub-Penthouse',
-      img: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1920&q=90',
-      gallery: [
-        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80',
-        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80',
-        'https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=800&q=80',
-      ],
-      description: `Crowning the top of Wollongong's most prestigious residential tower, Harbour Crown offers a perspective over the city, harbour, and Pacific Ocean that simply does not exist anywhere else in the region.\n\nOccupying the entire sub-penthouse level with 360-degree aspect, this three-bedroom residence has been finished to a standard that rivals Sydney's finest — with Poliform joinery, Gaggenau appliances, heated concrete flooring, and a private rooftop terrace of 85m².\n\nFor those who demand the convenience of CBD living without compromise on quality or outlook, Harbour Crown is without peer. The building provides 24-hour concierge, private parking for two vehicles, and secure access from the basement directly to the residence.`,
-      features: [
-        '360° city, harbour & ocean views', '85m² private rooftop terrace', 'Poliform kitchen & joinery',
-        'Gaggenau appliance suite', 'Heated concrete flooring', '24-hour concierge',
-        'Private basement parking × 2', 'Direct lift access to residence', 'Smart home system',
-        'Floor-to-ceiling glazing throughout', 'Wine fridge & bar', 'Storage cage included',
-      ],
-    },
-    'woonona-villa': {
-      name: 'Woonona Villa',
-      location: 'Woonona, NSW',
-      price: '$7,850,000',
-      status: 'For Sale',
-      bed: 5, bath: 4, car: 3, land: '960 m²', type: 'House',
-      img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=90',
-      gallery: [
-        'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80',
-        'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80',
-        'https://images.unsplash.com/photo-1571055107559-3e67626fa8be?w=800&q=80',
-      ],
-      description: `Occupying an unrivalled beachfront position in the sought-after suburb of Woonona, this five-bedroom villa offers direct beach access from the rear gate — one of fewer than a handful of properties along this stretch of coastline with this privilege.\n\nThe home has been entirely rebuilt and extended over recent years to deliver a residence of the highest contemporary standard while retaining its connection to the site. The living areas are orientated directly to the beach, with bi-fold glazing across the full rear elevation that dissolves the boundary between the interior and the sand beyond.\n\nAn entertainer's pool, outdoor kitchen, and poolside pavilion make this one of the most capable homes in the Illawarra for large-scale entertaining — while the master suite above offers a private retreat with panoramic ocean outlook from bed.`,
-      features: [
-        'Direct beachfront access via rear gate', 'Panoramic ocean views', 'Rebuilt to highest standard',
-        'Full-width bi-fold rear glazing', 'Heated pool & outdoor kitchen', 'Poolside entertaining pavilion',
-        'Master retreat with ocean outlook', 'Separate guest wing', 'Triple lock-up garage',
-        '960m² of beachfront land', 'Walk to Woonona village & cafes', 'North-east aspect',
-      ],
-    },
-    'ridge-house': {
-      name: 'Ridge House',
-      location: 'Stanwell Park, NSW',
-      price: '$4,950,000',
-      status: 'For Sale',
-      bed: 4, bath: 3, car: 2, land: '780 m²', type: 'House',
-      img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=90',
-      gallery: [
-        'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&q=80',
-        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80',
-        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80',
-      ],
-      description: `Stanwell Park is one of the Illawarra's most secluded and spectacular villages — and Ridge House sits at its crown, commanding a panoramic outlook across the hang-gliding launch site, Royal National Park, and the Pacific beyond.\n\nThis architecturally designed four-bedroom residence was conceived as a retreat — a place to genuinely disconnect. The materials are honest: raw concrete, recycled timber, and locally sourced stone. The layout is generous and flowing, designed for a relaxed lifestyle that moves effortlessly between inside and out.\n\nA rare opportunity to own one of the most iconic positions in the Northern Illawarra — with Sydney just 45 minutes to the north and the best of the coast on your doorstep.`,
-      features: [
-        'Panoramic escarpment & ocean views', 'Raw concrete & recycled timber palette', 'Open plan living to deck',
-        'Bush outlook from all bedrooms', 'Plunge pool & sun terrace', 'Architect designed throughout',
-        'Wood fireplace', 'Rainwater tank & solar system', '45 mins to Sydney CBD',
-        'Walk to Stanwell Park beach', 'Steps to national park trails', 'Double carport',
-      ],
-    },
-    'seabreeze-estate': {
-      name: 'Seabreeze Estate',
-      location: 'Coledale, NSW',
-      price: '$9,200,000',
-      status: 'For Sale',
-      bed: 6, bath: 5, car: 4, land: '1,420 m²', type: 'House',
-      img: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1920&q=90',
-      gallery: [
-        'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80',
-        'https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=800&q=80',
-        'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80',
-      ],
-      description: `Seabreeze Estate is the Illawarra's finest residential offering — a 1,420m² oceanfront compound in the exclusive village of Coledale, where properties of this calibre are traded perhaps once a decade.\n\nThe main residence spans six bedrooms across two levels, with formal and informal living wings that each open directly to the oceanfront gardens and pool. The ground floor master suite is a destination in itself — a 120m² private retreat with his-and-her bathrooms, a dressing room of bespoke joinery, and a morning terrace that faces the sunrise over the Pacific.\n\nA detached guest cottage, 4-car garage, and workshop complete the offering. For the buyer seeking the absolute pinnacle of the Illawarra market, Seabreeze Estate stands alone.`,
-      features: [
-        'Direct oceanfront position', '6-bed main residence + guest cottage', '120m² master suite',
-        'His & her bathrooms & bespoke dressing room', 'Sunrise-facing morning terrace', '25m ocean-view pool',
-        '4-car garage & workshop', 'Home theatre & gym', 'Temperature-controlled wine room',
-        'Smart home & full CCTV', 'Landscaped gardens by award-winning firm', 'Rare 1,420m² oceanfront land',
-      ],
-    },
-    'crown-penthouse': {
-      name: 'The Crown Penthouse',
-      location: 'Wollongong CBD',
-      price: '$5,600,000',
-      status: 'For Sale',
-      bed: 4, bath: 3, car: 2, land: '—', type: 'Penthouse',
-      img: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=90',
-      gallery: [
-        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80',
-        'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80',
-        'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&q=80',
-      ],
-      description: `Commanding the full top level of Wollongong's landmark residential tower, The Crown Penthouse is a statement of intent — a 4-bedroom sky home with 270-degree harbour and ocean views, a 120m² wraparound terrace, and a level of finish that sets a new benchmark for the region.\n\nEvery detail has been considered by an interior designer of national repute: imported Borghini marble, hand-laid herringbone oak flooring, brushed brass fixtures, and custom millwork throughout. The kitchen — anchored by a 5-metre island — is equipped with a full Gaggenau suite including a steam oven, teppanyaki plate, and integrated coffee system.\n\nA home that will satisfy the most discerning buyer, in a city finally ready for a property of this ambition.`,
-      features: [
-        '270° harbour & ocean views', '120m² wraparound terrace', 'Borghini marble throughout',
-        'Hand-laid herringbone oak floors', 'Full Gaggenau appliance suite', 'Custom millwork by bespoke joinery firm',
-        'Home automation by Control4', 'Private lift lobby', '24-hour concierge & security',
-        'Private parking × 2 + storage', 'Air conditioning & hydronic heating', 'Pet-friendly building',
-      ],
-    },
-  };
-
-  /* ── LOAD PROPERTY ───────────────────────────────── */
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get('id') || 'clifftop-estate';
-  const p = properties[id];
-
-  if (!p) {
-    window.location.href = 'properties.html';
-  }
-
-  // Update page title
-  document.title = p.name + ' — Innovate Property Group';
-
-
-  document.getElementById('propertyPage').innerHTML = `
-    <!-- HERO — FULL SCREEN WITH STATS OVERLAID -->
-    <div class="prop-hero">
-      <img class="prop-hero-img" src="${p.img}" alt="${p.name}" />
-      <div class="prop-hero-overlay"></div>
-      <div class="prop-hero-grain"></div>
-      <a href="enquiry.html?property=${id}" class="prop-enquire-btn">Enquire</a>
-      <div class="prop-hero-info">
-        <div class="prop-status">${p.status}</div>
-        <div class="prop-hero-name">${p.name}</div>
-        <div class="prop-hero-location">${p.location}</div>
-        <div class="prop-hero-price">${p.price}</div>
-        <div class="prop-stats-hero">
-          <div class="prop-stat-hero"><div class="prop-stat-label">Bedrooms</div><div class="prop-stat-value">${p.bed}</div></div>
-          <div class="prop-stat-hero"><div class="prop-stat-label">Bathrooms</div><div class="prop-stat-value">${p.bath}</div></div>
-          <div class="prop-stat-hero"><div class="prop-stat-label">Car Spaces</div><div class="prop-stat-value">${p.car}</div></div>
-          <div class="prop-stat-hero"><div class="prop-stat-label">Land Size</div><div class="prop-stat-value">${p.land}</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- DESCRIPTION -->
-    <div class="prop-description-section reveal">
-      <div class="prop-desc-left">
-        <div class="section-label">About This Property</div>
-        <div class="prop-description">${p.description.replace(/\n/g, '<br><br>')}</div>
-      </div>
-      <div class="prop-desc-actions">
-        <a href="enquiry.html?property=${id}" class="btn-desc btn-desc-solid">Enquire Now</a>
-        <a href="offer.html?property=${id}" class="btn-desc btn-desc-outline">Make Offer</a>
-      </div>
-    </div>
-
-    <!-- GALLERY -->
-    <div class="gallery-section reveal">
-      <div class="section-label">Gallery</div>
-      <div class="gallery-strip">
-        ${p.gallery.map((g, i) => `<div class="gallery-img" onclick="openLightbox(${i})"><img src="${g}" alt="Property image" loading="lazy" /></div>`).join('')}
-      </div>
-    </div>
-
-    <!-- FOOTER -->
-    <footer>
-      <div class="footer-bottom">
-        <p class="footer-copy">© 2025 Innovate Property Group Pty Ltd. All rights reserved. Licensed Real Estate Agent NSW. &nbsp;·&nbsp; <a href="privacy-policy.html" style="color:inherit;text-decoration:none;">Privacy Policy</a> &nbsp;·&nbsp; <a href="disclaimer.html" style="color:inherit;text-decoration:none;">Disclaimer</a> &nbsp;·&nbsp; Website by <a href="https://www.sanjstudio.com/" target="_blank" style="color:inherit;text-decoration:none;opacity:0.6;transition:opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6">SanjStudio</a></p>
-        <div class="footer-logo"><img src="logo.png" alt="Innovate Property Group" /></div>
-      </div>
-    </footer>
-  `;
-
-  /* ── REVEAL ──────────────────────────────────────── */
-  const reveals = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.08 });
-  reveals.forEach(el => obs.observe(el));
-
-  /* ── ENQUIRY ─────────────────────────────────────── */
-  function submitEnquiry(e) {
-    e.preventDefault();
-    const btn = document.getElementById('eqBtn');
-    btn.textContent = 'Sent — We\'ll Be In Touch';
-    btn.disabled = true;
-    btn.style.background = '#2a2a2a';
-  }
-
-  /* ── LIGHTBOX ────────────────────────────────────── */
+  /* ── LOAD PROPERTY FROM AGENT BOX DATA ──────────── */
   let lbImages = [];
   let lbIndex = 0;
 
+  function getHeroImage(listing) {
+    const imgs = listing.images || [];
+    const sorted = [...imgs].sort((a, b) => (parseInt(a.order) || 0) - (parseInt(b.order) || 0));
+    return sorted[0]?.url || '';
+  }
+
+  function getGalleryImages(listing) {
+    const imgs = listing.images || [];
+    const sorted = [...imgs].sort((a, b) => (parseInt(a.order) || 0) - (parseInt(b.order) || 0));
+    return sorted.map(i => i.url).filter(Boolean);
+  }
+
+  function renderProperty(listing) {
+    const id = listing.id;
+    const addr = listing.property?.address || {};
+    const name = listing.mainHeadline || addr.streetAddress || 'Property';
+    const location = [addr.suburb, addr.state].filter(Boolean).join(', ');
+    const price = listing.displayPrice || '';
+    const statusLabel = listing.status === 'Settled' ? 'Sold' : 'For Sale';
+    const bed = listing.property?.bedrooms || '—';
+    const bath = listing.property?.bathrooms || '—';
+    const car = listing.property?.totalParking || '—';
+    const land = listing.property?.landArea?.value
+      ? `${listing.property.landArea.value} ${listing.property.landArea.unit || 'm²'}`
+      : (listing.property?.landSizeText || '—');
+    const description = (listing.mainDescription || '').replace(/\n/g, '<br><br>');
+    const features = listing.property?.features || [];
+    const heroImg = getHeroImage(listing);
+    const gallery = getGalleryImages(listing);
+
+    document.title = name + ' — Innovate Property Group';
+
+    document.getElementById('propertyPage').innerHTML = `
+      <div class="prop-hero">
+        ${heroImg
+          ? `<img class="prop-hero-img" src="${heroImg}" alt="${name}" />`
+          : `<div class="prop-hero-img" style="background:#111;"></div>`}
+        <div class="prop-hero-overlay"></div>
+        <div class="prop-hero-grain"></div>
+        <a href="appraisal.html?property=${id}" class="prop-enquire-btn">Enquire</a>
+        <div class="prop-hero-info">
+          <div class="prop-status">${statusLabel}</div>
+          <div class="prop-hero-name">${name}</div>
+          ${location ? `<div class="prop-hero-location">${location}</div>` : ''}
+          ${price ? `<div class="prop-hero-price">${price}</div>` : ''}
+          <div class="prop-stats-hero">
+            ${bed !== '—' ? `<div class="prop-stat-hero"><div class="prop-stat-label">Bedrooms</div><div class="prop-stat-value">${bed}</div></div>` : ''}
+            ${bath !== '—' ? `<div class="prop-stat-hero"><div class="prop-stat-label">Bathrooms</div><div class="prop-stat-value">${bath}</div></div>` : ''}
+            ${car !== '—' ? `<div class="prop-stat-hero"><div class="prop-stat-label">Car Spaces</div><div class="prop-stat-value">${car}</div></div>` : ''}
+            ${land !== '—' ? `<div class="prop-stat-hero"><div class="prop-stat-label">Land Size</div><div class="prop-stat-value">${land}</div></div>` : ''}
+          </div>
+        </div>
+      </div>
+
+      <div class="prop-description-section reveal">
+        <div class="prop-desc-left">
+          <div class="section-label">About This Property</div>
+          <div class="prop-description">${description || 'Contact us for more information about this property.'}</div>
+          ${features.length ? `
+            <div style="margin-top:32px;">
+              <div class="section-label" style="margin-bottom:16px;">Property Features</div>
+              <div style="display:flex;flex-wrap:wrap;gap:10px;">
+                ${features.map(f => `<span style="font-size:11px;letter-spacing:2px;text-transform:uppercase;border:1px solid #ddd;padding:6px 14px;">${f}</span>`).join('')}
+              </div>
+            </div>` : ''}
+        </div>
+        <div class="prop-desc-actions">
+          <a href="appraisal.html?property=${id}" class="btn-desc btn-desc-solid">Enquire Now</a>
+        </div>
+      </div>
+
+      ${gallery.length ? `
+      <div class="gallery-section reveal">
+        <div class="section-label">Gallery</div>
+        <div class="gallery-strip">
+          ${gallery.map((g, i) => `<div class="gallery-img" onclick="openLightbox(${i})"><img src="${g}" alt="Property image" loading="lazy" /></div>`).join('')}
+        </div>
+      </div>` : ''}
+
+      <footer>
+        <div class="footer-bottom">
+          <p class="footer-copy">© 2025 Innovate Property Group Pty Ltd. All rights reserved. Licensed Real Estate Agent NSW. &nbsp;·&nbsp; <a href="privacy-policy.html" style="color:inherit;text-decoration:none;">Privacy Policy</a> &nbsp;·&nbsp; <a href="disclaimer.html" style="color:inherit;text-decoration:none;">Disclaimer</a> &nbsp;·&nbsp; Website by <a href="https://www.sanjstudio.com/" target="_blank" style="color:inherit;text-decoration:none;opacity:0.6;transition:opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6">SanjStudio</a></p>
+          <div class="footer-logo"><img src="logo.png" alt="Innovate Property Group" /></div>
+        </div>
+      </footer>
+    `;
+
+    lbImages = gallery;
+
+    const reveals = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => obs.observe(el));
+  }
+
+  async function loadProperty() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    if (!id) { window.location.href = 'properties.html'; return; }
+
+    try {
+      const [prestige, development, sold] = await Promise.all([
+        fetch('/data/prestige.json').then(r => r.json()),
+        fetch('/data/development.json').then(r => r.json()),
+        fetch('/data/sold.json').then(r => r.json()),
+      ]);
+      const all = [...prestige, ...development, ...sold];
+      const listing = all.find(l => l.id === id);
+      if (!listing) { window.location.href = 'properties.html'; return; }
+      renderProperty(listing);
+    } catch {
+      window.location.href = 'properties.html';
+    }
+  }
+
+  loadProperty();
+
+  /* ── LIGHTBOX ────────────────────────────────────── */
   function openLightbox(index) {
-    lbImages = p.gallery;
     lbIndex = index;
     document.getElementById('lightbox').classList.add('open');
     document.body.style.overflow = 'hidden';
