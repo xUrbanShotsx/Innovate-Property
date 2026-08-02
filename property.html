@@ -157,7 +157,7 @@
 
     /* ─── GALLERY STRIP ──────────────────────────── */
     .gallery-section { padding: 64px 80px; border-bottom: 1px solid var(--hairline); }
-    .gallery-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .gallery-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
     .gallery-img { aspect-ratio: 4/3; overflow: hidden; cursor: zoom-in; }
     .gallery-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; display: block; }
     .gallery-img:hover img { transform: scale(1.05); }
@@ -366,13 +366,6 @@
         <div class="prop-desc-left">
           <div class="section-label">About This Property</div>
           <div class="prop-description">${description || 'Contact us for more information about this property.'}</div>
-          ${features.length ? `
-            <div style="margin-top:32px;">
-              <div class="section-label" style="margin-bottom:16px;">Property Features</div>
-              <div style="display:flex;flex-wrap:wrap;gap:10px;">
-                ${features.map(f => `<span style="font-size:11px;letter-spacing:2px;text-transform:uppercase;border:1px solid #ddd;padding:6px 14px;">${f}</span>`).join('')}
-              </div>
-            </div>` : ''}
         </div>
         <div class="prop-desc-actions">
           <a href="appraisal.html?property=${id}" class="btn-desc btn-desc-solid">Enquire Now</a>
