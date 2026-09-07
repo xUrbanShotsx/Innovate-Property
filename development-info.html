@@ -10,30 +10,22 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --black: #000000; --black-soft: #0a0a0a;
-      --white: #ffffff; --white-mute: #f0f0fa;
-      --hairline: #e8e8e8; --ink-mute: #5a5a5f;
-      --gold: #c9a84c;
+      --black: #000; --black-soft: #0a0a0a; --white: #fff;
+      --hairline: #e8e8e8; --ink-mute: #5a5a5f; --gold: #c9a84c;
     }
     html { scroll-behavior: smooth; }
-    body { background: var(--white); color: var(--black); font-family: 'Inter', Arial, sans-serif; overflow-x: hidden; }
+    body { background: var(--white); color: var(--black); font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 10px 48px; background: var(--white); border-bottom: 1px solid var(--hairline);
-    }
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 10px 48px; background: var(--white); border-bottom: 1px solid var(--hairline); }
     .nav-logo img { height: 72px; width: auto; display: block; }
-    .nav-links { display: flex; gap: 40px; list-style: none; align-items: center; }
-    .nav-links a { font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-mute); text-decoration: none; transition: color 0.3s; position: relative; }
+    .nav-links { display: flex; gap: 40px; list-style: none; }
+    .nav-links a { font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-mute); text-decoration: none; transition: color 0.3s; }
     .nav-links a:hover { color: var(--black); }
-    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px; background: var(--black); transform: scaleX(0); transform-origin: left; transition: transform 0.4s cubic-bezier(0.23,1,0.32,1); }
-    .nav-links a:hover::after { transform: scaleX(1); }
     .nav-cta { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); background: var(--black); border: 1px solid var(--black); padding: 12px 24px; text-decoration: none; transition: all 0.3s; }
     .nav-cta:hover { background: var(--white); color: var(--black); }
     .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
     .hamburger span { width: 26px; height: 1px; background: var(--black); display: block; }
-
     .mobile-nav { position: fixed; inset: 0; z-index: 999; background: var(--white); display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.23,1,0.32,1); }
     .mobile-nav.open { transform: translateX(0); }
     .mobile-nav-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 28px; }
@@ -45,97 +37,103 @@
     .mobile-nav-footer { padding: 28px; border-top: 1px solid var(--hairline); }
     .mobile-nav-footer a { display: block; text-align: center; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); background: var(--black); padding: 16px; text-decoration: none; }
 
-    /* ─── HERO ── */
-    .hero {
-      margin-top: 92px; height: calc(100vh - 92px);
-      position: relative; overflow: hidden; display: flex; align-items: flex-end;
-    }
-    .hero-bg { position: absolute; inset: 0; background-image: url('DevelopmentSitesBackground1.jpg'); background-size: cover; background-position: center; }
-    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,0.75) 75%, rgba(0,0,0,0.97) 100%); }
-    .hero-content { position: relative; z-index: 2; padding: 0 80px 80px; max-width: 860px; }
-    .eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
-    .hero-headline { font-size: clamp(40px, 6vw, 88px); font-weight: 900; line-height: 0.92; letter-spacing: -1px; text-transform: uppercase; color: var(--white); margin-bottom: 28px; }
-    .hero-sub { font-size: 15px; font-weight: 300; line-height: 1.8; color: rgba(255,255,255,0.75); max-width: 560px; margin-bottom: 40px; }
-    .btn-gold { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 16px 32px; text-decoration: none; transition: opacity 0.3s; }
+    /* HERO */
+    .hero { margin-top: 92px; height: calc(100vh - 92px); position: relative; overflow: hidden; display: flex; align-items: flex-end; }
+    .hero-bg { position: absolute; inset: 0; background-image: url('DevelopmentSitesBackground1.jpg'); background-size: cover; background-position: center; will-change: transform; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.8) 80%, rgba(0,0,0,0.97) 100%); }
+    .hero-content { position: relative; z-index: 2; padding: 0 80px 80px; width: 100%; display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; }
+    .hero-left {}
+    .hero-tag { font-size: 10px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+    .hero-tag::before { content: ''; width: 32px; height: 1px; background: var(--gold); display: block; }
+    .hero-headline { font-size: clamp(48px, 7vw, 100px); font-weight: 900; line-height: 0.88; letter-spacing: -2px; text-transform: uppercase; color: var(--white); }
+    .hero-right { flex-shrink: 0; max-width: 360px; padding-bottom: 8px; }
+    .hero-desc { font-size: 14px; font-weight: 300; line-height: 1.8; color: rgba(255,255,255,0.65); margin-bottom: 32px; }
+    .btn-gold { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 15px 30px; text-decoration: none; transition: opacity 0.3s; }
     .btn-gold:hover { opacity: 0.85; }
-    .btn-ghost { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); border: 1px solid rgba(255,255,255,0.4); padding: 15px 32px; text-decoration: none; transition: border-color 0.3s; }
-    .btn-ghost:hover { border-color: var(--white); }
-    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-outline { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); border: 1px solid rgba(255,255,255,0.35); padding: 14px 30px; text-decoration: none; margin-left: 12px; transition: border-color 0.3s; }
+    .btn-outline:hover { border-color: var(--white); }
+    .scroll-hint { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .scroll-line { width: 1px; height: 48px; background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.4)); animation: scrollDrop 2s ease-in-out infinite; }
+    @keyframes scrollDrop { 0%,100%{opacity:0;transform:scaleY(0);transform-origin:top} 50%{opacity:1;transform:scaleY(1)} }
 
-    /* ─── CONTENT ── */
-    .section { padding: 96px 80px; border-bottom: 1px solid var(--hairline); }
-    .section:last-of-type { border-bottom: none; }
-    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 40px; padding-bottom: 16px; border-bottom: 1px solid var(--hairline); }
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-    .big-headline { font-size: clamp(28px, 3.5vw, 52px); font-weight: 900; text-transform: uppercase; line-height: 1; letter-spacing: -0.5px; margin-bottom: 28px; }
-    .body-text { font-size: 15px; font-weight: 300; line-height: 1.9; color: #333; }
-    .body-text + .body-text { margin-top: 20px; }
-    .gold-rule { width: 40px; height: 2px; background: var(--gold); margin-bottom: 28px; }
+    /* STATS */
+    .stats-bar { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--hairline); }
+    .stat-item { padding: 48px 40px; border-right: 1px solid var(--hairline); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-size: clamp(36px, 4vw, 56px); font-weight: 900; letter-spacing: -2px; line-height: 1; margin-bottom: 8px; }
+    .stat-label { font-size: 10px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-mute); }
 
-    .types-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--hairline); margin-top: 48px; }
-    .type-card { background: var(--white); padding: 40px 32px; }
-    .type-num { font-size: 11px; font-weight: 700; letter-spacing: 3px; color: var(--gold); margin-bottom: 20px; }
-    .type-title { font-size: 18px; font-weight: 900; text-transform: uppercase; margin-bottom: 16px; }
-    .type-body { font-size: 13px; font-weight: 300; line-height: 1.8; color: var(--ink-mute); }
+    /* ACCORDION */
+    .accordion-section { padding: 80px; border-bottom: 1px solid var(--hairline); }
+    .section-header { display: flex; align-items: baseline; gap: 32px; margin-bottom: 56px; }
+    .section-tag { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); white-space: nowrap; }
+    .section-title { font-size: clamp(28px, 3.5vw, 48px); font-weight: 900; text-transform: uppercase; letter-spacing: -0.5px; line-height: 1; }
+    .accordion { border-top: 1px solid var(--hairline); }
+    .accordion-item { border-bottom: 1px solid var(--hairline); overflow: hidden; }
+    .accordion-trigger { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 28px 0; background: none; border: none; cursor: pointer; text-align: left; gap: 24px; }
+    .accordion-trigger-left { display: flex; align-items: center; gap: 24px; }
+    .accordion-num { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: var(--gold); width: 32px; }
+    .accordion-name { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+    .accordion-icon { width: 32px; height: 32px; border: 1px solid var(--hairline); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.3s; font-size: 18px; font-weight: 300; color: var(--ink-mute); }
+    .accordion-item.open .accordion-icon { background: var(--black); color: var(--white); border-color: var(--black); transform: rotate(45deg); }
+    .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.23,1,0.32,1); }
+    .accordion-body-inner { padding: 0 0 32px 56px; font-size: 14px; font-weight: 300; line-height: 1.9; color: var(--ink-mute); max-width: 640px; }
 
-    .process-list { margin-top: 48px; }
-    .process-item { display: grid; grid-template-columns: 64px 1fr; gap: 32px; padding: 32px 0; border-bottom: 1px solid var(--hairline); align-items: start; }
-    .process-item:first-child { border-top: 1px solid var(--hairline); }
-    .process-num { font-size: 11px; font-weight: 700; letter-spacing: 3px; color: var(--gold); padding-top: 4px; }
-    .process-text-title { font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
-    .process-text-body { font-size: 13px; font-weight: 300; line-height: 1.8; color: var(--ink-mute); }
+    /* CARDS GRID */
+    .cards-section { padding: 80px; border-bottom: 1px solid var(--hairline); }
+    .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 48px; background: var(--hairline); }
+    .card { background: var(--white); padding: 48px 36px; position: relative; overflow: hidden; transition: background 0.4s; cursor: default; }
+    .card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.4s cubic-bezier(0.23,1,0.32,1); }
+    .card:hover { background: #fafaf8; }
+    .card:hover::after { transform: scaleX(1); }
+    .card-num { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: var(--gold); margin-bottom: 24px; }
+    .card-title { font-size: 15px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; transition: color 0.3s; }
+    .card-body { font-size: 13px; font-weight: 300; line-height: 1.8; color: var(--ink-mute); }
 
-    .cta-band { background: var(--black-soft); padding: 80px; display: flex; align-items: center; justify-content: space-between; gap: 40px; }
-    .cta-band-text { color: var(--white); }
-    .cta-band-title { font-size: clamp(24px, 3vw, 40px); font-weight: 900; text-transform: uppercase; margin-bottom: 12px; }
-    .cta-band-sub { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.6); line-height: 1.7; }
-    .btn-gold-sm { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 14px 28px; text-decoration: none; white-space: nowrap; transition: opacity 0.3s; }
-    .btn-gold-sm:hover { opacity: 0.85; }
+    /* CTA */
+    .cta { background: var(--black-soft); padding: 96px 80px; display: grid; grid-template-columns: 1fr auto; gap: 80px; align-items: center; }
+    .cta-headline { font-size: clamp(32px, 4vw, 56px); font-weight: 900; text-transform: uppercase; letter-spacing: -1px; line-height: 1; color: var(--white); margin-bottom: 16px; }
+    .cta-sub { font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.5); line-height: 1.7; }
+    .btn-gold-lg { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 18px 36px; text-decoration: none; white-space: nowrap; transition: opacity 0.3s; }
+    .btn-gold-lg:hover { opacity: 0.85; }
 
     footer { background: var(--black-soft); border-top: 1px solid #1a1a1a; padding: 32px 80px; }
     .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
     .footer-copy { font-size: 11px; font-weight: 300; color: var(--ink-mute); }
-    .footer-logo img { height: 36px; width: auto; filter: invert(1); }
+    .footer-logo img { height: 36px; filter: invert(1); }
 
-    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
+    /* ANIMATIONS */
+    .fade-up { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up.d1 { transition-delay: 0.1s; } .fade-up.d2 { transition-delay: 0.2s; } .fade-up.d3 { transition-delay: 0.3s; }
 
     @media (max-width: 1024px) {
-      nav { padding: 12px 24px; }
-      .nav-links, .nav-cta { display: none; }
-      .hamburger { display: flex; }
-      .hero-content { padding: 0 28px 60px; }
-      .section { padding: 64px 28px; }
-      .two-col { grid-template-columns: 1fr; gap: 40px; }
-      .types-grid { grid-template-columns: 1fr; }
-      .cta-band { flex-direction: column; padding: 48px 28px; text-align: center; }
-      footer { padding: 32px 28px; }
-      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      nav { padding: 12px 24px; } .nav-links, .nav-cta { display: none; } .hamburger { display: flex; }
+      .hero-content { flex-direction: column; align-items: flex-start; padding: 0 28px 56px; }
+      .hero-right { max-width: 100%; }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+      .accordion-section, .cards-section { padding: 56px 28px; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .cta { grid-template-columns: 1fr; padding: 64px 28px; gap: 40px; }
+      footer { padding: 32px 28px; } .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
     }
     @media (max-width: 640px) {
-      nav { padding: 10px 20px; }
-      .nav-logo img { height: 52px !important; }
+      nav { padding: 10px 20px; } .nav-logo img { height: 52px !important; }
       .hero-content { padding: 0 24px 48px; }
-      .section { padding: 48px 24px; }
-      .hero-btns { flex-direction: column; }
+      .stats-bar { grid-template-columns: 1fr 1fr; }
+      .stat-item { padding: 32px 24px; }
     }
+    @media (hover: none) and (pointer: coarse) { body { cursor: auto; } a, button { cursor: pointer; } }
   </style>
 </head>
 <body>
 
 <div class="mobile-nav" id="mobileNav">
-  <div class="mobile-nav-header">
-    <img src="logo.png" alt="Innovate Property Group" />
-    <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
-  </div>
+  <div class="mobile-nav-header"><img src="logo.png" /><button class="mobile-nav-close" onclick="closeMobileNav()">✕</button></div>
   <div class="mobile-nav-links">
-    <a href="about.html">About</a>
-    <a href="properties.html">Prestige Homes</a>
-    <a href="development-sites.html">Development Sites</a>
-    <a href="projects.html">Projects</a>
-    <a href="index.html#contact">Illawarra</a>
+    <a href="about.html">About</a><a href="properties.html">Prestige Homes</a>
+    <a href="development-sites.html">Development Sites</a><a href="projects.html">Projects</a>
   </div>
   <div class="mobile-nav-footer"><a href="appraisal.html">Free Appraisal</a></div>
 </div>
@@ -145,7 +143,7 @@
   <ul class="nav-links">
     <li><a href="about.html">About</a></li>
     <li><a href="properties.html">Prestige Homes</a></li>
-    <li><a href="development-sites.html" class="active">Development Sites</a></li>
+    <li><a href="development-sites.html">Development Sites</a></li>
     <li><a href="projects.html">Projects</a></li>
   </ul>
   <a href="appraisal.html" class="nav-cta">Free Appraisal</a>
@@ -153,117 +151,139 @@
 </nav>
 
 <div class="hero">
-  <div class="hero-bg"></div>
+  <div class="hero-bg" id="heroBg"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <p class="eyebrow">Development Sites</p>
-    <h1 class="hero-headline">Built For<br>Those Who<br>Demand More</h1>
-    <p class="hero-sub">We source and sell development sites of all scales across the Illawarra — connecting developers and investors with the right opportunities, often before they reach the open market.</p>
-    <div class="hero-btns">
-      <a href="development-sites.html" class="btn-gold">View Available Sites</a>
-      <a href="#contact" class="btn-ghost">Register Interest</a>
+    <div class="hero-left">
+      <div class="hero-tag">Development Sites</div>
+      <h1 class="hero-headline">Built For<br>Those Who<br>Demand More</h1>
     </div>
+    <div class="hero-right">
+      <p class="hero-desc">We source and sell development sites of all scales across the Illawarra — connecting developers and investors with the right opportunities, often before they reach the open market.</p>
+      <a href="development-sites.html" class="btn-gold">View Available Sites</a>
+      <a href="index.html#contact" class="btn-outline">Register Interest</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><div class="scroll-line"></div></div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item fade-up">
+    <div class="stat-num" data-target="100" data-suffix="+">0</div>
+    <div class="stat-label">Sites Transacted</div>
+  </div>
+  <div class="stat-item fade-up d1">
+    <div class="stat-num" data-target="15" data-suffix=" Years">0</div>
+    <div class="stat-label">Illawarra Experience</div>
+  </div>
+  <div class="stat-item fade-up d2">
+    <div class="stat-num" data-target="6" data-suffix=" LGAs">0</div>
+    <div class="stat-label">Coverage Area</div>
+  </div>
+  <div class="stat-item fade-up d3">
+    <div class="stat-num" data-target="40" data-suffix="%">0</div>
+    <div class="stat-label">Sold Off-Market</div>
   </div>
 </div>
 
-<section class="section reveal">
-  <div class="section-label">What We Do</div>
-  <div class="two-col">
-    <div>
-      <div class="gold-rule"></div>
-      <h2 class="big-headline">The Illawarra's Development Specialists</h2>
+<!-- ACCORDION: SITE TYPES -->
+<section class="accordion-section">
+  <div class="section-header fade-up">
+    <span class="section-tag">Site Types</span>
+    <h2 class="section-title">Every Scale.<br>Every Stage.</h2>
+  </div>
+  <div class="accordion fade-up d1">
+    <div class="accordion-item">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <div class="accordion-trigger-left"><span class="accordion-num">01</span><span class="accordion-name">Dual Occupancy</span></div>
+        <div class="accordion-icon">+</div>
+      </button>
+      <div class="accordion-body"><div class="accordion-body-inner">R2-zoned blocks with dual-occupancy potential — ideal for owner-builders and small developers looking to maximise a single site return. High demand across Shellharbour and Wollongong LGAs.</div></div>
     </div>
-    <div>
-      <p class="body-text">Innovate Property Group has deep roots in the Illawarra development market. Whether you're a boutique builder seeking your next dual-occupancy block, a volume developer acquiring townhouse sites, or an investor looking for a large-scale apartment opportunity — we understand what makes a development site perform.</p>
-      <p class="body-text">Our team works across the full spectrum of residential development land, from compact infill sites in established suburbs to large greenfield parcels on the city fringe. We bring buyers and sellers together with the market knowledge and negotiation expertise to make transactions happen efficiently.</p>
+    <div class="accordion-item">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <div class="accordion-trigger-left"><span class="accordion-num">02</span><span class="accordion-name">Townhouse Sites</span></div>
+        <div class="accordion-icon">+</div>
+      </button>
+      <div class="accordion-body"><div class="accordion-body-inner">R3 medium-density sites suitable for 3–20 townhouse developments. High demand across Wollongong, Shellharbour, and Kiama LGAs as the region continues to grow.</div></div>
+    </div>
+    <div class="accordion-item">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <div class="accordion-trigger-left"><span class="accordion-num">03</span><span class="accordion-name">Apartment Sites</span></div>
+        <div class="accordion-icon">+</div>
+      </button>
+      <div class="accordion-body"><div class="accordion-body-inner">R4 high-density and mixed-use sites in key Illawarra growth corridors, suited to boutique and volume apartment developers seeking strong rental yields and capital growth.</div></div>
+    </div>
+    <div class="accordion-item">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <div class="accordion-trigger-left"><span class="accordion-num">04</span><span class="accordion-name">Land Subdivisions</span></div>
+        <div class="accordion-icon">+</div>
+      </button>
+      <div class="accordion-body"><div class="accordion-body-inner">Raw and serviced land parcels ready for subdivision into residential allotments — from compact urban infill to larger master-planned estates on the city fringe.</div></div>
+    </div>
+    <div class="accordion-item">
+      <button class="accordion-trigger" onclick="toggleAccordion(this)">
+        <div class="accordion-trigger-left"><span class="accordion-num">05</span><span class="accordion-name">Off-Market Opportunities</span></div>
+        <div class="accordion-icon">+</div>
+      </button>
+      <div class="accordion-body"><div class="accordion-body-inner">Many of our development sites never reach the open market. Register your buyer profile and we'll match you with opportunities that align with your brief — before anyone else sees them.</div></div>
     </div>
   </div>
 </section>
 
-<section class="section reveal">
-  <div class="section-label">Site Types</div>
-  <h2 class="big-headline" style="max-width:600px;margin-bottom:8px;">Every Scale.<br>Every Stage.</h2>
-  <div class="types-grid">
-    <div class="type-card">
-      <div class="type-num">01</div>
-      <div class="type-title">Dual Occupancy</div>
-      <p class="type-body">R2-zoned blocks with dual-occ potential — ideal for owner-builders and small developers looking to maximise a single site return.</p>
+<!-- PROCESS CARDS -->
+<section class="cards-section">
+  <div class="section-header fade-up">
+    <span class="section-tag">Our Process</span>
+    <h2 class="section-title">How We Work<br>With Developers</h2>
+  </div>
+  <div class="cards-grid">
+    <div class="card fade-up">
+      <div class="card-num">01</div>
+      <div class="card-title">Understand Your Brief</div>
+      <p class="card-body">We take the time to understand your acquisition criteria — zoning, size, yield expectations, geography, and timeline — so we can source sites that genuinely fit.</p>
     </div>
-    <div class="type-card">
-      <div class="type-num">02</div>
-      <div class="type-title">Townhouse Sites</div>
-      <p class="type-body">R3 medium-density sites suitable for 3–20 townhouse developments. High demand across Wollongong, Shellharbour, and Kiama LGAs.</p>
+    <div class="card fade-up d1">
+      <div class="card-num">02</div>
+      <div class="card-title">Source & Identify</div>
+      <p class="card-body">We leverage our local vendor relationships and market intelligence to identify development opportunities — including off-market sites not publicly listed.</p>
     </div>
-    <div class="type-card">
-      <div class="type-num">03</div>
-      <div class="type-title">Apartment Sites</div>
-      <p class="type-body">R4 high-density and mixed-use sites in key Illawarra growth corridors, suited to boutique and volume apartment developers.</p>
+    <div class="card fade-up d2">
+      <div class="card-num">03</div>
+      <div class="card-title">Due Diligence Support</div>
+      <p class="card-body">We work alongside your planning and legal teams to provide site context, comparable sales data, and market insight to support your acquisition decision.</p>
     </div>
-    <div class="type-card">
-      <div class="type-num">04</div>
-      <div class="type-title">Land Subdivisions</div>
-      <p class="type-body">Raw and serviced land parcels ready for subdivision into residential allotments — from compact urban infill to larger master-planned estates.</p>
+    <div class="card fade-up">
+      <div class="card-num">04</div>
+      <div class="card-title">Negotiate & Transact</div>
+      <p class="card-body">Our negotiation experience across development land means you'll be well-represented through price, terms, and conditions — protecting your position at every stage.</p>
     </div>
-    <div class="type-card">
-      <div class="type-num">05</div>
-      <div class="type-title">Off-Market Opportunities</div>
-      <p class="type-body">Many of our development sites never reach the open market. Register your buyer profile and we'll match you with opportunities that align with your brief.</p>
+    <div class="card fade-up d1">
+      <div class="card-num">05</div>
+      <div class="card-title">Post-Purchase Support</div>
+      <p class="card-body">We remain available after settlement to assist with introductions, local knowledge, and future sales requirements as your project progresses.</p>
     </div>
-    <div class="type-card">
-      <div class="type-num">06</div>
-      <div class="type-title">Commercial & Mixed-Use</div>
-      <p class="type-body">Sites with commercial ground-floor potential or mixed-use zoning, suited to developers seeking retail, hospitality, or service-oriented ground floors.</p>
+    <div class="card fade-up d2">
+      <div class="card-num">06</div>
+      <div class="card-title">Long-Term Partnership</div>
+      <p class="card-body">Many of our developer clients return to us repeatedly. We build relationships with developers across multiple projects and many years.</p>
     </div>
   </div>
 </section>
 
-<section class="section reveal">
-  <div class="section-label">Our Process</div>
-  <h2 class="big-headline" style="max-width:600px;">How We Work With Developers</h2>
-  <div class="process-list">
-    <div class="process-item">
-      <div class="process-num">01</div>
-      <div>
-        <div class="process-text-title">Understand Your Brief</div>
-        <p class="process-text-body">We take the time to understand your acquisition criteria — zoning, size, yield expectations, geography, and timeline — so we can source sites that genuinely fit.</p>
-      </div>
-    </div>
-    <div class="process-item">
-      <div class="process-num">02</div>
-      <div>
-        <div class="process-text-title">Source & Identify</div>
-        <p class="process-text-body">We leverage our local vendor relationships and market intelligence to identify development opportunities — including off-market sites that aren't publicly listed.</p>
-      </div>
-    </div>
-    <div class="process-item">
-      <div class="process-num">03</div>
-      <div>
-        <div class="process-text-title">Due Diligence Support</div>
-        <p class="process-text-body">We work alongside your planning and legal teams to provide site context, comparable sales data, and market insight to support your acquisition decision.</p>
-      </div>
-    </div>
-    <div class="process-item">
-      <div class="process-num">04</div>
-      <div>
-        <div class="process-text-title">Negotiate & Transact</div>
-        <p class="process-text-body">Our negotiation experience across development land means you'll be well-represented through price, terms, and conditions — protecting your position at every stage.</p>
-      </div>
-    </div>
+<div class="cta fade-up">
+  <div>
+    <div class="cta-headline">Register Your<br>Development Brief</div>
+    <p class="cta-sub">Tell us what you're looking for and we'll match you with suitable sites — including those not yet on the market.</p>
   </div>
-</section>
-
-<div class="cta-band reveal">
-  <div class="cta-band-text">
-    <div class="cta-band-title">Register Your Development Brief</div>
-    <p class="cta-band-sub">Tell us what you're looking for and we'll match you with suitable sites — including those not yet on the market.</p>
-  </div>
-  <a href="index.html#contact" class="btn-gold-sm">Get In Touch</a>
+  <a href="index.html#contact" class="btn-gold-lg">Get In Touch</a>
 </div>
 
 <footer>
   <div class="footer-bottom">
-    <p class="footer-copy">© 2025 Innovate Property Group Pty Ltd. All rights reserved. Licensed Real Estate Agent NSW. &nbsp;·&nbsp; <a href="privacy-policy.html" style="color:inherit;text-decoration:none;">Privacy Policy</a></p>
-    <div class="footer-logo"><img src="logo.png" alt="Innovate Property Group" /></div>
+    <p class="footer-copy">© 2025 Innovate Property Group Pty Ltd. All rights reserved. &nbsp;·&nbsp; <a href="privacy-policy.html" style="color:inherit;text-decoration:none;">Privacy Policy</a></p>
+    <div class="footer-logo"><img src="logo.png" /></div>
   </div>
 </footer>
 
@@ -272,10 +292,50 @@
   function toggleMobileNav() { mobileNav.classList.toggle('open'); }
   function closeMobileNav() { mobileNav.classList.remove('open'); }
 
-  const revealObs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+  /* Parallax hero */
+  const heroBg = document.getElementById('heroBg');
+  window.addEventListener('scroll', () => {
+    heroBg.style.transform = `translateY(${window.scrollY * 0.35}px)`;
+  }, { passive: true });
+
+  /* Fade-up observer */
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+  /* Counter animation */
+  const counterObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting || e.target.dataset.done) return;
+      e.target.dataset.done = true;
+      const target = parseInt(e.target.dataset.target);
+      const suffix = e.target.dataset.suffix || '';
+      let current = 0;
+      const steps = 60, duration = 1800;
+      const timer = setInterval(() => {
+        current = Math.min(current + Math.ceil(target / steps), target);
+        e.target.textContent = current + suffix;
+        if (current >= target) clearInterval(timer);
+      }, duration / steps);
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-target]').forEach(el => counterObs.observe(el));
+
+  /* Accordion */
+  function toggleAccordion(trigger) {
+    const item = trigger.closest('.accordion-item');
+    const body = item.querySelector('.accordion-body');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.accordion-item.open').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.accordion-body').style.maxHeight = '0';
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      body.style.maxHeight = body.scrollHeight + 'px';
+    }
+  }
 </script>
 </body>
 </html>
