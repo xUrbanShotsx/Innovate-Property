@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects — Innovate Property Group</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #000000; --black-soft: #0a0a0a;
+      --white: #ffffff; --white-mute: #f0f0fa;
+      --hairline: #e8e8e8; --ink-mute: #5a5a5f;
+      --gold: #c9a84c;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--white); color: var(--black); font-family: 'Inter', Arial, sans-serif; overflow-x: hidden; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 10px 48px; background: var(--white); border-bottom: 1px solid var(--hairline); }
+    .nav-logo img { height: 72px; width: auto; display: block; }
+    .nav-links { display: flex; gap: 40px; list-style: none; align-items: center; }
+    .nav-links a { font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-mute); text-decoration: none; transition: color 0.3s; position: relative; }
+    .nav-links a:hover, .nav-links a.active { color: var(--black); }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px; background: var(--black); transform: scaleX(0); transform-origin: left; transition: transform 0.4s cubic-bezier(0.23,1,0.32,1); }
+    .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+    .nav-cta { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); background: var(--black); border: 1px solid var(--black); padding: 12px 24px; text-decoration: none; transition: all 0.3s; }
+    .nav-cta:hover { background: var(--white); color: var(--black); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
+    .hamburger span { width: 26px; height: 1px; background: var(--black); display: block; }
+
+    .mobile-nav { position: fixed; inset: 0; z-index: 999; background: var(--white); display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.23,1,0.32,1); }
+    .mobile-nav.open { transform: translateX(0); }
+    .mobile-nav-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 28px; }
+    .mobile-nav-header img { height: 40px; }
+    .mobile-nav-close { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: none; border: 1px solid #e0e0e0; font-size: 18px; cursor: pointer; }
+    .mobile-nav-links { flex: 1; display: flex; flex-direction: column; padding: 20px 0; }
+    .mobile-nav-links a { font-size: 14px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--black); text-decoration: none; padding: 20px 28px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; justify-content: space-between; }
+    .mobile-nav-links a::after { content: '→'; font-size: 16px; color: var(--ink-mute); }
+    .mobile-nav-footer { padding: 28px; border-top: 1px solid var(--hairline); }
+    .mobile-nav-footer a { display: block; text-align: center; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); background: var(--black); padding: 16px; text-decoration: none; }
+
+    .hero { margin-top: 92px; height: calc(100vh - 92px); position: relative; overflow: hidden; display: flex; align-items: flex-end; }
+    .hero-bg { position: absolute; inset: 0; background-image: url('ProjectsBackground.jpg'); background-size: cover; background-position: center; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,0.75) 75%, rgba(0,0,0,0.97) 100%); }
+    .hero-content { position: relative; z-index: 2; padding: 0 80px 80px; max-width: 860px; }
+    .eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+    .hero-headline { font-size: clamp(40px, 6vw, 88px); font-weight: 900; line-height: 0.92; letter-spacing: -1px; text-transform: uppercase; color: var(--white); margin-bottom: 28px; }
+    .hero-sub { font-size: 15px; font-weight: 300; line-height: 1.8; color: rgba(255,255,255,0.75); max-width: 560px; margin-bottom: 40px; }
+    .btn-gold { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 16px 32px; text-decoration: none; transition: opacity 0.3s; }
+    .btn-gold:hover { opacity: 0.85; }
+    .btn-ghost { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); border: 1px solid rgba(255,255,255,0.4); padding: 15px 32px; text-decoration: none; transition: border-color 0.3s; }
+    .btn-ghost:hover { border-color: var(--white); }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    .section { padding: 96px 80px; border-bottom: 1px solid var(--hairline); }
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 40px; padding-bottom: 16px; border-bottom: 1px solid var(--hairline); }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .big-headline { font-size: clamp(28px, 3.5vw, 52px); font-weight: 900; text-transform: uppercase; line-height: 1; letter-spacing: -0.5px; margin-bottom: 28px; }
+    .body-text { font-size: 15px; font-weight: 300; line-height: 1.9; color: #333; }
+    .body-text + .body-text { margin-top: 20px; }
+    .gold-rule { width: 40px; height: 2px; background: var(--gold); margin-bottom: 28px; }
+
+    .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--hairline); margin-top: 48px; }
+    .service-card { background: var(--white); padding: 48px 40px; }
+    .service-num { font-size: 11px; font-weight: 700; letter-spacing: 3px; color: var(--gold); margin-bottom: 20px; }
+    .service-title { font-size: 18px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; }
+    .service-body { font-size: 13px; font-weight: 300; line-height: 1.8; color: var(--ink-mute); }
+
+    .why-list { margin-top: 48px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
+    .why-item {}
+    .why-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--hairline); }
+    .why-body { font-size: 13px; font-weight: 300; line-height: 1.8; color: var(--ink-mute); }
+
+    .cta-band { background: var(--black-soft); padding: 80px; display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+    .cta-band-text { color: var(--white); }
+    .cta-band-title { font-size: clamp(24px, 3vw, 40px); font-weight: 900; text-transform: uppercase; margin-bottom: 12px; }
+    .cta-band-sub { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.6); line-height: 1.7; }
+    .btn-gold-sm { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 14px 28px; text-decoration: none; white-space: nowrap; transition: opacity 0.3s; }
+    .btn-gold-sm:hover { opacity: 0.85; }
+
+    footer { background: var(--black-soft); border-top: 1px solid #1a1a1a; padding: 32px 80px; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 11px; font-weight: 300; color: var(--ink-mute); }
+    .footer-logo img { height: 36px; width: auto; filter: invert(1); }
+
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 1024px) {
+      nav { padding: 12px 24px; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .hero-content { padding: 0 28px 60px; }
+      .section { padding: 64px 28px; }
+      .two-col { grid-template-columns: 1fr; gap: 40px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .why-list { grid-template-columns: 1fr; gap: 32px; }
+      .cta-band { flex-direction: column; padding: 48px 28px; text-align: center; }
+      footer { padding: 32px 28px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 10px 20px; }
+      .nav-logo img { height: 52px !important; }
+      .hero-content { padding: 0 24px 48px; }
+      .section { padding: 48px 24px; }
+      .hero-btns { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-header">
+    <img src="logo.png" alt="Innovate Property Group" />
+    <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
+  </div>
+  <div class="mobile-nav-links">
+    <a href="about.html">About</a>
+    <a href="properties.html">Prestige Homes</a>
+    <a href="development-sites.html">Development Sites</a>
+    <a href="projects.html">Projects</a>
+    <a href="index.html#contact">Illawarra</a>
+  </div>
+  <div class="mobile-nav-footer"><a href="appraisal.html">Free Appraisal</a></div>
+</div>
+
+<nav>
+  <a href="index.html" class="nav-logo"><img src="logo.png" style="height:72px;width:auto;" /></a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="properties.html">Prestige Homes</a></li>
+    <li><a href="development-sites.html">Development Sites</a></li>
+    <li><a href="projects.html" class="active">Projects</a></li>
+  </ul>
+  <a href="appraisal.html" class="nav-cta">Free Appraisal</a>
+  <button class="hamburger" onclick="toggleMobileNav()"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="eyebrow">Projects</p>
+    <h1 class="hero-headline">Selling<br>The<br>Illawarra</h1>
+    <p class="hero-sub">We partner with developers to market and sell new residential projects across the Illawarra region — from project strategy and launch campaigns through to buyer management and settlement.</p>
+    <div class="hero-btns">
+      <a href="projects.html" class="btn-gold">View Current Projects</a>
+      <a href="index.html#contact" class="btn-ghost">Register Interest</a>
+    </div>
+  </div>
+</div>
+
+<section class="section reveal">
+  <div class="section-label">New Development Sales</div>
+  <div class="two-col">
+    <div>
+      <div class="gold-rule"></div>
+      <h2 class="big-headline">Your Project Sales Partner</h2>
+    </div>
+    <div>
+      <p class="body-text">Selling a new residential project requires more than a real estate licence — it demands market intelligence, a buyer database, a compelling brand narrative, and the operational capacity to manage volume sales under pressure.</p>
+      <p class="body-text">Innovate Property Group works directly with developers from early planning stages through to the last apartment or lot sold. We bring Illawarra-specific market knowledge, a network of qualified buyers, and a proven sales process that keeps your project moving.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section reveal">
+  <div class="section-label">What We Deliver</div>
+  <h2 class="big-headline" style="max-width:600px;margin-bottom:8px;">End-To-End Project Sales</h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-title">Project Strategy</div>
+      <p class="service-body">We work with you before launch to define product mix, pricing strategy, release sequencing, and the right go-to-market approach for your specific project and buyer profile.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-title">Marketing & Launch</div>
+      <p class="service-body">From project branding and display suites to digital campaigns and media placement — we design and execute launch campaigns that create demand and drive registrations of interest.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-title">Buyer Management</div>
+      <p class="service-body">We manage your full buyer pipeline from first enquiry through to exchange — qualifying leads, conducting inspections, negotiating contracts, and keeping your project sales programme on track.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <div class="service-title">Settlement Support</div>
+      <p class="service-body">Our involvement doesn't end at exchange. We support buyers through to settlement, managing relationships and resolving issues to protect your reputation as a developer.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section reveal">
+  <div class="section-label">Why Innovate</div>
+  <h2 class="big-headline" style="max-width:600px;margin-bottom:48px;">The Illawarra Advantage</h2>
+  <div class="why-list">
+    <div class="why-item">
+      <div class="why-title">Local Market Depth</div>
+      <p class="why-body">We know every suburb, every buyer cohort, and every price point in the Illawarra. That local intelligence directly improves pricing accuracy and reduces days on market.</p>
+    </div>
+    <div class="why-item">
+      <div class="why-title">Qualified Buyer Network</div>
+      <p class="why-body">Years of prestige and development sales have built us a database of active buyers — owner-occupiers, investors, and upgraders — who are ready to move when the right project launches.</p>
+    </div>
+    <div class="why-item">
+      <div class="why-title">Proven Track Record</div>
+      <p class="why-body">Record sale prices across residential and development property in the Illawarra region — a track record that gives buyers confidence and developers results.</p>
+    </div>
+  </div>
+</section>
+
+<div class="cta-band reveal">
+  <div class="cta-band-text">
+    <div class="cta-band-title">Talk To Us About Your Project</div>
+    <p class="cta-band-sub">Whether you're in early planning or ready to launch, we'd welcome a conversation about how we can help sell your project.</p>
+  </div>
+  <a href="index.html#contact" class="btn-gold-sm">Get In Touch</a>
+</div>
+
+<footer>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 Innovate Property Group Pty Ltd. All rights reserved. Licensed Real Estate Agent NSW. &nbsp;·&nbsp; <a href="privacy-policy.html" style="color:inherit;text-decoration:none;">Privacy Policy</a></p>
+    <div class="footer-logo"><img src="logo.png" alt="Innovate Property Group" /></div>
+  </div>
+</footer>
+
+<script>
+  const mobileNav = document.getElementById('mobileNav');
+  function toggleMobileNav() { mobileNav.classList.toggle('open'); }
+  function closeMobileNav() { mobileNav.classList.remove('open'); }
+
+  const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+</script>
+</body>
+</html>
